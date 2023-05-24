@@ -1,0 +1,35 @@
+.nav_item {
+    list-style: none;
+}
+
+.nav_link {
+    color: #fff;
+    display: inline-block;
+    padding: 10px;
+    font-family: 'Cinzel', Sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+    letter-spacing: 3px;
+}
+
+.nav {
+    text-align: center;
+    background-color: #181818;
+}
+
+.nav_links {
+    display: flex;
+    margin: 0 auto;
+    margin-left: 50px;
+    padding: 0;
+}
+
+@media only screen and (max-width:750px){
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        padding: 0;
+    }
+}
