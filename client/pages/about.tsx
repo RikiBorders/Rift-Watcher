@@ -6,7 +6,7 @@ export default function About() {
       <div>
         <NavBar/>
         <div>
-          <div className={styles.about_header}>
+          <div className={styles.header}>
             <h1>What is Rift Watcher?</h1>
             <p>
               Rift Watcher is a League of Legends (LoL) statistics/tracking application. 
@@ -18,7 +18,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className={styles.about_header}>
+          <div className={styles.header}>
             <h1>How can Rift Watcher Help You?</h1>
             <p>
             Rift Watcher is a powerful tool intended to help you climb League of Legends' ranked ladder. 
@@ -30,7 +30,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className={styles.about_header}>
+          <div className={styles.header}>
             <h1>How do we Collect our Data?</h1>
             <p>
             We collect all of our data from the Riot API by interfacing directly with the official Riot Games Developer API Portal. 
@@ -39,7 +39,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className={styles.about_header}>
+          <div className={styles.header}>
             <h1>Why did We Create Rift Watcher?</h1>
             <p>
             Rift Watcher is an independent, passion project created by passionate League players.
@@ -51,7 +51,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className={styles.about_header}>
+          <div className={styles.header}>
             <h1>The Rift Watcher Team</h1>
             <p>
               Our team is currently made-up of two people. We are responsible for both the development of the Rift Watcher
@@ -62,7 +62,7 @@ export default function About() {
 
         </div>
 
-        <p>
+        <p className={styles.disclaimer}>
         Disclaimer: 
         Rift Watcher isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially 
         involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or 
