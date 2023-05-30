@@ -56,6 +56,7 @@ class Riot():
         Build a json object to send summoner info to the frontend. This json
         object will supply data that will be used to populate each user's page.
         '''
+        print(account_data)
         # Flex data
         flex_data = account_data[0]
         flex_rank = f"{flex_data['tier']} {flex_data['rank']}"
@@ -83,7 +84,7 @@ class Riot():
 
 #Temporary function to test out riot api calls
 def run_tests():
-    riot_api = Riot('RGAPI-87f54ffe-fcdb-443d-a685-696f656a405a')
+    riot_api = Riot('RGAPI-50fd2d51-8af1-4e7c-b567-b7ccf2c232a6')
     riot_api.get_summoner_profile('SL1MEBALL', 'NA')
 
 
