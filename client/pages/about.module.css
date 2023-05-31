@@ -1,19 +1,41 @@
-.header{
-    background-color: red;
+.page_body{
+    margin: 0;
+    background-color: #222222;
+}
+
+.info_section{
+    background-color: #334E68;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    border-radius: 10px;
 }
 
 .info_box{
 
 }
 
-.page_container{
-
+.section_header{
+    color: #F0F4F8;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 5vh;
+    margin-left: 1vh;
+    margin-right: 3vh;
+    margin-bottom: 1vh;
 }
 
 .description{
-
+    color: #F0F4F8;font-size: 2vh;
+    line-height: 1.5;
+    margin-left: 1vh;
+    margin-right: 3vh;
+    margin-top: 0;
 }
 
 .disclaimer{
+    color: #F0F4F8;font-size: 2vh;
+}
+
+.background{
     
 }

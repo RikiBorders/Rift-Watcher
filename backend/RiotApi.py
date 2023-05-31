@@ -56,7 +56,6 @@ class Riot():
         Build a json object to send summoner info to the frontend. This json
         object will supply data that will be used to populate each user's page.
         '''
-        print(account_data)
         # Flex data
         flex_data = account_data[0]
         flex_rank = f"{flex_data['tier']} {flex_data['rank']}"
