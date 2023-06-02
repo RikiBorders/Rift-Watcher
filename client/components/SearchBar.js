@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RegionDropdown from "../components/RegionSelectDropdown"
+import styles from "./SearchBar.module.css";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -53,8 +54,8 @@ class SearchBar extends Component {
     const { placeholder } = this.props;
 
     return (
-      <div>
-        <h3>Region</h3>
+      <div className={styles.search_bar}>
+        <h3 className={styles.region_header}>Region</h3>
         <RegionDropdown getRegion={this.HandleGetRegion}/>
 
         <h3>Summoner Name</h3>

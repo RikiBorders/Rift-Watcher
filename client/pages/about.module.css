@@ -1,39 +1,60 @@
 .page_body{
     margin: 0;
-    background-color: #222222;
+    background-color: #212121;
+}
+
+.team_section{
+    text-align: center;
 }
 
 .info_section{
-    background-color: #334E68;
+    background-color: #000000;
+    display: flex;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    margin-bottom: 5vh;
+    border-radius: 10px;
+    align-items: center
+}
+
+.section_text{
+}
+
+.background_image{
+    height: 60vh;
+}
+
+.info_section_1{
     margin-left: 2vh;
     margin-right: 2vh;
     border-radius: 10px;
-}
-
-.info_box{
-
 }
 
 .section_header{
     color: #F0F4F8;
     font-family:Arial, Helvetica, sans-serif;
     font-weight: 600;
-    font-size: 5vh;
+    font-size: 8vh;
     margin-left: 1vh;
     margin-right: 3vh;
-    margin-bottom: 1vh;
+    margin-bottom: 4vh;
 }
 
 .description{
-    color: #F0F4F8;font-size: 2vh;
+    color: #F0F4F8;font-size: 2.5vh;
+    vertical-align: middle;
     line-height: 1.5;
     margin-left: 1vh;
-    margin-right: 3vh;
+    margin-right: 1vh;
     margin-top: 0;
 }
 
 .disclaimer{
     color: #F0F4F8;font-size: 2vh;
+    text-align: center;
+    margin-top: 10vh;
+    margin-left: 40vh;
+    margin-right: 40vh;
 }
 
 .background{

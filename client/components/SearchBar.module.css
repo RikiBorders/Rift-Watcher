@@ -1,0 +1,8 @@
+.search_bar{
+    display: flex;
+    column-gap: 2vh;
+    align-items: flex-start;
+    align-items: center;
+    background-color: #829AB1;
+    border-radius: 40px;
+}
