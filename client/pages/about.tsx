@@ -2,23 +2,27 @@ import NavBar from "../components/NavBar";
 import LearnMoreModal from "../components/LearnMoreModal";
 import styles from "../pages/about.module.css";
 import { motion } from "framer-motion";
+import Head from "next/head";
 
 export default function About() {
-
-    function OpenModalHandler(){
-      console.log('handler was called successfully');
-    }
     
-    return (
-      <body className={styles.page_body}>
+  return (
+    <div>
+      <Head>
+        <title>About</title>
+        <meta name="description" content="About Rift Watcher" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      
+      <div className={styles.page_body}>
+        <NavBar/>
         <div className={styles.background}>
-          <NavBar/>
           <div>
             <LearnMoreModal/>
             <motion.div className={styles.info_section}>
               <div className={styles.section_text}>
+                
                 <h1 className={styles.section_header}>What Is Rift Watcher?</h1>
-                <button onClick={OpenModalHandler} className={styles.learn_more}>Learn More</button>
                 <p className={styles.section_description}>
                   Rift Watcher is a League of Legends (LoL) statistics/tracking application. 
                   With your LoL summoner name, Rift Watcher displays your current & historical game data. 
@@ -42,7 +46,6 @@ export default function About() {
                 personalized tracking feature: <i>Journeys</i>. Journeys is a feature of Rift Watcher that allows you 
                 to personalize your improvement plan by working as a personal coach whose suggestions are driven by real data.
                 </p>
-                <div onClick={() => {}} className={styles.learn_more}>Learn More</div>
               </div>
 
               <img className={styles.background_image} src="/league_background2.png"/>
@@ -56,7 +59,6 @@ export default function About() {
                 We process the data we gather from the Riot Games API using a series of formulas (whose details are available for you to see and read about) to generate meaningful 
                 graphs and statistics. 
                 </p>
-                <div onClick={() => {}} className={styles.learn_more}>Learn More</div>
               </div>
 
               <img className={styles.background_image} src="/league_background3.png"/>
@@ -72,7 +74,6 @@ export default function About() {
                 for League players, by League players. Thus, we decided to create a new tool with several 
                 clear goals in mind: <b>Transparency</b>, <b>Accuracy</b>, & <b>Simplicity</b>. 
                 </p>
-                <div onClick={() => {}} className={styles.learn_more}>Learn More</div>
               </div>
 
               <img className={styles.background_image} src="/league_background4.png"/>
@@ -97,7 +98,8 @@ export default function About() {
           </p>
 
         </div>
-      </body>
+      </div>
+    </div>
   );}
   
   

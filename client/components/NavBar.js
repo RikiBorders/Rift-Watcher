@@ -1,25 +1,20 @@
-import Link from 'next/link';
+import React, { Component } from 'react';
+import NextLink from 'next/link';
 import styles from "./NavBar.module.css";
 
-const NavBar = ({}) => {
+class NavBar extends Component {
 
-  return (
-    <nav className={styles.nav}>
+  render(){
 
-        <ul className={styles.nav_links}>
-          <li className={styles.nav_item}>
-            <Link href="/home" className={styles.nav_link}>Home</Link>
-          </li>
-          <li className={styles.nav_item}>
-            <Link href="/statistics" className={styles.nav_link}>Statistics</Link>
-          </li>
-          <li className={styles.nav_item}>
-            <Link href="/about" className={styles.nav_link}>About</Link>
-          </li>
-        </ul>
-
-    </nav>
-  );
-};
+    return (
+      
+      <nav className={styles.nav}>
+        <NextLink href="/home" className={styles.nav_link}>Home</NextLink>
+        <NextLink href="/statistics" className={styles.nav_link}>Statistics</NextLink>
+        <NextLink href="/about" className={styles.nav_link}>About</NextLink>
+      </nav>
+    );
+  };
+}
 
 export default NavBar;
