@@ -3,51 +3,65 @@
     background-color: #212121;
 }
 
-.team_section{
-    text-align: center;
-}
-
 .info_section{
+    overflow: hidden;
     background-color: #000000;
     display: flex;
+    height: 60vh;
     margin-left: 2vh;
     margin-right: 2vh;
     margin-bottom: 5vh;
-    border-radius: 10px;
-    align-items: center
+    border-radius: 20px;
 }
 
 .section_text{
-}
-
-.background_image{
-    height: 60vh;
-}
-
-.info_section_1{
-    margin-left: 2vh;
-    margin-right: 2vh;
-    border-radius: 10px;
+    align-self: center;
+    height: auto;
+    overflow: visible;
+    margin-left: 4vh;
 }
 
 .section_header{
     color: #F0F4F8;
-    font-family:Arial, Helvetica, sans-serif;
-    font-weight: 600;
+    font-family: sans-serif;
+    font-weight: 400;
     font-size: 8vh;
-    margin-left: 1vh;
-    margin-right: 3vh;
-    margin-bottom: 4vh;
+    margin-bottom: 40px;
 }
 
-.description{
-    color: #F0F4F8;font-size: 2.5vh;
-    vertical-align: middle;
+.section_description{
+    color: #F0F4F8;
+    font-size: 2.5vh;
     line-height: 1.5;
-    margin-left: 1vh;
-    margin-right: 1vh;
     margin-top: 0;
 }
+
+.learn_more{
+    color: #F0F4F8;
+    text-decoration: underline;
+    font-size: 2.5vh;
+    margin-bottom: 20px;
+}
+
+.background_image{
+    border-radius: 20px;
+    display: inline-block;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: -25vh;
+}
+
+.team_section{
+    text-align: center;
+    background-color: #000000;
+    border-radius: 20px;
+    margin-left: 20vh;
+    margin-right: 20vh;
+    padding-bottom: 10px;
+}
+
+
 
 .disclaimer{
     color: #F0F4F8;font-size: 2vh;
@@ -55,8 +69,4 @@
     margin-top: 10vh;
     margin-left: 40vh;
     margin-right: 40vh;
-}
-
-.background{
-    
 }
