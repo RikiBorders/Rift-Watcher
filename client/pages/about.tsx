@@ -37,7 +37,7 @@ export default function About() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <div className={styles.page_body}>
+      <div className={scrollEnabled ? styles.page_body : styles.disabled_scroll}>
         <NavBar/>
         
         
