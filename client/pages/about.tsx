@@ -39,13 +39,10 @@ export default function About() {
       
       <div className={scrollEnabled ? styles.page_body : styles.disabled_scroll}>
         <NavBar/>
-        
-        
-        {showLearnMoreModal ? <Modal close_modal={close_modal}/> : null }
-        
 
         <div className={styles.background}>
           <div>
+            {showLearnMoreModal ? <Modal close_modal={close_modal}/> : null }
             <motion.div className={styles.info_section}>
               <div className={styles.section_text}>
                 
