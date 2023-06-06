@@ -1,11 +1,9 @@
-
 .page_body{
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0px;
     left: 0px;
-    z-index: 1000;
     overflow-y: scroll;
     background-color: #212121;
 }
@@ -45,6 +43,10 @@
 
 .learn_more{
     color: #F0F4F8;
+    background: transparent;
+    padding: 0;
+    border: transparent;
+    cursor: pointer;
     text-decoration: underline;
     font-size: 2.5vh;
     margin-bottom: 20px;

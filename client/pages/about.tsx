@@ -1,11 +1,34 @@
 import NavBar from "../components/NavBar";
-import LearnMoreModal from "../components/LearnMoreModal";
+import Modal from "../components/Modal";
 import styles from "../pages/about.module.css";
 import { motion } from "framer-motion";
+import {useState} from 'react'
 import Head from "next/head";
 
 export default function About() {
-    
+  const [showLearnMoreModal, setShowLearnMoreModal] = useState(false);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
+  
+  const open_modal = (identifier: number) => {
+    if (identifier == 1){
+      setShowLearnMoreModal(true);
+      toggleScroll();
+    }
+    else if (identifier == 2){
+      setShowLearnMoreModal(true);
+      toggleScroll();
+    }
+  }
+
+  const close_modal = () => {
+    setShowLearnMoreModal(false);
+    toggleScroll();
+  }
+
+  const toggleScroll = () => {
+    setScrollEnabled(!scrollEnabled);
+  };
+
   return (
     <div>
       <Head>
@@ -16,9 +39,13 @@ export default function About() {
       
       <div className={styles.page_body}>
         <NavBar/>
+        
+        
+        {showLearnMoreModal ? <Modal close_modal={close_modal}/> : null }
+        
+
         <div className={styles.background}>
           <div>
-            <LearnMoreModal/>
             <motion.div className={styles.info_section}>
               <div className={styles.section_text}>
                 
@@ -31,6 +58,7 @@ export default function About() {
                   progress in the form of our 'Journey' feature, which can be used to log each individual game, tracking
                   lp gains and other personalized statistics.
                 </p>
+                <button onClick={() => open_modal(1)} className={styles.learn_more}>Learn More</button>
               </div>
               <img className={styles.background_image} src="/league_background.png"/>
             </motion.div>
@@ -46,6 +74,7 @@ export default function About() {
                 personalized tracking feature: <i>Journeys</i>. Journeys is a feature of Rift Watcher that allows you 
                 to personalize your improvement plan by working as a personal coach whose suggestions are driven by real data.
                 </p>
+                <button onClick={() => open_modal(2)} className={styles.learn_more}>Learn More</button>
               </div>
 
               <img className={styles.background_image} src="/league_background2.png"/>
@@ -59,6 +88,7 @@ export default function About() {
                 We process the data we gather from the Riot Games API using a series of formulas (whose details are available for you to see and read about) to generate meaningful 
                 graphs and statistics. 
                 </p>
+                <button onClick={() => open_modal(3)} className={styles.learn_more}>Learn More</button>
               </div>
 
               <img className={styles.background_image} src="/league_background3.png"/>
@@ -74,6 +104,7 @@ export default function About() {
                 for League players, by League players. Thus, we decided to create a new tool with several 
                 clear goals in mind: <b>Transparency</b>, <b>Accuracy</b>, & <b>Simplicity</b>. 
                 </p>
+                <button onClick={() => open_modal(4)} className={styles.learn_more}>Learn More</button>
               </div>
 
               <img className={styles.background_image} src="/league_background4.png"/>

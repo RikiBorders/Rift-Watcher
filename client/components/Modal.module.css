@@ -1,0 +1,53 @@
+.container{
+    background-color: #212121b2;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    
+}
+
+.content_container{
+    background-color: #212121;
+    border: #616161;
+    border-radius: 10px;
+    border-style: solid;
+    position: relative;
+    margin-top: 3vh;
+    margin-left: 20vh;
+    margin-right: 20vh;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.close_button{
+    background-image: url("/close_icon.png");
+    background-color: transparent;
+    background-size: cover;
+    cursor: pointer;
+    margin: 10px;
+    width: 25px;
+    height: 25px;
+    border: 0;
+    float: right;
+}
+
+.header_text{
+    color: #F0F4F8;
+    font-family: sans-serif;
+    text-align: left;
+    font-weight: 400;
+    font-size: 8vh;
+    margin-bottom: 40px;
+    margin-left: 10vh;
+    margin-right: 10vh;
+}
+
+.body_text{
+    color: #F0F4F8;
+    text-align: left;
+    font-size: 2.5vh;
+    line-height: 1.5;
+    margin-top: 0;
+    margin-left: 10vh;
+    margin-right: 10vh;
+}
