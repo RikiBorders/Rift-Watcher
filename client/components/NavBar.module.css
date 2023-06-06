@@ -1,28 +1,22 @@
-.nav_item {
-    list-style: none;
+.nav {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background-color: #212121;
+    padding-top: 1.5vh;
+    padding-bottom: 1vh;
 }
 
 .nav_link {
-    color: #fff;
-    display: inline-block;
-    padding: 10px;
+    color: #F5F5F5;
+    margin-left: 3vh;
+    margin-right: 3vh;
     font-family: 'Cinzel', Sans-serif;
-    font-size: 18px;
+    font-size: 2.5vh;
     text-decoration: none;
     letter-spacing: 3px;
 }
 
-.nav {
-    text-align: center;
-    background-color: #181818;
-}
-
-.nav_links {
-    display: flex;
-    margin: 0 auto;
-    margin-left: 50px;
-    padding: 0;
-}
 
 @media only screen and (max-width:750px){
     .nav-links {
