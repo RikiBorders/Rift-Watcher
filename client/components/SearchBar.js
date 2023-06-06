@@ -54,20 +54,28 @@ class SearchBar extends Component {
     const { placeholder } = this.props;
 
     return (
-      <div className={styles.search_bar}>
-        <h3 className={styles.region_header}>Region</h3>
-        <RegionDropdown getRegion={this.HandleGetRegion}/>
+      <div className={styles.search_bar_container}>
+        <div className={styles.search_bar}>
 
-        <h3>Summoner Name</h3>
-        <form onSubmit={this.handleFormSubmit}>
-          <input
-            type="text"
-            placeholder={placeholder}
-            value={searchTerm}
-            onChange={this.handleInputChange}
-          />
-          <button type="submit">Search</button>
-        </form>
+          <div className={styles.input_div}>
+            <h3 className={styles.search_header}>Region</h3>
+            <RegionDropdown getRegion={this.HandleGetRegion}/>
+          </div>
+
+          <div className={styles.input_div}>
+            <h3 className={styles.search_header}>Summoner Name</h3>
+            <form onSubmit={this.handleFormSubmit}>
+              <input
+                type="text"
+                placeholder={placeholder}
+                value={searchTerm}
+                onChange={this.handleInputChange}
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+
       </div>
     );
   }

@@ -1,8 +1,28 @@
+.search_bar_container{
+    display: inline-block;
+}
+
 .search_bar{
     display: flex;
-    column-gap: 2vh;
-    align-items: flex-start;
+    column-gap: 3vh;
+    justify-content: center;
     align-items: center;
-    background-color: #829AB1;
+    background-color: #424242;
     border-radius: 40px;
+    margin-left: 10vh;
+    padding-left: 2vh;
+    padding-right: 2vh;
+}
+
+.input_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1vh;
+}
+
+.search_header{
+    color: #EEEEEE;
+
+    font-size: 3vh;
 }
