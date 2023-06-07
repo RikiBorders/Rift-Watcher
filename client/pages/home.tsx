@@ -15,7 +15,7 @@ export default function Home() {
       <div className={styles.page_body}>
         <NavBar/>
           <div className={styles.home_content}>
-            <h1 className={styles.header}>RIFT WATCHER LOGO GOES HERE</h1>
+            <img className={styles.logo} src="/logo.png"/>
             <h2 className={styles.sub_header}>Take Your League Journey to the Next Level.</h2>
             <SearchBar/>
           </div>

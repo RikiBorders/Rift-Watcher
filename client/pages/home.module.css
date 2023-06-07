@@ -14,6 +14,13 @@
     text-align: center;
 }
 
+.logo{
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
 .header{
     color: #F0F4F8;
     font-family: sans-serif;
@@ -29,5 +36,6 @@
     font-size: 4vh;
     cursor: default;
     user-select: none;
+    -webkit-user-drag: none;
     margin-bottom: 40px;
 }
