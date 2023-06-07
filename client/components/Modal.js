@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 const Modal = ({close_modal}) => {
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content_container}>
+    <div onClick={close_modal} className={styles.container}>
+      <div onClick={(e) => {e.stopPropagation();}} className={styles.content_container}>
 
         <motion.button onClick={close_modal} className={styles.close_button}></motion.button>
         <h2 className={styles.header_text}>Learn more header example</h2>
