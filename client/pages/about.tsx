@@ -43,6 +43,7 @@ export default function About() {
         <div className={styles.background}>
           <div>
             {showLearnMoreModal ? <Modal close_modal={close_modal}/> : null }
+            
             <motion.div className={styles.info_section}>
               <div className={styles.section_text}>
                 
