@@ -8,18 +8,17 @@ export default function Home() {
     <div>
       <Head>
         <title>Home</title>
-        <meta name="description" content="About Rift Watcher" />
+        <meta name="description" content="Elevate Your Game With Rift Watcher" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.page_body}>
         <NavBar/>
-
-        <div className={styles.home_content}>
-          <h1 className={styles.header}>RIFT WATCHER LOGO GOES HERE</h1>
-          <h2 className={styles.sub_header}>Take Your League Journey to the Next Level.</h2>
-          <SearchBar/>
-        </div>
+          <div className={styles.home_content}>
+            <h1 className={styles.header}>RIFT WATCHER LOGO GOES HERE</h1>
+            <h2 className={styles.sub_header}>Take Your League Journey to the Next Level.</h2>
+            <SearchBar/>
+          </div>
       </div>
     </div>
 );}

@@ -5,4 +5,5 @@
     outline: none;
     color: #EEEEEE;
     background-color: #212A3E;
+    user-select: none;
 }
