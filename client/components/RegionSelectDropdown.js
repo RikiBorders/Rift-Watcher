@@ -18,15 +18,15 @@ class RegionDropdown extends Component {
   render() {
     const { selectedOption } = this.state;
     const options = [
-      { value: 'NA', label: 'North America' },
-      { value: 'KR', label: 'Korea' },
-      { value: 'EUW', label: 'EU West' },
+      { value: 'BR', label: 'Brazil' },
       { value: 'EUN', label: 'EU Nordic & East' },
+      { value: 'EUW', label: 'EU West' },
+      { value: 'JP', label: 'Japan' },
+      { value: 'KR', label: 'Korea' },
       { value: 'LA1', label: 'Latin America North' },
       { value: 'LA2', label: 'Latin America South' },
-      { value: 'JP', label: 'Japan' },
+      { value: 'NA', label: 'North America' },
       { value: 'OC', label: 'Oceania' },
-      { value: 'BR', label: 'Brazil' },
       { value: 'RU', label: 'Russia' },
       { value: 'TR', label: 'Turkey' },
     ];
