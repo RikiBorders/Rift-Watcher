@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RegionDropdown from "../components/RegionSelectDropdown"
+import { motion } from "framer-motion";
 import styles from "./SearchBar.module.css";
 
 class SearchBar extends Component {
@@ -7,7 +8,8 @@ class SearchBar extends Component {
     super(props);
     this.state = {
       searchTerm: '',
-      selectedRegion: 'NA'
+      selectedRegion: 'NA',
+      placeholder: 'Summoner, Champion, etc'
     };
   }
 
@@ -24,10 +26,7 @@ class SearchBar extends Component {
     // Perform search using the searchTerm
     // You can call a function or pass the search term to a parent component via props
     // For simplicity, let's just log the search term to the console
-    console.log(selectedRegion);
-    console.log('Search term:', searchTerm);
     const data = {username: searchTerm, region: selectedRegion}
-    console.log(data)
 
     const response = fetch("http://127.0.0.1:5000/get_summoner", { // update the url when pushed to prod
       method: "POST",
@@ -40,7 +39,7 @@ class SearchBar extends Component {
 
 
     if (response.ok){
-      console.log("it worked")
+      console.log("successfully sent [debug message, remove this before launch]")
     }
   }
 
@@ -51,7 +50,7 @@ class SearchBar extends Component {
 
   render() {
     const { searchTerm } = this.state;
-    const { placeholder } = this.props;
+    const { placeholder } = this.state;
 
     return (
       <div className={styles.search_bar_container}>
@@ -62,16 +61,19 @@ class SearchBar extends Component {
             <RegionDropdown getRegion={this.HandleGetRegion}/>
           </div>
 
+
           <div className={styles.input_div}>
             <h3 className={styles.search_header}>Summoner Name</h3>
-            <form onSubmit={this.handleFormSubmit}>
+            <form className={styles.search_form} onSubmit={this.handleFormSubmit}>
               <input
+                className={styles.search_input}
                 type="text"
                 placeholder={placeholder}
                 value={searchTerm}
                 onChange={this.handleInputChange}
+                size="40"
               />
-              <button type="submit">Search</button>
+              <motion.button type="submit" className={styles.search_button}/>
             </form>
           </div>
         </div>
