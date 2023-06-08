@@ -57,18 +57,22 @@ class Riot():
         object will supply data that will be used to populate each user's page.
         '''
         # Flex data
-        flex_data = account_data[0]
-        flex_rank = f"{flex_data['tier']} {flex_data['rank']}"
-        flex_wins = flex_data['wins']
-        flex_losses = flex_data['losses']
-        flex_lp = flex_data['leaguePoints']
-        # Solo/duo data
-        solo_data = account_data[1]
-        solo_rank = f"{solo_data['tier']} {solo_data['rank']}"
-        solo_wins = solo_data['wins']
-        solo_losses = solo_data['losses']
-        solo_lp = solo_data['leaguePoints']
+        flex_account_data = account_data[0]
+        flex_rank = [flex_account_data['tier'], flex_account_data['rank']]
+        flex_wins = flex_account_data['wins']
+        flex_losses = flex_account_data['losses']
+        flex_lp = flex_account_data['leaguePoints']
+        flex_data = {'rank': flex_rank, 'wins': flex_wins, 'losses': flex_losses, 'lp': flex_lp}
 
+        # Solo/duo data
+        solo_account_data = account_data[1]
+        solo_rank = [solo_account_data['tier'], solo_account_data['rank']]
+        solo_wins = solo_account_data['wins']
+        solo_losses = solo_account_data['losses']
+        solo_lp = solo_account_data['leaguePoints']
+        solo_data = {'rank': solo_rank, 'wins': solo_wins, 'losses': solo_losses, 'lp': solo_lp}
+
+        return {'flex_data': flex_data, 'solo_data': solo_data}
 
     def get_summoner_profile(self, summoner_name, region):
         '''
@@ -76,14 +80,47 @@ class Riot():
         This info is used on a player's specific page
         '''
         summoner_data = self.__get_summoner_by_name(summoner_name, region)
-        account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
-        self.__parse_account_data(account_data)
         
+        # If status == 0, then a summoner could not be found
+        if 'status' in summoner_data:
+            return {'status': 0, 'summoner_data': None}
+        else:
+            account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
+            parsed_account_data = self.__parse_account_data(account_data)
+            match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
+            user_data = {'parsed_account_data': parsed_account_data, 'match_history': match_history}
+
+            return {'status': 1, 'summoner_data': user_data}
+        
+    def __get_summoner_matches(self, region, puuid):
+        '''
+        Get the last 20 games for the given player. This function takes a while to complete
+        '''
+
+        if (region in ['NA', 'BR', 'LAN', 'LAS']):
+            routing_value = "AMERICAS"
+        elif (region in ['KR', 'JP']):
+            routing_value = "ASIA"
+        elif (region in ['EUNE', 'EUW', 'TR', 'RU']):
+            routing_value = "EUROPE"
+        else:
+            routing_value = "SEA"
+
+        url = f"https://{routing_value}.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids"
+        match_ids = requests.get(url, headers=self.request_headers).json()
+        
+        matches = []
+        for match_id in match_ids:
+            url = f"https://{routing_value}.api.riotgames.com/lol/match/v5/matches/{match_id}"
+            match_data = requests.get(url, headers=self.request_headers).json()
+            matches.append(match_data)
+
+        return matches
 
 
 #Temporary function to test out riot api calls
 def run_tests():
-    riot_api = Riot('RGAPI-50fd2d51-8af1-4e7c-b567-b7ccf2c232a6')
+    riot_api = Riot('RGAPI-916d86bb-ba3a-4eff-9c13-c28b5649658d')
     riot_api.get_summoner_profile('SL1MEBALL', 'NA')
 
 
