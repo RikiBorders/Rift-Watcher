@@ -87,7 +87,8 @@ class Riot():
         else:
             account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
             parsed_account_data = self.__parse_account_data(account_data)
-            match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
+            # match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
+            match_history = None
             user_data = {'parsed_account_data': parsed_account_data, 'match_history': match_history}
 
             return {'status': 1, 'summoner_data': user_data}
@@ -117,6 +118,18 @@ class Riot():
 
         return matches
 
+    def get_summoner_by_name(self, summoner_name, region):
+        '''
+        Public method for simply checking if a summoner exists or not
+        '''
+        url = f"https://{self.regions[region]}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}"
+        summoner_data = requests.get(url, headers=self.request_headers).json()
+
+        if 'status' in summoner_data:
+            return {'status': 0, 'summoner_data': None}
+        else:
+            return {'status': 1, 'summoner_data': None}
+            
 
 #Temporary function to test out riot api calls
 def run_tests():

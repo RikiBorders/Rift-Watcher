@@ -14,6 +14,7 @@ export default function SearchBar() {
       redirect: false
     };
     const router = useRouter();
+    const [summonerInfo, setSummonerInfo] = useState();
   
   const handleInputChange = (event) => {
     const searchTerm = event.target.value;
@@ -25,21 +26,24 @@ export default function SearchBar() {
     const searchTerm = state.searchTerm;
     const selectedRegion = state.selectedRegion;
     const data = {username: searchTerm, region: selectedRegion};
-    const response = 1;
-    
-    // const response = fetch("http://127.0.0.1:5000/get_summoner", { // update the url when pushed to prod
-    //   method: "POST",
-    //   mode: "cors",
-    //   headers: {
-    //     'Content-Type' : 'application/json',
-    //   },
-    //   body: JSON.stringify(data)
-    // })
 
-    if (response) { // check here if the response is valid
-      console.log(response);
-      router.push("/summoners/"+searchTerm);
-    }
+    const response = fetch("http://127.0.0.1:5000/get_summoner_by_name", { // update the url when pushed to prod
+      method: "POST",
+      mode: "cors",
+      headers: {
+        'Content-Type' : 'application/json',
+      },
+      body: JSON.stringify(data)
+    }).then(response => response.json()
+    ).then( response => {
+
+      if (response['status']) { // check here if the response is valid
+        router.push("/summoners/"+searchTerm);
+      } else {
+        console.log('summoner not found')
+      }
+
+    })
   }
 
   const HandleGetRegion = (region) => {
