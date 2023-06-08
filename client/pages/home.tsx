@@ -4,6 +4,7 @@ import Head from "next/head";
 import styles from "../pages/home.module.css";
 
 export default function Home() {
+  
   return (
     <div>
       <Head>
