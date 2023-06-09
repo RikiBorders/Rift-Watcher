@@ -5,19 +5,25 @@ from RiotApi import Riot
 
 app = Flask(__name__)
 cors = CORS(app, origins=['http://localhost:3000']) # Update this origin when pushed to production
-riot_api = Riot('RGAPI-916d86bb-ba3a-4eff-9c13-c28b5649658d') #update this key before launch
+riot_api = Riot('RGAPI-f2aadeef-01d3-4ee3-b940-83042699e1ad') #update this key before launch
     
 @app.route("/get_summoner", methods=['POST'])
 def get_summoner():
     query = request.get_json()
-    response = riot_api.get_summoner_profile(query['username'], query['region'])
-    return response, 201
+    if not query:
+        return {'status': 0, 'summoner_data': None}
+    else:
+        response = riot_api.get_summoner_profile(query['username'], query['region'])
+        return response, 201
 
 @app.route("/get_summoner_by_name", methods=['POST'])
 def get_summoner_by_name():
     query = request.get_json()
-    response = riot_api.get_summoner_by_name(query['username'], query['region'])
-    return response, 201
+    if not query:
+        return {'status': 0, 'summoner_data': None}
+    else:
+        response = riot_api.get_summoner_by_name(query['username'], query['region'])
+        return response, 201
 
 
 if __name__ == '__main__':

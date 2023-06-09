@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { motion } from "framer-motion";
 import RegionDropdown from "../components/RegionSelectDropdown"
@@ -14,7 +13,6 @@ export default function SearchBar() {
       redirect: false
     };
     const router = useRouter();
-    const [summonerInfo, setSummonerInfo] = useState();
   
   const handleInputChange = (event) => {
     const searchTerm = event.target.value;
@@ -34,15 +32,18 @@ export default function SearchBar() {
         'Content-Type' : 'application/json',
       },
       body: JSON.stringify(data)
+      
     }).then(response => response.json()
     ).then( response => {
 
       if (response['status']) { // check here if the response is valid
-        router.push("/summoners/"+searchTerm);
+        router.push({
+          pathname: "/summoners/"+searchTerm,
+          query: {region: selectedRegion}
+        });
       } else {
         console.log('summoner not found')
       }
-
     })
   }
 

@@ -15,6 +15,7 @@ export default function Home() {
 
       <div className={styles.page_body}>
         <NavBar/>
+        
           <div className={styles.home_content}>
             <img className={styles.logo} src="/logo.png"/>
             <h2 className={styles.sub_header}>Take Your League Journey to the Next Level.</h2>

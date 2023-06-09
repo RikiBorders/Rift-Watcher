@@ -57,7 +57,7 @@ class Riot():
         object will supply data that will be used to populate each user's page.
         '''
         # Flex data
-        flex_account_data = account_data[0]
+        flex_account_data = account_data[1]
         flex_rank = [flex_account_data['tier'], flex_account_data['rank']]
         flex_wins = flex_account_data['wins']
         flex_losses = flex_account_data['losses']
@@ -65,7 +65,7 @@ class Riot():
         flex_data = {'rank': flex_rank, 'wins': flex_wins, 'losses': flex_losses, 'lp': flex_lp}
 
         # Solo/duo data
-        solo_account_data = account_data[1]
+        solo_account_data = account_data[0]
         solo_rank = [solo_account_data['tier'], solo_account_data['rank']]
         solo_wins = solo_account_data['wins']
         solo_losses = solo_account_data['losses']
@@ -89,7 +89,7 @@ class Riot():
             parsed_account_data = self.__parse_account_data(account_data)
             # match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
             match_history = None
-            user_data = {'parsed_account_data': parsed_account_data, 'match_history': match_history}
+            user_data = {'summoner_data': parsed_account_data, 'match_history': match_history}
 
             return {'status': 1, 'summoner_data': user_data}
         
