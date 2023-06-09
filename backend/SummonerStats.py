@@ -12,12 +12,13 @@ def calculate_winrate(wins: int, losses: int):
 
     return win_ratio * 100
 
-def calculate_winrate_discrepancy(wins: int, losses: int):
+def calculate_winrates(total_wins: int, total_losses: int, recent_wins: int, recent_losses: int):
     '''
-    compare the immediate versus the season win rate (difference)
+    calulate the immediate & seasonal winrates for a player as well as the winrate discrepancy
+    discrepancy formula: compare the immediate versus the season win rate (difference)
     '''
-    seasonal_wr = calculate_winrate(wins, losses)
-    immediate_wr = calculate_winrate(wins, losses)
+    seasonal_wr = calculate_winrate(total_wins, total_losses)
+    immediate_wr = calculate_winrate(recent_wins, recent_losses)
     discrepancy = (seasonal_wr - immediate_wr) / seasonal_wr
 
     return discrepancy * 100
@@ -40,7 +41,7 @@ def get_per_minute_stats(match: dict):
         'ward_placed_pm': int(match['wardPlaced'])
     }
     total_match_time = (match['endTime'] - match['startTime']) / 60 # in minutes
-    
+
     for stat, value in per_minute_stats.values():
         per_minute_stats[stat] = value / total_match_time
 
