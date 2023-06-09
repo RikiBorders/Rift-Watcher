@@ -47,7 +47,7 @@ export default function About() {
             <motion.div className={styles.info_section}>
               <div className={styles.section_text}>
                 
-                <h1 className={styles.section_header}>What Is Rift Watcher?</h1>
+                <h1 className={styles.section_header}>Rift Watcher</h1>
                 <p className={styles.section_description}>
                   Rift Watcher is a League of Legends (LoL) statistics/tracking application. 
                   With your LoL summoner name, Rift Watcher displays your current & historical game data. 
@@ -63,7 +63,7 @@ export default function About() {
 
             <motion.div className={styles.info_section}>
               <div className={styles.section_text}>
-                <h1 className={styles.section_header}>How Rift Watcher Can Help You.</h1>
+                <h1 className={styles.section_header}>Features</h1>
                 <p className={styles.section_description}>
                 Rift Watcher is a powerful tool intended to help you climb League of Legends' ranked ladder. 
                 Rift Watcher provides both current and historical game data to help you analyze your strengths and 
@@ -80,7 +80,7 @@ export default function About() {
 
             <motion.div className={styles.info_section}>
               <div className={styles.section_text}>
-                <h1 className={styles.section_header}>How Do We Collect Our Data?</h1>
+                <h1 className={styles.section_header}>Data Collection</h1>
                 <p className={styles.section_description}>
                 We collect all of our data from the Riot API by interfacing directly with the official Riot Games Developer API Portal. 
                 We process the data we gather from the Riot Games API using a series of formulas (whose details are available for you to see and read about) to generate meaningful 
@@ -94,7 +94,7 @@ export default function About() {
 
             <motion.div className={styles.info_section}>
               <div className={styles.section_text}>
-                <h1 className={styles.section_header}>Why Did We Create Rift Watcher?</h1>
+                <h1 className={styles.section_header}>Motivations</h1>
                 <p className={styles.section_description}>
                 Rift Watcher is an independent passion project created by dedicated League players.
                 Frustrated with the lack of easily-accesible, relevant League of Legends statistics and unintuitive interfaces,

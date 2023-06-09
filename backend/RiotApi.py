@@ -80,13 +80,13 @@ class Riot():
         This info is used on a player's specific page
         '''
         summoner_data = self.__get_summoner_by_name(summoner_name, region)
-        
         # If status == 0, then a summoner could not be found
         if 'status' in summoner_data:
             return {'status': 0, 'summoner_data': None}
         else:
             account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
             parsed_account_data = self.__parse_account_data(account_data)
+            parsed_account_data['profileIcon'] = summoner_data['profileIconId']
             # match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
             match_history = None
             user_data = {'summoner_data': parsed_account_data, 'match_history': match_history}

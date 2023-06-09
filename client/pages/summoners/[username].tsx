@@ -30,6 +30,13 @@ export default function username() {
     }
   }
 
+  const render_icon = () => {
+    if (summonerData){
+      return (
+        <img src={"http://ddragon.leagueoflegends.com/cdn/13.11.1/img/profileicon/"+summonerData.summoner_data.profileIcon+".png"} className={styles.profile_image}/>
+    )}
+  }
+
   const fetch_summoner_stats = () => {
     const searchTerm = router.query.username;
     const selectedRegion = router.query.region;
@@ -47,6 +54,7 @@ export default function username() {
     ).then( response => {
 
       if (response['status']) { // check here if the response is valid
+        console.log(response)
         setSummonerData(response.summoner_data);
       } else {
         console.log('Summoner info could not be fetched')
@@ -72,7 +80,8 @@ export default function username() {
         <NavBar/>
 
         <div className={styles.page_content}>
-          <img className={styles.profile_image}/>
+          {summonerData ? render_icon() : <p>Loading...</p>}
+          
           <h1 className={styles.header_text}>{router.query.username}</h1>
           
           <div className={styles.rank_section}>
