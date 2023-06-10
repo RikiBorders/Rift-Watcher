@@ -1,5 +1,6 @@
 import os
 import requests
+from SummonerStats import *
 
 class Riot(): 
     def __init__(self, api_key):
@@ -87,10 +88,8 @@ class Riot():
             account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
             parsed_account_data = self.__parse_account_data(account_data)
             parsed_account_data['profileIcon'] = summoner_data['profileIconId']
-            # match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
-            match_history = None
+            match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
             user_data = {'summoner_data': parsed_account_data, 'match_history': match_history}
-
             return {'status': 1, 'summoner_data': user_data}
         
     def __get_summoner_matches(self, region, puuid):
@@ -129,6 +128,18 @@ class Riot():
             return {'status': 0, 'summoner_data': None}
         else:
             return {'status': 1, 'summoner_data': None}
+        
+    def fetch_match_statistics(self, summoner_name, region):
+        '''
+        Calculate and return statistics for a player's match history 
+        '''
+        summoner_data = self.get_summoner_profile(summoner_name, region)
+        match_list = summoner_data['summoner_data']['match_history']
+        for match in match_list:
+            team_1, team_2 = get_match_participants(match)
+            team_1_avg_rank = calculate_average_rank([participant['summonerName'] for participant in team_1])
+            team_2_avg_rank = calculate_average_rank([participant['summonerName'] for participant in team_2])
+        return {}
             
 
 #Temporary function to test out riot api calls

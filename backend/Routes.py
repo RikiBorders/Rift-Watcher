@@ -9,6 +9,8 @@ riot_api = Riot('RGAPI-f2aadeef-01d3-4ee3-b940-83042699e1ad') #update this key b
     
 @app.route("/get_summoner", methods=['POST'])
 def get_summoner():
+    # Get summoner data INCLUDING match history
+    
     query = request.get_json()
     if not query:
         return {'status': 0, 'summoner_data': None}
@@ -18,6 +20,7 @@ def get_summoner():
 
 @app.route("/get_summoner_by_name", methods=['POST'])
 def get_summoner_by_name():
+    # Get summoner account information
     query = request.get_json()
     if not query:
         return {'status': 0, 'summoner_data': None}

@@ -23,7 +23,20 @@ def calculate_winrates(total_wins: int, total_losses: int, recent_wins: int, rec
 
     return discrepancy * 100
 
-# Below statistics are calculated using Match data
+
+def calculate_average_rank(summoner_list: list):
+    '''
+    calculate the average rank for the given summoner_list.
+    not that each element of summoner list is expected to be 
+    a summonerName value (ie compatible with the SUMMONER-V4 Endpoint)
+    '''
+    for summoner in summoner_list:
+        pass
+
+
+
+
+# Below functions rely on match data
 
 def get_per_minute_stats(match: dict):
     '''
@@ -48,7 +61,24 @@ def get_per_minute_stats(match: dict):
     return per_minute_stats
 
 
-def integer_to_timestamp(time):
+def get_match_participants(match: dict):
+    '''
+    Get participants for team 1 and 2 respectively from a match object.
+    Documentation here: https://developer.riotgames.com/apis#match-v5/GET_getMatch
+    Note that the participant object is named 'ParticipantDto'
+    '''
+    team_1, team_2 = [], []
+    participants = match['info']['participants']
+
+    for participant in participants:
+        if participant['team_id'] == 100:
+            team_1.append(participant)
+        else:
+            team_2.append(participant)
+                
+    return (team_1, team_2)
+
+def integer_to_timestamp(time: int):
     '''
     Convert an integer representing seconds to a timestamp format.
     '''
@@ -72,3 +102,14 @@ def integer_to_timestamp(time):
         total_duration += str(time)
         
     return total_duration 
+
+
+from RiotApi import Riot
+
+if __name__ == "__main__":
+    # Run local tests here. for now. a testing structure can be added later on
+    riot_api = Riot('RGAPI-f2aadeef-01d3-4ee3-b940-83042699e1ad') #update this key before launch
+    summoner_data = riot_api.get_summoner_profile('SL1MEBALL', 'NA')
+    print(summoner_data['summoner_data']['match_history'][0])
+    # calculate_avg_rank_per_game(summoner_data['summoner_data']['match_history'])
+
