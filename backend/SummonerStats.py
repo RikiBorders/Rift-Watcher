@@ -37,8 +37,9 @@ def calculate_average_ranks_for_match(rank_data, queue_type):
         team_1_ranks = [rank['flex_data'] for rank in rank_data[100]]
         team_2_ranks = [rank['flex_data'] for rank in rank_data[200]]
 
-    print(team_1_ranks)
-    print(team_2_ranks)
+    for rank in team_1_ranks:
+        normalized_rank = normalize_rank(rank['rank'], rank['lp'])
+
 
 # Below functions rely on match data
 
@@ -81,6 +82,25 @@ def get_match_participants(match: dict):
             team_2.append(participant)
                 
     return (team_1, team_2)
+
+
+def normalize_rank(rank, lp):
+    '''
+    Take a player's rank and normalize it. This formula was provided by Marvin
+    '''
+    rank_value = 0
+    if 'bronze' in rank.lower():
+        rank_value += 0
+    elif 'silver' in rank.lower():
+        rank_value += 0
+    elif 'gold' in rank.lower():
+        rank_value += 0
+    elif 'platinum' in rank.lower():
+        rank_value += 0
+    elif 'diamond' in rank.lower():
+        rank_value += 0
+
+
 
 def integer_to_timestamp(time: int):
     '''
