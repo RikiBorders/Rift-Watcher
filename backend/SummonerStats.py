@@ -24,12 +24,21 @@ def calculate_winrates(total_wins: int, total_losses: int, recent_wins: int, rec
     return discrepancy * 100
 
 
-def calculate_average_ranks(summoners):
+def calculate_average_ranks_for_match(rank_data, queue_type):
     '''
     calculate the average rank for each team, as well as the entire match (both
-    team combined)
+    teams combined). 
     '''
-    pass
+    #Riot MATCH V5 api designates team 1 as 100, and team 2 as 200
+    if queue_type == 'soloduo':
+        team_1_ranks = [rank['solo_data'] for rank in rank_data[100]]
+        team_2_ranks = [rank['solo_data'] for rank in rank_data[200]]
+    elif queue_type == 'flex':
+        team_1_ranks = [rank['flex_data'] for rank in rank_data[100]]
+        team_2_ranks = [rank['flex_data'] for rank in rank_data[200]]
+
+    print(team_1_ranks)
+    print(team_2_ranks)
 
 # Below functions rely on match data
 

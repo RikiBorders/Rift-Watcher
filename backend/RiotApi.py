@@ -57,23 +57,20 @@ class Riot():
         Build a json object to send summoner info to the frontend. This json
         object will supply data that will be used to populate each user's page.
         '''
-        # Flex data
-        flex_account_data = account_data[1]
-        flex_rank = [flex_account_data['tier'], flex_account_data['rank']]
-        flex_wins = flex_account_data['wins']
-        flex_losses = flex_account_data['losses']
-        flex_lp = flex_account_data['leaguePoints']
-        flex_data = {'rank': flex_rank, 'wins': flex_wins, 'losses': flex_losses, 'lp': flex_lp}
+        parsed_account_data = {}
+        for gamemode_data in account_data:
+            rank = [gamemode_data['tier'], gamemode_data['rank']]
+            wins = gamemode_data['wins']
+            losses = gamemode_data['losses']
+            lp = gamemode_data['leaguePoints']
+            data = {'rank': rank, 'wins': wins, 'losses': losses, 'lp': lp}
 
-        # Solo/duo data
-        solo_account_data = account_data[0]
-        solo_rank = [solo_account_data['tier'], solo_account_data['rank']]
-        solo_wins = solo_account_data['wins']
-        solo_losses = solo_account_data['losses']
-        solo_lp = solo_account_data['leaguePoints']
-        solo_data = {'rank': solo_rank, 'wins': solo_wins, 'losses': solo_losses, 'lp': solo_lp}
-
-        return {'flex_data': flex_data, 'solo_data': solo_data}
+            if gamemode_data['queueType'] == 'RANKED_SOLO_5x5': # Ranked Solo/duo
+                parsed_account_data['solo_data'] = data
+            elif gamemode_data['queueType'] == 'RANKED_FLEX_SR':
+                parsed_account_data['flex_data'] = data
+        
+        return parsed_account_data
 
     def get_summoner_profile(self, summoner_name, region):
         '''
@@ -88,24 +85,38 @@ class Riot():
             account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
             parsed_account_data = self.__parse_account_data(account_data)
             parsed_account_data['profileIcon'] = summoner_data['profileIconId']
+
             match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
             user_data = {'summoner_data': parsed_account_data, 'match_history': match_history}
+
             return {'status': 1, 'summoner_data': user_data}
 
     def get_summoner_profiles_from_match(self, match, region):
         '''
         Get each summoner's game info from a given match. This info will include info such as ranks, tiers, etc
+        
+        Note: This function will return a DICTIONARY where key = teamID and value = list of summoners on that particular team
         '''
-        summoner_profiles = []
-        for participant in match['participants']:
+        summoner_teams = {}
+        for participant in match['info']['participants']:
             summoner_name = participant['summonerName']
-            summoner_profiles.append(self.__get_summoner_by_name(summoner_name, region))
+            team_id = participant['teamId']
+            if team_id not in summoner_teams:
+                summoner_teams[team_id] = [self.__get_summoner_by_name(summoner_name, region)]
+            else:
+                summoner_teams[team_id].append(self.__get_summoner_by_name(summoner_name, region))
 
-        summoner_profiles = []
-        for summoner_data in summoner_profiles:
-            summoner_profiles.append(self.__get_league_data_by_summoner_id(summoner_data['id'], region))
+        summoner_accounts = {}
+        for teamId in summoner_teams.keys():
+            summoner_accounts[teamId] = []
 
-        return summoner_profiles
+        for teamId in summoner_teams.keys():
+            for summoner_data in summoner_teams[teamId]:
+                account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
+                parsed_account_data = self.__parse_account_data(account_data)
+                summoner_accounts[teamId].append(parsed_account_data)
+        
+        return summoner_accounts
 
     def __get_summoner_matches(self, region, puuid):
         '''
@@ -156,13 +167,3 @@ class Riot():
             team_2_avg_rank = calculate_average_rank([participant['summonerName'] for participant in team_2])
         return {}
             
-
-#Temporary function to test out riot api calls
-def run_tests():
-    riot_api = Riot('RGAPI-916d86bb-ba3a-4eff-9c13-c28b5649658d')
-    riot_api.get_summoner_profile('SL1MEBALL', 'NA')
-
-
-
-if __name__ == "__main__":
-    run_tests()
