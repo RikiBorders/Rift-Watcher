@@ -30,10 +30,8 @@ def calculate_average_rank(summoner_list: list):
     not that each element of summoner list is expected to be 
     a summonerName value (ie compatible with the SUMMONER-V4 Endpoint)
     '''
-    for summoner in summoner_list:
-        pass
-
-
+    for summoner_name in summoner_list:
+        print(summoner_name)
 
 
 # Below functions rely on match data
