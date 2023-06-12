@@ -24,15 +24,12 @@ def calculate_winrates(total_wins: int, total_losses: int, recent_wins: int, rec
     return discrepancy * 100
 
 
-def calculate_average_rank(summoner_list: list):
+def calculate_average_ranks(summoners):
     '''
-    calculate the average rank for the given summoner_list.
-    not that each element of summoner list is expected to be 
-    a summonerName value (ie compatible with the SUMMONER-V4 Endpoint)
+    calculate the average rank for each team, as well as the entire match (both
+    team combined)
     '''
-    for summoner_name in summoner_list:
-        print(summoner_name)
-
+    pass
 
 # Below functions rely on match data
 
@@ -102,12 +99,6 @@ def integer_to_timestamp(time: int):
     return total_duration 
 
 
-from RiotApi import Riot
 
 if __name__ == "__main__":
-    # Run local tests here. for now. a testing structure can be added later on
-    riot_api = Riot('RGAPI-f2aadeef-01d3-4ee3-b940-83042699e1ad') #update this key before launch
-    summoner_data = riot_api.get_summoner_profile('SL1MEBALL', 'NA')
-    print(summoner_data['summoner_data']['match_history'][0])
-    # calculate_avg_rank_per_game(summoner_data['summoner_data']['match_history'])
-
+    print('Summoner stats file. To test the functions in this file, please use the tests.py file')

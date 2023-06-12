@@ -18,14 +18,14 @@ def get_summoner():
         response = riot_api.get_summoner_profile(query['username'], query['region'])
         return response, 201
 
-@app.route("/get_summoner_by_name", methods=['POST'])
-def get_summoner_by_name():
-    # Get summoner account information
+@app.route("/summoner_exists_by_name", methods=['POST'])
+def summoner_exists_by_name():
+    # Get summoner account information via summonerName
     query = request.get_json()
     if not query:
         return {'status': 0, 'summoner_data': None}
     else:
-        response = riot_api.get_summoner_by_name(query['username'], query['region'])
+        response = riot_api.summoner_exists(query['username'], query['region'])
         return response, 201
 
 

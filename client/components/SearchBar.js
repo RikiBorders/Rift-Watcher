@@ -25,7 +25,7 @@ export default function SearchBar() {
     const selectedRegion = state.selectedRegion;
     const data = {username: searchTerm, region: selectedRegion};
 
-    const response = fetch("http://127.0.0.1:5000/get_summoner_by_name", { // update the url when pushed to prod
+    const response = fetch("http://127.0.0.1:5000/summoner_exists_by_name", { // update the url when pushed to prod
       method: "POST",
       mode: "cors",
       headers: {

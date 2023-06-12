@@ -1,6 +1,6 @@
 import os
 import requests
-from SummonerStats import *
+# from SummonerStats import *
 
 class Riot(): 
     def __init__(self, api_key):
@@ -36,7 +36,7 @@ class Riot():
         
     def __get_summoner_by_name(self, summoner_name, region):
         '''
-        Get summoner account info via summoner name & region
+        Get summoner account info via summoner name & region via the RiotAPI
         '''
         url = f"https://{self.regions[region]}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}"
         summoner_info = requests.get(url, headers=self.request_headers)
@@ -45,7 +45,7 @@ class Riot():
     
     def __get_league_data_by_summoner_id(self, summoner_id, region):
         '''
-        Get league of legends game info via summoner id. This will return info such as ranks for each queue, tiers, etc.
+        Get league of legends game info via summoner id. This will return info such as ranks for each queue, tiers, etc. via RiotAPI
         '''
         url = f"https://{self.regions[region]}.api.riotgames.com/lol/league/v4/entries/by-summoner/{summoner_id}"
         account_info = requests.get(url, headers=self.request_headers)
@@ -91,7 +91,22 @@ class Riot():
             match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
             user_data = {'summoner_data': parsed_account_data, 'match_history': match_history}
             return {'status': 1, 'summoner_data': user_data}
-        
+
+    def get_summoner_profiles_from_match(self, match, region):
+        '''
+        Get each summoner's game info from a given match. This info will include info such as ranks, tiers, etc
+        '''
+        summoner_profiles = []
+        for participant in match['participants']:
+            summoner_name = participant['summonerName']
+            summoner_profiles.append(self.__get_summoner_by_name(summoner_name, region))
+
+        summoner_profiles = []
+        for summoner_data in summoner_profiles:
+            summoner_profiles.append(self.__get_league_data_by_summoner_id(summoner_data['id'], region))
+
+        return summoner_profiles
+
     def __get_summoner_matches(self, region, puuid):
         '''
         Get the last 20 games for the given player. This function takes a while to complete
@@ -117,7 +132,7 @@ class Riot():
 
         return matches
 
-    def get_summoner_by_name(self, summoner_name, region):
+    def summoner_exists(self, summoner_name, region):
         '''
         Public method for simply checking if a summoner exists or not
         '''
