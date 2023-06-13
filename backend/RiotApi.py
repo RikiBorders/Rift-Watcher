@@ -3,12 +3,12 @@ import requests
 # from SummonerStats import *
 
 class Riot(): 
-    def __init__(self, api_key):
+    def __init__(self):
         self.request_headers = {
             "Accept-Language": "en-US,en;q=0.5",
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
-            "Origin": "https://developer.riotgames.com",
-            "X-Riot-Token": api_key
+            "Origin": "https://developer.riotgames.com",                 # update the below 'riot token' key before launch
+            "X-Riot-Token": 'RGAPI-3cfc43dd-fab9-4982-80ed-6b94576d8072' # API KEY FROM .ENV SHOULD GO HERE
         }
         self.regions = {
             "NA" : "na1",

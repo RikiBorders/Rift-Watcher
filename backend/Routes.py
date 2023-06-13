@@ -5,7 +5,7 @@ from RiotApi import Riot
 
 app = Flask(__name__)
 cors = CORS(app, origins=['http://localhost:3000']) # Update this origin when pushed to production
-riot_api = Riot('RGAPI-f2aadeef-01d3-4ee3-b940-83042699e1ad') #update this key before launch
+riot_api = Riot()
     
 @app.route("/get_summoner", methods=['POST'])
 def get_summoner():
