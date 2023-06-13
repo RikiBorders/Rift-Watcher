@@ -122,10 +122,7 @@ def lp_to_rank(lp_value):
 
 # Below functions rely on match data
 
-def get_per_minute_stats(match: dict):
-    '''
-    calculate statistics per minute for a given match. returns a hashmap of data
-    '''
+def calculate_per_minute_stats(match: dict, summoners_teams: dict):
     per_minute_stats = {
         'assists_pm': int(match['assists']),
         'deaths_pm': int(match['deaths']),
@@ -143,6 +140,7 @@ def get_per_minute_stats(match: dict):
         per_minute_stats[stat] = value / total_match_time
 
     return per_minute_stats
+
 
 
 def get_match_participants(match: dict):

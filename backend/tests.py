@@ -10,7 +10,7 @@ riot_api = Riot()
 
 def TEST_calculate_average_ranks():
     '''
-    This will test the calculate_average_ranks using live data pulled from the riot API
+    This will test the calculate_average_ranks function using live data pulled from the riot API
     '''
     region = 'NA'
     summoner_name = 'SL1MEBALL'
@@ -21,5 +21,19 @@ def TEST_calculate_average_ranks():
     averages = calculate_average_ranks_for_match(summoners_teams, 'soloduo')
     print(averages)
 
+def TEST_calculate_per_minute_stats():
+    '''
+    This will test the calculate_per_minute_stats function using live data pulled from the riot API
+    '''
+    region = 'NA'
+    summoner_name = 'SL1MEBALL'
+
+    summoner_data = riot_api.get_summoner_profile(summoner_name, region)
+    match = summoner_data['summoner_data']['match_history'][0]
+    summoners_teams = riot_api.get_summoner_profiles_from_match(match, region)
+    per_minute_stats = calculate_per_minute_stats(match, summoners_teams)
+    print(per_minute_stats)
+
+    
 if __name__ == "__main__":
-    TEST_calculate_average_ranks()
+    TEST_calculate_per_minute_stats()

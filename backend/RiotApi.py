@@ -34,7 +34,7 @@ class Riot():
             "FOUR" : "IV"
         }
         
-    def __get_summoner_by_name(self, summoner_name, region):
+    def __get_summoner_by_name(self, summoner_name: str, region: str):
         '''
         Get summoner account info via summoner name & region via the RiotAPI
         '''
@@ -43,7 +43,7 @@ class Riot():
 
         return summoner_info.json()
     
-    def __get_league_data_by_summoner_id(self, summoner_id, region):
+    def __get_league_data_by_summoner_id(self, summoner_id: str, region: str):
         '''
         Get league of legends game info via summoner id. This will return info such as ranks for each queue, tiers, etc. via RiotAPI
         '''
@@ -72,7 +72,7 @@ class Riot():
         
         return parsed_account_data
 
-    def get_summoner_profile(self, summoner_name, region):
+    def get_summoner_profile(self, summoner_name: str, region: str):
         '''
         Get a specific player's profile data (summoner level, rank, most played champions, etc).
         This info is used on a player's specific page
@@ -91,7 +91,7 @@ class Riot():
 
             return {'status': 1, 'summoner_data': user_data}
 
-    def get_summoner_profiles_from_match(self, match, region):
+    def get_summoner_profiles_from_match(self, match: dict, region: str):
         '''
         Get each summoner's game info from a given match. This info will include info such as ranks, tiers, etc
         
@@ -118,7 +118,7 @@ class Riot():
         
         return summoner_accounts
 
-    def __get_summoner_matches(self, region, puuid):
+    def __get_summoner_matches(self, region: str, puuid: str):
         '''
         Get the last 20 games for the given player. This function takes a while to complete
         '''
@@ -143,7 +143,7 @@ class Riot():
 
         return matches
 
-    def summoner_exists(self, summoner_name, region):
+    def summoner_exists(self, summoner_name: str, region: str):
         '''
         Public method for simply checking if a summoner exists or not
         '''
@@ -155,7 +155,7 @@ class Riot():
         else:
             return {'status': 1, 'summoner_data': None}
         
-    def fetch_match_statistics(self, summoner_name, region):
+    def fetch_match_statistics(self, summoner_name: str, region: str):
         '''
         Calculate and return statistics for a player's match history 
         '''
