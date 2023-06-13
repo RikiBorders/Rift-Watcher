@@ -162,7 +162,7 @@ class Riot():
         summoner_data = self.get_summoner_profile(summoner_name, region)
         match_list = summoner_data['summoner_data']['match_history']
         for match in match_list:
-            team_1, team_2 = get_match_participants(match)
+            team_1, team_2 = get_match_participants_as_teams(match)
             team_1_avg_rank = calculate_average_rank([participant['summonerName'] for participant in team_1])
             team_2_avg_rank = calculate_average_rank([participant['summonerName'] for participant in team_2])
         return {}

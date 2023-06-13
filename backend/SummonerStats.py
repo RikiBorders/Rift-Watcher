@@ -120,30 +120,48 @@ def lp_to_rank(lp_value):
 
     return f'{rank} {division}'
 
+def get_match_participants(match: dict):
+    '''
+    Return a list of participants from a particular match.
+
+    Note: this list will include the ENTIRE participant entry from the match
+    '''
+    return [participant for participant in match['info']['participants']]
+
+
 # Below functions rely on match data
 
-def calculate_per_minute_stats(match: dict, summoners_teams: dict):
-    per_minute_stats = {
-        'assists_pm': int(match['assists']),
-        'deaths_pm': int(match['deaths']),
-        'kills_pm': int(match['kills']),
-        'gold_earned_pm': int(match['goldEarned']),
-        'total_minions_killed_pm': int(match['totalMinionsKilled']),
-        'turret_kills_pm': int(match['turretKills']),
-        'vision_score_pm': int(match['visionScore']),
-        'wards_killed_pm': int(match['wardsKilled']),
-        'ward_placed_pm': int(match['wardPlaced'])
-    }
-    total_match_time = (match['endTime'] - match['startTime']) / 60 # in minutes
+def calculate_per_minute_stats(match: dict):
+    player_list = get_match_participants(match)
+    player_stats = {}
+    if not match['info']['gameEndTimestamp']:
+        total_match_time = (match['info']['gameDuration'] * 1000) / 60 # convert milliseconds (per riot docs) to minutes
+    else:
+        total_match_time = (match['info']['gameDuration']) / 60 # convert seconds to minutes
 
-    for stat, value in per_minute_stats.values():
-        per_minute_stats[stat] = value / total_match_time
+    print(total_match_time)
+    for player in player_list:
+        per_minute_stats = {
+            'assists_pm': int(player['assists']),
+            'deaths_pm': int(player['deaths']),
+            'kills_pm': int(player['kills']),
+            'gold_earned_pm': int(player['goldEarned']),
+            'total_minions_killed_pm': int(player['totalMinionsKilled']),
+            'turret_kills_pm': int(player['turretKills']),
+            'vision_score_pm': int(player['visionScore']),
+            'wards_killed_pm': int(player['wardsKilled']),
+            'ward_placed_pm': int(player['wardsPlaced'])
+        }
 
-    return per_minute_stats
+        for key in per_minute_stats:
+            per_minute_stats[key] = per_minute_stats[key] / total_match_time
+
+        player_stats[player['summonerName']] = per_minute_stats
+
+    return player_stats # key = player identifier, val = dict of stats
 
 
-
-def get_match_participants(match: dict):
+def get_match_participants_as_teams(match: dict):
     '''
     Get participants for team 1 and 2 respectively from a match object.
     Documentation here: https://developer.riotgames.com/apis#match-v5/GET_getMatch

@@ -30,10 +30,9 @@ def TEST_calculate_per_minute_stats():
 
     summoner_data = riot_api.get_summoner_profile(summoner_name, region)
     match = summoner_data['summoner_data']['match_history'][0]
-    summoners_teams = riot_api.get_summoner_profiles_from_match(match, region)
-    per_minute_stats = calculate_per_minute_stats(match, summoners_teams)
+    per_minute_stats = calculate_per_minute_stats(match)
     print(per_minute_stats)
 
-    
+
 if __name__ == "__main__":
     TEST_calculate_per_minute_stats()
