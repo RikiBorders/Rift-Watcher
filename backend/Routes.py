@@ -26,7 +26,8 @@ def get_summoner():
         if not summoner_profile['status']:
             return {}, 404
 
-        response = get_match_statistics(riot_api, summoner_profile, query['region']) # VERY DANGEROUS, PASSING THE API IS BAD
+        match_stats = get_match_statistics(riot_api, summoner_profile, query['region']) # VERY DANGEROUS, PASSING THE API IS BAD
+        response = {'status': 1, 'summoner_data': summoner_profile, 'match_stats': match_stats}
         return response, 200
 
 @app.route("/summoner_exists_by_name", methods=['POST'])

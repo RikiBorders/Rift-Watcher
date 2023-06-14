@@ -81,17 +81,17 @@ class Riot():
         Get a specific player's profile data (summoner level, rank, etc).
         This info is used on each player's page on rift watcher
         '''
-        summoner_data = self.__get_summoner_by_name(summoner_name, region)
+        meta_summoner_data = self.__get_summoner_by_name(summoner_name, region)
         # If status == 0, then a summoner could not be found
-        if 'status' in summoner_data:
-            return {'status': 0, 'summoner_data': None}
+        if 'status' in meta_summoner_data:
+            return {'status': 0, 'meta_summoner_data': None}
         
         else:
-            account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
+            account_data = self.__get_league_data_by_summoner_id(meta_summoner_data['id'], region)
             parsed_account_data = self.__parse_account_data(account_data)
-            parsed_account_data['profileIcon'] = summoner_data['profileIconId']
+            parsed_account_data['profileIcon'] = meta_summoner_data['profileIconId']
 
-            match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
+            match_history = self.__get_summoner_matches(region, meta_summoner_data['puuid'])
             user_data = {'summoner_data': parsed_account_data, 'match_history': match_history}
 
             return {'status': 1, 'summoner_data': user_data}
