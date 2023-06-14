@@ -1,5 +1,6 @@
 import os
 import requests
+from SummonerStats import *
 # from SummonerStats import *
 
 class Riot(): 
@@ -8,7 +9,7 @@ class Riot():
             "Accept-Language": "en-US,en;q=0.5",
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
             "Origin": "https://developer.riotgames.com",                 # update the below 'riot token' key before launch
-            "X-Riot-Token": 'RGAPI-3cfc43dd-fab9-4982-80ed-6b94576d8072' # API KEY FROM .ENV SHOULD GO HERE
+            "X-Riot-Token": 'RGAPI-3182a246-6c47-4c62-863b-79c48dbcb268' # API KEY FROM .ENV SHOULD GO HERE
         }
         self.regions = {
             "NA" : "na1",
@@ -59,6 +60,9 @@ class Riot():
         '''
         parsed_account_data = {}
         for gamemode_data in account_data:
+            if 'tier' not in gamemode_data:
+                continue
+
             rank = [gamemode_data['tier'], gamemode_data['rank']]
             wins = gamemode_data['wins']
             losses = gamemode_data['losses']
@@ -74,13 +78,14 @@ class Riot():
 
     def get_summoner_profile(self, summoner_name: str, region: str):
         '''
-        Get a specific player's profile data (summoner level, rank, most played champions, etc).
-        This info is used on a player's specific page
+        Get a specific player's profile data (summoner level, rank, etc).
+        This info is used on each player's page on rift watcher
         '''
         summoner_data = self.__get_summoner_by_name(summoner_name, region)
         # If status == 0, then a summoner could not be found
         if 'status' in summoner_data:
             return {'status': 0, 'summoner_data': None}
+        
         else:
             account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
             parsed_account_data = self.__parse_account_data(account_data)
@@ -93,7 +98,7 @@ class Riot():
 
     def get_summoner_profiles_from_match(self, match: dict, region: str):
         '''
-        Get each summoner's game info from a given match. This info will include info such as ranks, tiers, etc
+        Get each summoner's game-level info from a given match. This info will include info such as ranks, tiers, etc
         
         Note: This function will return a DICTIONARY where key = teamID and value = list of summoners on that particular team
         '''
@@ -112,6 +117,11 @@ class Riot():
 
         for teamId in summoner_teams.keys():
             for summoner_data in summoner_teams[teamId]:
+                
+                if 'status' in summoner_data and summoner_data['status']['status_code'] == 429: # Check if rate limit was exceeded 
+                    print('RATE LIMIT EXCEEDED. EXITING EARLY')
+                    return summoner_accounts
+
                 account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
                 parsed_account_data = self.__parse_account_data(account_data)
                 summoner_accounts[teamId].append(parsed_account_data)
@@ -155,15 +165,4 @@ class Riot():
         else:
             return {'status': 1, 'summoner_data': None}
         
-    def fetch_match_statistics(self, summoner_name: str, region: str):
-        '''
-        Calculate and return statistics for a player's match history 
-        '''
-        summoner_data = self.get_summoner_profile(summoner_name, region)
-        match_list = summoner_data['summoner_data']['match_history']
-        for match in match_list:
-            team_1, team_2 = get_match_participants_as_teams(match)
-            team_1_avg_rank = calculate_average_rank([participant['summonerName'] for participant in team_1])
-            team_2_avg_rank = calculate_average_rank([participant['summonerName'] for participant in team_2])
-        return {}
-            
+

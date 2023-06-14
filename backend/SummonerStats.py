@@ -31,12 +31,37 @@ def calculate_average_ranks_for_match(rank_data: dict, queue_type: str):
     '''
     #Riot MATCH V5 api designates team 1 as 100, and team 2 as 200
     if queue_type == 'soloduo':
-        team_1_ranks = [rank['solo_data'] for rank in rank_data[100]]
-        team_2_ranks = [rank['solo_data'] for rank in rank_data[200]]
-    elif queue_type == 'flex':
-        team_1_ranks = [rank['flex_data'] for rank in rank_data[100]]
-        team_2_ranks = [rank['flex_data'] for rank in rank_data[200]]
+        team_1_ranks = []
+        team_2_ranks = []
+        # Get rank of each player on team 1 and team 2
+        for rank in rank_data[100]:
+            if 'solo_data' in rank:
+                team_1_ranks.append(rank['solo_data'])
+            else:
+                pass # unraked in this particular queue
 
+        for rank in rank_data[200]:
+            if 'solo_data' in rank:
+                team_2_ranks.append(rank['solo_data'])
+            else:
+                pass # unraked in this particular queue
+
+    elif queue_type == 'flex':
+        team_1_ranks = []
+        team_2_ranks = []
+        # Get rank of each player on team 1 and team 2
+        for rank in rank_data[100]:
+            if 'flex_data' in rank:
+                team_1_ranks.append(rank['flex_data'])
+            else:
+                pass # unraked in this particular queue
+
+        for rank in rank_data[200]:
+            if 'flex_data' in rank:
+                team_2_ranks.append(rank['flex_data'])
+            else:
+                pass # unraked in this particular queue
+    
     team_1_avg = 0
     for rank in team_1_ranks:
         normalized_rank = normalize_rank(rank['rank'], rank['lp'])
@@ -54,26 +79,6 @@ def calculate_average_ranks_for_match(rank_data: dict, queue_type: str):
 
     return {'team_1_avg': lp_to_rank(team_1_avg), 'team_2_avg': lp_to_rank(team_2_avg), 'combined_avg': lp_to_rank(game_average)}
 
-
-def get_division(lp_value, minimum, maximum, tier_4, tier_3, tier_2):
-    '''
-    This function is used with the lp_to_rank function. This calculates what division
-    a player is in given an lp value and thresholds. You MUST subtract 1 from the minimum and 
-    maximum parameters before calling this function, and delegate borderline ranks (i.e 0 lp) to the lp_to_rank function
-    
-    Note that ALL PARAMETERS ARE INCLUSIVE
-    '''
-    if tier_2 <= lp_value <= maximum:
-        return 'I'
-    elif tier_3 <= lp_value <= tier_2:
-        return 'II'
-    elif tier_4 <= lp_value <= tier_3:
-        return 'III'
-    elif minimum <= lp_value <= tier_4:
-        return 'IV'
-
-    else:
-        return None # Values are invalid 
 
 def lp_to_rank(lp_value):
     '''
@@ -120,16 +125,6 @@ def lp_to_rank(lp_value):
 
     return f'{rank} {division}'
 
-def get_match_participants(match: dict):
-    '''
-    Return a list of participants from a particular match.
-
-    Note: this list will include the ENTIRE participant entry from the match
-    '''
-    return [participant for participant in match['info']['participants']]
-
-
-# Below functions rely on match data
 
 def calculate_per_minute_stats(match: dict):
     player_list = get_match_participants(match)
@@ -139,7 +134,6 @@ def calculate_per_minute_stats(match: dict):
     else:
         total_match_time = (match['info']['gameDuration']) / 60 # convert seconds to minutes
 
-    print(total_match_time)
     for player in player_list:
         per_minute_stats = {
             'assists_pm': int(player['assists']),
@@ -158,25 +152,7 @@ def calculate_per_minute_stats(match: dict):
 
         player_stats[player['summonerName']] = per_minute_stats
 
-    return player_stats # key = player identifier, val = dict of stats
-
-
-def get_match_participants_as_teams(match: dict):
-    '''
-    Get participants for team 1 and 2 respectively from a match object.
-    Documentation here: https://developer.riotgames.com/apis#match-v5/GET_getMatch
-    Note that the participant object is named 'ParticipantDto'
-    '''
-    team_1, team_2 = [], []
-    participants = match['info']['participants']
-
-    for participant in participants:
-        if participant['team_id'] == 100:
-            team_1.append(participant)
-        else:
-            team_2.append(participant)
-                
-    return (team_1, team_2)
+    return player_stats # key = player identifier (summonerName), val = dict of stats
 
 
 def normalize_rank(full_rank, lp):
@@ -217,31 +193,72 @@ def normalize_rank(full_rank, lp):
     return rank_value
 
 
-def integer_to_timestamp(time: int):
-    '''
-    Convert an integer representing seconds to a timestamp format.
-    '''
-    if time < 3600:
-        hours = 0
-    else:
-        hours = time // 3600
-        time = time % 3600
+# Below are 'Get' functions (generally data wrangling functions)
 
-    if time < 60:
-        minutes = 0
-    else:
-        minutes = time // 60
-        time = time % 60
-        
-    total_duration = str(hours)+':' if hours > 0 else ''
-    total_duration += str(minutes)+':' if minutes > 0 else '00:'
-    if len(str(time)) < 2:
-        total_duration += '0'+str(time)
-    else:
-        total_duration += str(time)
-        
-    return total_duration 
+def get_match_participants(match: dict):
+    '''
+    Return a list of participants from a particular match.
 
+    Note: this list will include the ENTIRE participant entry from the match
+    '''
+    return [participant for participant in match['info']['participants']]
+
+
+def get_match_participants_as_teams(match: dict):
+    '''
+    Get participants for team 1 and 2 respectively from a match object.
+    Documentation here: https://developer.riotgames.com/apis#match-v5/GET_getMatch
+    Note that the participant object is named 'ParticipantDto'
+    '''
+    team_1, team_2 = [], []
+    participants = match['info']['participants']
+
+    for participant in participants:
+        if participant['team_id'] == 100:
+            team_1.append(participant)
+        else:
+            team_2.append(participant)
+                
+    return (team_1, team_2)
+
+
+def get_division(lp_value, minimum, maximum, tier_4, tier_3, tier_2):
+    '''
+    This function is used with the lp_to_rank function. This calculates what division
+    a player is in given an lp value and thresholds. You MUST subtract 1 from the minimum and 
+    maximum parameters before calling this function, and delegate borderline ranks (i.e 0 lp) to the lp_to_rank function
+    
+    Note that ALL PARAMETERS ARE INCLUSIVE
+    '''
+    if tier_2 <= lp_value <= maximum:
+        return 'I'
+    elif tier_3 <= lp_value <= tier_2:
+        return 'II'
+    elif tier_4 <= lp_value <= tier_3:
+        return 'III'
+    elif minimum <= lp_value <= tier_4:
+        return 'IV'
+
+    else:
+        return None # Values are invalid 
+
+
+def get_match_statistics(riot_api: object, summoner_profile: dict, region: str):
+    '''
+    Calculate and return statistics for each match in a player's match history.
+    '''
+    match_history = summoner_profile['summoner_data']['match_history']
+    historical_match_data = {}
+
+    for i in range(5): # Fetch the last 5 matches (this should be updated later. details in ticket)
+        match = match_history[i]
+        summoners_teams = riot_api.get_summoner_profiles_from_match(match, region)
+        per_minute_stats = calculate_per_minute_stats(match)
+        average_ranks = calculate_average_ranks_for_match(summoners_teams, 'soloduo')
+
+        historical_match_data[match['metadata']['matchId']] = {'per_minute_stats': per_minute_stats, 'average_ranks': average_ranks}
+    
+    return historical_match_data
 
 
 if __name__ == "__main__":
