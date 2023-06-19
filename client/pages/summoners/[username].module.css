@@ -11,10 +11,10 @@
 
 .header_text{
     color: #F0F4F8;
+    margin-left: 5vh;
     font-family: sans-serif;
     font-weight: 400;
     font-size: 6vh;
-    margin-bottom: 40px;
 }
 
 .sub_header{
@@ -23,12 +23,43 @@
     font-weight: 400;
     font-size: 4vh;
     cursor: default;
-    user-select: none;
     -webkit-user-drag: none;
-    margin-bottom: 0;
 }
 
-.description{
+.rank_text{
+    color: #F0F4F8;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 4vh;
+    cursor: default;
+    -webkit-user-drag: none;   
+    margin-bottom: 0; 
+}
+
+.account_info {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    width: fit-content;
+    background-color: #212A3E;
+    border-radius: 15px;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 3vh;
+    padding-right: 3vh;
+    margin-left: 3vh;
+    margin-top : 2vh;
+    margin-bottom: 2vh;
+}
+
+.account_info_region {
+    color: rgb(159, 162, 165);
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 2vh;
+}
+
+.lp_number{
     color: #f0f4f8de;
     font-size: 2.5vh;
     line-height: 1.5;
@@ -36,12 +67,29 @@
     margin-top: 0;
 }
 
+.profile_image {
+    display: flex;
+    border-radius: 50%;
+    width: 20vh;
+    height: 20vh;
+}
+
 .rank_section{
     display: flex;
+    align-items: center;
+    width: fit-content;
+    max-width: 60vh;
+    text-align: center;
     column-gap: 3vh;
     background-color: #212A3E;
     border-radius: 15px;
     padding-left: 2vh;
     padding-right: 2vh;
+    margin-left: 3vh;
     margin-bottom: 1vh;
+}
+
+.loading_image{
+    height: 90px;
+    width: 110px;
 }
