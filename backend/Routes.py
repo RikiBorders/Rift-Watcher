@@ -25,8 +25,11 @@ def get_summoner():
         summoner_profile = riot_api.get_summoner_profile(query['username'], query['region'])
         if not summoner_profile['status']:
             return {}, 404
+        else:
+            summoner_profile = summoner_profile['summoner_data']
 
-        match_stats = get_match_statistics(riot_api, summoner_profile, query['region']) # VERY DANGEROUS, PASSING THE API IS BAD
+        match_stats = None
+        # match_stats = get_match_statistics(riot_api, summoner_profile, query['region']) # VERY DANGEROUS, PASSING THE API IS BAD. also verrrry slow
         response = {'status': 1, 'summoner_data': summoner_profile, 'match_stats': match_stats}
         return response, 200
 

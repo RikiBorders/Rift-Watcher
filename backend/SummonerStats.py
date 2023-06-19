@@ -38,13 +38,13 @@ def calculate_average_ranks_for_match(rank_data: dict, queue_type: str):
             if 'solo_data' in rank:
                 team_1_ranks.append(rank['solo_data'])
             else:
-                pass # unraked in this particular queue
+                pass # unranked in this particular queue
 
         for rank in rank_data[200]:
             if 'solo_data' in rank:
                 team_2_ranks.append(rank['solo_data'])
             else:
-                pass # unraked in this particular queue
+                pass # unranked in this particular queue
 
     elif queue_type == 'flex':
         team_1_ranks = []
@@ -54,14 +54,17 @@ def calculate_average_ranks_for_match(rank_data: dict, queue_type: str):
             if 'flex_data' in rank:
                 team_1_ranks.append(rank['flex_data'])
             else:
-                pass # unraked in this particular queue
+                pass # unranked in this particular queue
 
         for rank in rank_data[200]:
             if 'flex_data' in rank:
                 team_2_ranks.append(rank['flex_data'])
             else:
-                pass # unraked in this particular queue
+                pass # unranked in this particular queue
     
+    else: # if this isnt soloduo or flex, we don't care
+        return {'team_1_avg': 1, 'team_2_avg': 1, 'combined_avg': 1}
+
     team_1_avg = 0
     for rank in team_1_ranks:
         normalized_rank = normalize_rank(rank['rank'], rank['lp'])

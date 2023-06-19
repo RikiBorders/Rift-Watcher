@@ -42,7 +42,7 @@ export default function SearchBar() {
           query: {region: selectedRegion}
         });
       } else {
-        console.log('summoner not found')
+        console.log('summoner not found or riot api key has expired')
       }
     })
   }
