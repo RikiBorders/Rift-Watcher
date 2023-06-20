@@ -126,7 +126,6 @@ export default function username() {
               </div>
             </div>
 
-
             <div className={styles.rank_section}>
               <div className={styles.rank}>
                 <h3 className={styles.rank_label}>Solo/Duo Rank:</h3>
