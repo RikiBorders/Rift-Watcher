@@ -4,7 +4,7 @@ import styles from "./MatchHistory.module.css";
 export default function MatchHistory(match_data: any) {
 
     return (
-        <div>
+        <div className={styles.container}>
 
         </div>
     )
