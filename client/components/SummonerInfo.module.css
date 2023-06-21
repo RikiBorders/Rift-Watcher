@@ -1,0 +1,134 @@
+.header_text{
+    color: #F0F4F8;
+    margin-left: 5vh;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 6vh;
+}
+
+.sub_header{
+    color: #F0F4F8;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 4vh;
+    cursor: default;
+    -webkit-user-drag: none;
+}
+
+.account_info {
+    text-align: center;
+    align-items: center;
+    width: fit-content;
+    background-color: #212A3E;
+    border-radius: 15px;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 3vh;
+    padding-right: 3vh;
+    margin-left: 3vh;
+    margin-top : 2vh;
+    margin-bottom: 2vh;
+    box-shadow: 3px 7px 7px;
+}
+
+.summoner_info {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    width: fit-content;
+    background-color: #212A3E;
+    border-radius: 15px;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 3vh;
+    padding-right: 3vh;
+    margin-top : 2vh;
+    margin-bottom: 2vh;
+    box-shadow: 3px 7px 7px;
+}
+
+.account_info_region {
+    color: rgb(159, 162, 165);
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 2vh;
+}
+
+
+.profile_image {
+    display: flex;
+    border-radius: 50%;
+    width: 20vh;
+    height: 20vh;
+}
+
+.rank_section{
+    display: flex;
+    column-gap: 3vw;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: #212A3E;
+    width: fit-content;
+    border-radius: 15px;
+    padding: 3vh;
+    margin-bottom: 1vh;
+    box-shadow: 3px 7px 7px;
+}
+
+.rank_label{
+    color: #F0F4F8;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 2vh;
+    margin: 0;
+    cursor: default;
+    -webkit-user-drag: none;
+}
+
+.rank_data{
+    display: block;
+    align-items: center;
+    justify-content: center;
+    column-gap: 3vh;
+    margin: 0;
+}
+
+.rank_render{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    color: #F0F4F8;
+    font-family: sans-serif;
+    font-size: 4vh;
+    cursor: default;
+    -webkit-user-drag: none;   
+    margin-bottom: 0; 
+}
+
+.ranked_icon{
+    height: 100px;
+    width: 120px;
+    margin: 0;
+}
+
+.rank_title{
+    display: block;
+    font-family: sans-serif;
+    font-size: 4vh;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.lp_number{
+    color: #f0f4f8de;
+    font-size: 2vh;
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 0;
+}
+
+.loading_image{
+    height: 90px;
+    width: 110px;
+}

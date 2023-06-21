@@ -1,4 +1,5 @@
 import NavBar from "../../components/NavBar";
+import SummonerInfo from "../../components/SummonerInfo";
 import Head from "next/head";
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react';
@@ -113,54 +114,15 @@ export default function username() {
 
       <div className={styles.page_body}>
         <NavBar/>
+        
+        {isLoading ? 
+          <img src="/loading_icon.gif" className={styles.loading_image}/> :
+          <SummonerInfo 
+            router_query={router.query} 
+            summonerData={summonerData} 
+            />
+        }
 
-        <div className={styles.page_content}>
-          <div className={styles.account_info}>
-
-            <div className={styles.summoner_info}>
-              {!isLoading ? render_icon() : <img src="/loading_icon.gif" className={styles.loading_image}/>}
-              <div className={styles.account_info_text}>
-                <h1 className={styles.header_text}>{router.query.username}</h1>
-                <h2 className={styles.account_info_region}>Region: {router.query.region}</h2>
-              </div>
-            </div>
-
-            <div className={styles.rank_section}>
-              <div className={styles.rank}>
-                <h3 className={styles.rank_label}>Solo/Duo Rank:</h3>
-                <div className={styles.rank_data}>
-                  {!isLoading ? 
-                    render_rank_icon(summonerData.summoner_account_data.solo_data.rank[0]) : 
-                    <></>
-                  }
-                  {!isLoading ? 
-                    render_rank('soloduo') : 
-                    <img src="/loading_icon.gif" className={styles.loading_image}/>
-                  }
-                  <h3 className={styles.rank_label}>{!isLoading ? `${summonerData.summoner_account_data.solo_winrate} % Winrate` : <></> }</h3>
-
-                </div>
-              </div>
-            
-              <div className={styles.rank}>
-                <h3 className={styles.rank_label}>Flex Rank:</h3>
-                <div className={styles.rank_data}>
-                  {!isLoading ? 
-                    render_rank_icon(summonerData.summoner_account_data.flex_data.rank[0]) : 
-                    <></>
-                  }
-                  {!isLoading ? 
-                    render_rank('flex') : 
-                    <img src="/loading_icon.gif" className={styles.loading_image}/>
-                  }
-                  <h3 className={styles.rank_label}>{!isLoading ? `${summonerData.summoner_account_data.flex_winrate} % Winrate` : <></> }</h3>
-
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 );}
