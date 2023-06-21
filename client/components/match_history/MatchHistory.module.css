@@ -13,3 +13,10 @@
     margin-bottom: 2vh;
     box-shadow: 3px 7px 7px;
 }
+
+.header_text{
+    color: #F0F4F8;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 6vh;
+}

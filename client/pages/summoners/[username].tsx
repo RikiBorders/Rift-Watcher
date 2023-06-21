@@ -1,5 +1,6 @@
 import NavBar from "../../components/NavBar";
 import SummonerInfo from "../../components/SummonerInfo";
+import MatchHistory from "@/components/match_history/MatchHistory";
 import Head from "next/head";
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react';
@@ -117,10 +118,13 @@ export default function username() {
         
         {isLoading ? 
           <img src="/loading_icon.gif" className={styles.loading_image}/> :
-          <SummonerInfo 
-            router_query={router.query} 
-            summonerData={summonerData} 
+          <div>
+            <SummonerInfo 
+              router_query={router.query} 
+              summonerData={summonerData} 
             />
+            <MatchHistory/>
+          </div>
         }
 
       </div>
