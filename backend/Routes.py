@@ -13,7 +13,7 @@ from SummonerStats import get_match_statistics
 app = Flask(__name__)
 cors = CORS(app, origins=['http://localhost:3000']) # Update this origin when pushed to production
 riot_api = Riot()
-    
+
 @app.route("/get_summoner", methods=['POST'])
 def get_summoner():
     # Get summoner data INCLUDING match history
@@ -30,7 +30,11 @@ def get_summoner():
 
         match_stats = None
         # match_stats = get_match_statistics(riot_api, summoner_profile, query['region']) # VERY DANGEROUS, PASSING THE API IS BAD. also verrrry slow
-        response = {'status': 1, 'summoner_data': summoner_profile, 'match_stats': match_stats}
+        response = {
+            'status': 1, 
+            'summoner_data': summoner_profile, 
+            'match_stats': match_stats
+        }
         return response, 200
 
 @app.route("/summoner_exists_by_name", methods=['POST'])

@@ -1,7 +1,6 @@
 import os
 import requests
 from SummonerStats import *
-# from SummonerStats import *
 
 class Riot(): 
     def __init__(self):
@@ -90,7 +89,15 @@ class Riot():
             account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
             parsed_account_data = self.__parse_account_data(account_data)
             parsed_account_data['profileIcon'] = summoner_data['profileIconId']
-
+            
+            # Winrate calculations
+            solo_wins, flex_wins = parsed_account_data['solo_data']['wins'], parsed_account_data['flex_data']['wins']
+            solo_losses, flex_losses = parsed_account_data['solo_data']['losses'], parsed_account_data['flex_data']['losses']
+            solo_winrate = calculate_winrate(solo_wins, solo_losses)
+            flex_winrate = calculate_winrate(flex_wins, flex_losses)
+            parsed_account_data['solo_winrate'] = solo_winrate
+            parsed_account_data['flex_winrate'] = flex_winrate
+            
             match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
             user_data = {'summoner_account_data': parsed_account_data, 'match_history': match_history}
 

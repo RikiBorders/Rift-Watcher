@@ -42,8 +42,7 @@ export default function username() {
         <div className={styles.rank_render}>
           <div className={styles.rank_text}>
             <h3 className={styles.rank_title}>
-              {summonerData.summoner_account_data.solo_data.rank[0]} 
-              {summonerData.summoner_account_data.solo_data.rank[1]}
+              {summonerData.summoner_account_data.solo_data.rank[0]} {summonerData.summoner_account_data.solo_data.rank[1]}
             </h3>
             <p className={styles.lp_number}>LP: {summonerData.summoner_account_data.solo_data.lp}</p>
           </div>
@@ -55,8 +54,7 @@ export default function username() {
         <div className={styles.rank_render}>
           <div className={styles.rank_text}>
             <h3 className={styles.rank_title}>
-              {summonerData.summoner_account_data.flex_data.rank[0]} 
-              {summonerData.summoner_account_data.flex_data.rank[1]}
+              {summonerData.summoner_account_data.flex_data.rank[0]} {summonerData.summoner_account_data.flex_data.rank[1]}
             </h3>
             <p className={styles.lp_number}>LP: {summonerData.summoner_account_data.flex_data.lp}</p>
           
@@ -93,10 +91,12 @@ export default function username() {
       if (response['status']) { // check here if the response is valid
         setSummonerData(response.summoner_data);
         setIsLoading(false);
+        console.log(response)
       } else {
         console.log('Summoner info could not be fetched')
       }
     })
+    
   }
 
   useEffect(() => {
@@ -138,6 +138,7 @@ export default function username() {
                     render_rank('soloduo') : 
                     <img src="/loading_icon.gif" className={styles.loading_image}/>
                   }
+                  <h3 className={styles.rank_label}>{!isLoading ? `${summonerData.summoner_account_data.solo_winrate} % Winrate` : <></> }</h3>
 
                 </div>
               </div>
@@ -153,6 +154,8 @@ export default function username() {
                     render_rank('flex') : 
                     <img src="/loading_icon.gif" className={styles.loading_image}/>
                   }
+                  <h3 className={styles.rank_label}>{!isLoading ? `${summonerData.summoner_account_data.flex_winrate} % Winrate` : <></> }</h3>
+
 
                 </div>
               </div>

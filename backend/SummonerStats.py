@@ -10,7 +10,7 @@ def calculate_winrate(wins: int, losses: int):
     total_games = wins+losses
     win_ratio = wins/total_games
 
-    return win_ratio * 100
+    return round(win_ratio * 100, 1)
 
 def calculate_winrates(total_wins: int, total_losses: int, recent_wins: int, recent_losses: int):
     '''
@@ -19,9 +19,9 @@ def calculate_winrates(total_wins: int, total_losses: int, recent_wins: int, rec
     '''
     seasonal_wr = calculate_winrate(total_wins, total_losses)
     immediate_wr = calculate_winrate(recent_wins, recent_losses)
-    discrepancy = (seasonal_wr - immediate_wr) / seasonal_wr
+    discrepancy = ((seasonal_wr - immediate_wr) / seasonal_wr) * 100
 
-    return discrepancy * 100
+    return {'seasonal_winrate': seasonal_wr, 'immediate_winrate': immediate_wr, 'discrepancy': discrepancy}
 
 
 def calculate_average_ranks_for_match(rank_data: dict, queue_type: str):
