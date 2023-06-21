@@ -107,7 +107,7 @@ export default function username() {
   return (
     <div>
       <Head>
-        <title>{router.query.name}'s Statistics</title>
+        <title>{router.query.username}'s Statistics</title>
         <meta name="description" content="Elevate Your Game With Rift Watcher" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

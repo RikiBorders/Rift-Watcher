@@ -39,7 +39,8 @@ export default function SearchBar() {
       if (response['status']) { // check here if the response is valid
         router.push({
           pathname: "/summoners/"+searchTerm,
-          query: {region: selectedRegion}
+          query: {region: selectedRegion},
+          title: "halo reach"
         });
       } else {
         console.log('summoner not found or riot api key has expired')
