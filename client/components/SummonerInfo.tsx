@@ -59,7 +59,6 @@ export default function SummonerInfo(props: any) {
     }
 
     const render_icon = () => {
-        console.log(props.summonerData)
         if (props.summonerData){
         return (
             <img src={"http://ddragon.leagueoflegends.com/cdn/13.11.1/img/profileicon/"+props.summonerData.summoner_account_data.profileIcon+".png"} className={styles.profile_image}/>

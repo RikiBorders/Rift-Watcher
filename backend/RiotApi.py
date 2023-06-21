@@ -82,7 +82,7 @@ class Riot():
         '''
         summoner_data = self.__get_summoner_by_name(summoner_name, region)
         # If status == 0, then a summoner could not be found
-        if 'status' in summoner_data:
+        if 'status' in summoner_data and not summoner_data['status']:
             return {'status': 0, 'summoner_data': None}
         
         else:
@@ -98,10 +98,22 @@ class Riot():
             parsed_account_data['solo_winrate'] = solo_winrate
             parsed_account_data['flex_winrate'] = flex_winrate
             
-            match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
-            user_data = {'summoner_account_data': parsed_account_data, 'match_history': match_history}
+            user_data = {'summoner_account_data': parsed_account_data}
 
             return {'status': 1, 'summoner_data': user_data}
+    
+    def get_summoner_matches(self, summoner_name: str, region: str):
+        '''
+        Get a list of matches for a given summoner (not just match IDs)
+        '''
+        summoner_data = self.__get_summoner_by_name(summoner_name, region)
+        # If status == 0, then a summoner could not be found
+        if 'status' in summoner_data and not summoner_data['status']:
+            return {'status': 0, 'summoner_data': None}
+        
+        else:
+            match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
+            return match_history
 
     def get_summoner_profiles_from_match(self, match: dict, region: str):
         '''
@@ -109,6 +121,10 @@ class Riot():
         
         Note: This function will return a DICTIONARY where key = teamID and value = list of summoners on that particular team
         '''
+        if not match['info']: 
+            print('ISSUE:')
+            print(match)
+        
         summoner_teams = {}
         for participant in match['info']['participants']:
             summoner_name = participant['summonerName']

@@ -93,7 +93,6 @@ export default function username() {
       if (response['status']) { // check here if the response is valid
         setSummonerData(response.summoner_data);
         setIsLoading(false);
-        console.log(response)
       } else {
         console.log('Summoner info could not be fetched')
       }
@@ -123,7 +122,10 @@ export default function username() {
               router_query={router.query} 
               summonerData={summonerData} 
             />
-            <MatchHistory/>
+            <MatchHistory 
+              username={router.query.username} 
+              region={router.query.region} 
+            />
           </div>
         }
 

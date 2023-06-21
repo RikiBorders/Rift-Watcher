@@ -246,11 +246,12 @@ def get_division(lp_value, minimum, maximum, tier_4, tier_3, tier_2):
         return None # Values are invalid 
 
 
-def get_match_statistics(riot_api: object, summoner_profile: dict, region: str):
+def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     '''
     Calculate and return statistics for each match in a player's match history.
+    This process is very slow (20+ seconds)
     '''
-    match_history = summoner_profile['summoner_data']['match_history']
+    match_history = riot_api.get_summoner_matches(summoner_name, region)
     historical_match_data = {}
 
     for i in range(5): # Fetch the last 5 matches (this should be updated later. details in ticket)
@@ -264,5 +265,4 @@ def get_match_statistics(riot_api: object, summoner_profile: dict, region: str):
     return historical_match_data
 
 
-if __name__ == "__main__":
-    print('Summoner stats file. To test the functions in this file, please use the tests.py file')
+# Summoner stats file. To test the functions in this file, please use the tests.py file

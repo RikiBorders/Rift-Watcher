@@ -21,21 +21,27 @@ def get_summoner():
     if not query:
         return {'status': 0, 'summoner_data': None}
     else:
-
         summoner_profile = riot_api.get_summoner_profile(query['username'], query['region'])
         if not summoner_profile['status']:
             return {}, 404
         else:
             summoner_profile = summoner_profile['summoner_data']
 
-        match_stats = None
-        # match_stats = get_match_statistics(riot_api, summoner_profile, query['region']) # VERY DANGEROUS, PASSING THE API IS BAD. also verrrry slow
         response = {
             'status': 1, 
             'summoner_data': summoner_profile, 
-            'match_stats': match_stats
         }
         return response, 200
+    
+@app.route("/get_match_data", methods=['POST'])
+def get_match_data():
+    '''
+    Get match history + statistics for a given summoner
+    '''
+    query = request.get_json()
+    match_history = get_match_statistics(riot_api, query['username'], query['region']) # VERY DANGEROUS, PASSING THE API IS BAD.
+    response = {'status': 1, 'match_history': match_history}
+    return response, 201
 
 @app.route("/summoner_exists_by_name", methods=['POST'])
 def summoner_exists_by_name():

@@ -14,8 +14,7 @@ def TEST_get_match_statistics():
     '''
     region = 'NA'
     summoner_name = 'SL1MEBALL'
-    summoner_profile = riot_api.get_summoner_profile(summoner_name, region)
-    stats = get_match_statistics(riot_api, summoner_profile, region)
+    stats = get_match_statistics(riot_api, summoner_name, region)
     print(stats)
     
 def TEST_calculate_average_ranks():
@@ -26,7 +25,7 @@ def TEST_calculate_average_ranks():
     summoner_name = 'PRIDEKITTEN'
 
     summoner_data = riot_api.get_summoner_profile(summoner_name, region)
-    match = summoner_data['summoner_data']['match_history'][0]
+    match = riot_api.get_summoner_matches(summoner_name, region)
     summoners_teams = riot_api.get_summoner_profiles_from_match(match, region)
     averages = calculate_average_ranks_for_match(summoners_teams, 'soloduo')
     print(averages)
