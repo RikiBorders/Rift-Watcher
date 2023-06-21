@@ -82,8 +82,7 @@
     background-color: #212A3E;
     width: fit-content;
     border-radius: 15px;
-    padding-left: 2vh;
-    padding-right: 2vh;
+    padding: 3vh;
     margin-bottom: 1vh;
     box-shadow: 3px 7px 7px;
 }
