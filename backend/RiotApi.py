@@ -8,7 +8,7 @@ class Riot():
             "Accept-Language": "en-US,en;q=0.5",
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
             "Origin": "https://developer.riotgames.com",                 # update the below 'riot token' key before launch
-            "X-Riot-Token": 'RGAPI-bf75b572-de14-42c6-a309-4e752fb2b239' # API KEY FROM .ENV SHOULD GO HERE
+            "X-Riot-Token": 'RGAPI-00596e31-bc7d-4d65-9050-94e330f80a88' # API KEY FROM .ENV SHOULD GO HERE
         }
         self.regions = {
             "NA" : "na1",

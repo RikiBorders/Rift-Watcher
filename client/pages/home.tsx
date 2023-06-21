@@ -17,7 +17,6 @@ export default function Home() {
       <Head>
         <title>Home</title>
         <meta name="description" content="Elevate Your Game With Rift Watcher" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.page_body}>

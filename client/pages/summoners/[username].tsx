@@ -109,7 +109,6 @@ export default function username() {
       <Head>
         <title>{router.query.username}'s Statistics</title>
         <meta name="description" content="Elevate Your Game With Rift Watcher" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.page_body}>
