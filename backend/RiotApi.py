@@ -155,7 +155,6 @@ class Riot():
         '''
         Get the last 20 games for the given player. This function takes a while to complete
         '''
-
         if (region in ['NA', 'BR', 'LAN', 'LAS']):
             routing_value = "AMERICAS"
         elif (region in ['KR', 'JP']):
@@ -167,6 +166,7 @@ class Riot():
 
         url = f"https://{routing_value}.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids"
         match_ids = requests.get(url, headers=self.request_headers).json()
+        print(f'Number of Matches: {len(match_ids)}')
         
         matches = []
         for match_id in match_ids:

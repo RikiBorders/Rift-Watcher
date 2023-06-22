@@ -34,7 +34,6 @@ export default function MatchHistory(props: any) {
 
     useEffect(() => {
         console.log('fetching...')
-
         fetch_match_data()
     })
     return (

@@ -116,7 +116,7 @@ export default function username() {
         <NavBar/>
         
         {isLoading ? 
-          <img src="/loading_icon.gif" className={styles.loading_image}/> :
+          <img src="/teemo_loading_icon.gif" className={styles.loading_image}/> :
           <div>
             <SummonerInfo 
               router_query={router.query} 
