@@ -166,7 +166,6 @@ class Riot():
 
         url = f"https://{routing_value}.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids"
         match_ids = requests.get(url, headers=self.request_headers).json()
-        print(f'Number of Matches: {len(match_ids)}')
         
         matches = []
         for match_id in match_ids:

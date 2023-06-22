@@ -254,14 +254,15 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     match_history = riot_api.get_summoner_matches(summoner_name, region)
     historical_match_data = {}
 
-    for i in range(5): # Fetch the last 5 matches (this should be updated later. details in ticket)
+    print("number of games: 3")
+    for i in range(3): # Fetch the last 3 matches (this should be updated later. details in ticket)
         match = match_history[i]
         summoners_teams = riot_api.get_summoner_profiles_from_match(match, region)
         per_minute_stats = calculate_per_minute_stats(match)
         average_ranks = calculate_average_ranks_for_match(summoners_teams, 'soloduo')
 
         historical_match_data[match['metadata']['matchId']] = {'per_minute_stats': per_minute_stats, 'average_ranks': average_ranks}
-    
+        
     return historical_match_data
 
 
