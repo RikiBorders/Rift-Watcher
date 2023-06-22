@@ -35,14 +35,14 @@ export default function MatchHistory(props: any) {
     useEffect(() => {
         console.log('fetching...')
         fetch_match_data()
-    })
+    }, []);
     return (
         <div className={styles.container}>
             <h1 className={styles.header_text}>Match History</h1>
             {
-                isLoading ? 
-                <img src="/loading_icon.gif" className={styles.loading_image}/> :
-                <p>Loaded</p>
+              isLoading ? 
+              <img src="/loading_icon.gif" className={styles.loading_image}/> :
+              <p>Loaded</p>
             }
         </div>
     )

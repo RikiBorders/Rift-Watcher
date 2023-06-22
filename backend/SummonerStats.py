@@ -129,8 +129,10 @@ def lp_to_rank(lp_value):
     return f'{rank} {division}'
 
 
-def calculate_per_minute_stats(match: dict):
-    player_list = get_match_participants(match)
+def calculate_player_stats(match: dict, player_list: list):
+    '''
+    calculate stats per player
+    '''
     player_stats = {}
     if not match['info']['gameEndTimestamp']:
         total_match_time = (match['info']['gameDuration'] * 1000) / 60 # convert milliseconds (per riot docs) to minutes
@@ -143,7 +145,7 @@ def calculate_per_minute_stats(match: dict):
             'deaths_pm': int(player['deaths']),
             'kills_pm': int(player['kills']),
             'gold_earned_pm': int(player['goldEarned']),
-            'total_minions_killed_pm': int(player['totalMinionsKilled']),
+            'cs_pm': int(player['totalMinionsKilled']),
             'turret_kills_pm': int(player['turretKills']),
             'vision_score_pm': int(player['visionScore']),
             'wards_killed_pm': int(player['wardsKilled']),
@@ -153,7 +155,15 @@ def calculate_per_minute_stats(match: dict):
         for key in per_minute_stats:
             per_minute_stats[key] = per_minute_stats[key] / total_match_time
 
-        player_stats[player['summonerName']] = per_minute_stats
+        player_stats[player['summonerName']] = {
+            'per_minute_stats': per_minute_stats,
+            'position': player['teamPosition'],
+            'kills': player['kills'],
+            'deaths': player['deaths'],
+            'assists': player['assists'],
+            'champion': player['championName'],
+            'win': player['win']
+        }
 
     return player_stats # key = player identifier (summonerName), val = dict of stats
 
@@ -248,22 +258,77 @@ def get_division(lp_value, minimum, maximum, tier_4, tier_3, tier_2):
 
 def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     '''
-    Calculate and return statistics for each match in a player's match history.
+    Calculate and return statistics (AND OTHER DATA WE WILL DISPLAY) for each match in a player's match history.
     This process is very slow (20+ seconds)
     '''
     match_history = riot_api.get_summoner_matches(summoner_name, region)
     historical_match_data = {}
 
-    print("number of games: 3")
-    for i in range(3): # Fetch the last 3 matches (this should be updated later. details in ticket)
+    print("number of games: 2")
+    for i in range(2): # Fetch the last 3 matches (this should be updated later. details in ticket)
         match = match_history[i]
+        # Match data
         summoners_teams = riot_api.get_summoner_profiles_from_match(match, region)
-        per_minute_stats = calculate_per_minute_stats(match)
+        player_list = get_match_participants(match)
+        player_stats = calculate_player_stats(match, player_list)
         average_ranks = calculate_average_ranks_for_match(summoners_teams, 'soloduo')
+        if not match['info']['gameEndTimestamp']:
+            total_match_time = (match['info']['gameDuration'] * 1000) / 60 # convert milliseconds (per riot docs) to minutes
+        else:
+            total_match_time = (match['info']['gameDuration']) / 60 # convert seconds to minutes
+        queue_type = get_queue_type(match['info']['queueId'])
 
-        historical_match_data[match['metadata']['matchId']] = {'per_minute_stats': per_minute_stats, 'average_ranks': average_ranks}
+        # Get information related to the target summoner
+        target_summoner_info = get_summoner_info_for_match(summoner_name, summoners_teams, player_list, match)
         
+        historical_match_data[match['metadata']['matchId']] = {
+            'player_stats': player_stats, 
+            'average_ranks': average_ranks, 
+            'match_length': total_match_time,
+            'target_summoner_info': target_summoner_info
+        }
+
+        print(f'match {i} fetched')
+
     return historical_match_data
+
+def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, player_list: list, match: dict):
+    '''
+    Get the information of a particular summoner. This is intended to be used with the
+    get_summoner_profiles_from_match function
+    '''
+    summoner_info = {}
+
+    for summoner in player_list:
+        if summoner_name == summoner['summonerName']:
+            summoner_info['champion'] = summoner['championName']
+
+
+    for team in summoners_teams.values():
+        for summoner in team:
+            if summoner['summoner_name'] == summoner_name:
+                # Get rank
+                if match['info']['queueId'] == 420:
+                    summoner_info['rank'] = summoner['solo_data']['rank']
+                elif match['info']['queueId'] == 440:
+                    summoner_info['rank'] = summoner['flex_data']['rank']
+                else:
+                    return 'No rank for this queue'
+
+    return summoner_info
+
+def get_queue_type(queueId: int):
+    '''
+    convert integer queue type to its integer representation
+    '''
+    if queueId == 420:
+        return 'soloduo'
+    elif queueId == 440:
+        return 'flex'
+    elif queueId == 450:
+        return 'aram'
+    else:
+        return 'unsupported gamemode'
 
 
 # Summoner stats file. To test the functions in this file, please use the tests.py file

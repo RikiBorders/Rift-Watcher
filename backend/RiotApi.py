@@ -8,7 +8,7 @@ class Riot():
             "Accept-Language": "en-US,en;q=0.5",
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
             "Origin": "https://developer.riotgames.com",                 # update the below 'riot token' key before launch
-            "X-Riot-Token": 'RGAPI-00596e31-bc7d-4d65-9050-94e330f80a88' # API KEY FROM .ENV SHOULD GO HERE
+            "X-Riot-Token": 'RGAPI-b0f76d90-56ce-4758-844b-6c2844c45ce9' # API KEY FROM .ENV SHOULD GO HERE
         }
         self.regions = {
             "NA" : "na1",
@@ -40,7 +40,6 @@ class Riot():
         '''
         url = f"https://{self.regions[region]}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}"
         summoner_info = requests.get(url, headers=self.request_headers)
-
         return summoner_info.json()
     
     def __get_league_data_by_summoner_id(self, summoner_id: str, region: str):
@@ -81,8 +80,9 @@ class Riot():
         This info is used on each player's page on rift watcher
         '''
         summoner_data = self.__get_summoner_by_name(summoner_name, region)
-        # If status == 0, then a summoner could not be found
-        if 'status' in summoner_data and not summoner_data['status']:
+        # If we have a status key, then there has been an error
+        if 'status' in summoner_data:
+            print(summoner_data['status'])
             return {'status': 0, 'summoner_data': None}
         
         else:
@@ -107,8 +107,9 @@ class Riot():
         Get a list of matches for a given summoner (not just match IDs)
         '''
         summoner_data = self.__get_summoner_by_name(summoner_name, region)
-        # If status == 0, then a summoner could not be found
-        if 'status' in summoner_data and not summoner_data['status']:
+        # If we have a status key, then there has been an error
+        if 'status' in summoner_data:
+            print(summoner_data['status'])
             return {'status': 0, 'summoner_data': None}
         
         else:
@@ -121,10 +122,6 @@ class Riot():
         
         Note: This function will return a DICTIONARY where key = teamID and value = list of summoners on that particular team
         '''
-        if not match['info']: 
-            print('ISSUE:')
-            print(match)
-        
         summoner_teams = {}
         for participant in match['info']['participants']:
             summoner_name = participant['summonerName']
@@ -133,7 +130,6 @@ class Riot():
                 summoner_teams[team_id] = [self.__get_summoner_by_name(summoner_name, region)]
             else:
                 summoner_teams[team_id].append(self.__get_summoner_by_name(summoner_name, region))
-
         summoner_accounts = {}
         for teamId in summoner_teams.keys():
             summoner_accounts[teamId] = []
@@ -147,6 +143,7 @@ class Riot():
 
                 account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
                 parsed_account_data = self.__parse_account_data(account_data)
+                parsed_account_data['summoner_name'] = summoner_data['name']
                 summoner_accounts[teamId].append(parsed_account_data)
         
         return summoner_accounts
@@ -181,7 +178,6 @@ class Riot():
         '''
         url = f"https://{self.regions[region]}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}"
         summoner_data = requests.get(url, headers=self.request_headers).json()
-
         if 'status' in summoner_data:
             return {'status': 0, 'summoner_data': None}
         else:
@@ -199,6 +195,7 @@ class Riot():
         summoner_data = requests.get(url, headers=self.request_headers).json()
 
         if 'status' in summoner_data:
+            print(summoner_data['status'])
             return {'status': 0, 'summoner_data': None}
         else:
             return {'status': 1, 'summoner_data': None}
@@ -249,8 +246,9 @@ class Riot():
         This info is used on each player's page on rift watcher
         '''
         meta_summoner_data = self.__get_tft_summoner_by_name(summoner_name, region)
-        # If status == 0, then a summoner could not be found
+        # If we have a status key, then there has been an error
         if 'status' in meta_summoner_data:
+            print(meta_summoner_data['status'])
             return {'status': 0, 'meta_summoner_data': None}
         
         else:
