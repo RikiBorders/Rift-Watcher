@@ -301,7 +301,7 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
     summoner_info = {}
 
     for summoner in player_list:
-        if summoner_name == summoner['summonerName']:
+        if summoner_name.upper() == summoner['summonerName'].upper():
             summoner_info['champion'] = summoner['championName']
             summoner_info['position'] = summoner['teamPosition']
             summoner_info['win'] = summoner['win']

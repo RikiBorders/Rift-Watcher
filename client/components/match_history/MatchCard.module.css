@@ -1,5 +1,5 @@
 .card_container {
-    margin-bottom: 2vh;
+    margin-bottom: 3vh;
 }
 
 .meta_section{
@@ -69,7 +69,7 @@
 
 .win_icon {
     text-align: center;
-    margin: 0;
+    margin: auto;
     padding-left: 4px;
     padding-right: 4px;
     width: fit-content;

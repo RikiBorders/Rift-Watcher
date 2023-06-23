@@ -92,10 +92,9 @@ export default function SummonerInfo(props: any) {
                 <div className={styles.rank}>
                     <h3 className={styles.rank_label}>Flex Rank:</h3>
                     <div className={styles.rank_data}>
-                    {render_rank_icon(props.summonerData.summoner_account_data.flex_data.rank[0])}
-                    {render_rank('flex')}
-                    <h3 className={styles.rank_label}>{`${props.summonerData.summoner_account_data.flex_winrate} % Winrate`}</h3>
-
+                        {render_rank_icon(props.summonerData.summoner_account_data.flex_data.rank[0])}
+                        {render_rank('flex')}
+                        <h3 className={styles.rank_label}>{`${props.summonerData.summoner_account_data.flex_winrate} % Winrate`}</h3>
 
                     </div>
                 </div>
