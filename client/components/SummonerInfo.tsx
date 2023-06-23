@@ -4,26 +4,27 @@ import styles from "./SummonerInfo.module.css"
 export default function SummonerInfo(props: any) {
 
     const render_rank_icon = (summoner_rank: string) => {
+        // this can be refactored pretty easily. Fix this before launch
         const rank = summoner_rank.toLowerCase();
         let ranked_icon = (<></>)
         if (rank.includes("iron")) {
-        ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-iron.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-iron.png" />)
         } else if (rank.includes("bronze")){
-        ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-bronze.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-bronze.png" />)
         } else if (rank.includes("silver")){
-        ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-silver.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-silver.png" />)
         } else if (rank.includes("gold")){
-        ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" />)
         } else if (rank.includes("platinum")){
-        ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" />)
         } else if (rank.includes("diamond")){
-        ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" />)
         } else if (rank.includes("master")){
-        ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-master.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-master.png" />)
         } else if (rank.includes("grandmaster")){
-        ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-grandmaster.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-grandmaster.png" />)
         } else if (rank.includes("challenger")){
-        ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-challenger.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-challenger.png" />)
         }
         return ranked_icon
     }  

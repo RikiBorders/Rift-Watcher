@@ -1,9 +1,20 @@
 import React, { use, useState, useEffect } from 'react';
 import styles from "./MatchHistory.module.css";
+import MatchCard from "@/components/match_history/MatchCard";
 
 export default function MatchHistory(props: any) {
     const [isLoading, setIsLoading] = useState(true);
-    const [matchData, setMatchData] = useState([]);
+    const [matchData, setMatchData] = useState<any>({});
+
+    const render_matches = () => {
+      console.log(matchData)
+      
+      return (
+        matchData.map((match: any) => (
+          <MatchCard match_data={match}/>
+        ))
+
+    )}
 
     const fetch_match_data = () => {
         const searchTerm = props.username;
@@ -22,8 +33,7 @@ export default function MatchHistory(props: any) {
         ).then( response => {
     
           if (response['status']) { // check here if the response is valid
-            setMatchData(response);
-            console.log(response)
+            setMatchData(response.match_history);
             setIsLoading(false);
           } else {
             console.log('Match Data could not be fetched')
@@ -33,7 +43,6 @@ export default function MatchHistory(props: any) {
       }
 
     useEffect(() => {
-        console.log('fetching...')
         fetch_match_data()
     }, []);
     return (
@@ -41,8 +50,8 @@ export default function MatchHistory(props: any) {
             <h1 className={styles.header_text}>Match History</h1>
             {
               isLoading ? 
-              <img src="/loading_icon.gif" className={styles.loading_image}/> :
-              <p>Loaded</p>
+              (<img src="/loading_icon.gif" className={styles.loading_image}/>) :
+              render_matches()
             }
         </div>
     )

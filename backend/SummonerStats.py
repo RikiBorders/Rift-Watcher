@@ -262,7 +262,7 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     This process is very slow (20+ seconds)
     '''
     match_history = riot_api.get_summoner_matches(summoner_name, region)
-    historical_match_data = {}
+    historical_match_data = []
 
     print("number of games: 2")
     for i in range(2): # Fetch the last 3 matches (this should be updated later. details in ticket)
@@ -281,12 +281,13 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
         # Get information related to the target summoner
         target_summoner_info = get_summoner_info_for_match(summoner_name, summoners_teams, player_list, match)
         
-        historical_match_data[match['metadata']['matchId']] = {
+        historical_match_data.append({
             'player_stats': player_stats, 
             'average_ranks': average_ranks, 
             'match_length': total_match_time,
-            'target_summoner_info': target_summoner_info
-        }
+            'target_summoner_info': target_summoner_info,
+            'queue_type': queue_type
+        })
 
         print(f'match {i} fetched')
 
@@ -302,11 +303,14 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
     for summoner in player_list:
         if summoner_name == summoner['summonerName']:
             summoner_info['champion'] = summoner['championName']
+            summoner_info['position'] = summoner['teamPosition']
+            summoner_info['win'] = summoner['win']
 
 
     for team in summoners_teams.values():
         for summoner in team:
             if summoner['summoner_name'] == summoner_name:
+
                 # Get rank
                 if match['info']['queueId'] == 420:
                     summoner_info['rank'] = summoner['solo_data']['rank']
@@ -322,11 +326,11 @@ def get_queue_type(queueId: int):
     convert integer queue type to its integer representation
     '''
     if queueId == 420:
-        return 'soloduo'
+        return 'Ranked Solo'
     elif queueId == 440:
-        return 'flex'
+        return 'Ranked Flex'
     elif queueId == 450:
-        return 'aram'
+        return 'Aram'
     else:
         return 'unsupported gamemode'
 
