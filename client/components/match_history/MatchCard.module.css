@@ -102,6 +102,14 @@
     display: block;
 }
 
+.team_stats_container{
+    display: block;
+}
+
+.team_header_data {
+
+}
+
 .team_header {
     display: flex;
     column-gap: 1.7vw;
@@ -114,4 +122,8 @@
     margin: 0;
     cursor: default;
     -webkit-user-drag: none;
+}
+
+.player_card_container {
+    display: flex;
 }

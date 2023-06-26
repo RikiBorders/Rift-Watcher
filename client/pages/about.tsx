@@ -34,7 +34,6 @@ export default function About() {
       <Head>
         <title>About</title>
         <meta name="description" content="About Rift Watcher" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       
       <div className={scrollEnabled ? styles.page_body : styles.disabled_scroll}>

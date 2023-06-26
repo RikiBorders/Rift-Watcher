@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from "./MatchCard.module.css";
 
 export default function MatchCard(props: any) {
+    const [team1Stats, setTeam1Stats] = useState<any>([]);
+    const [team2Stats, setTeam2Stats] = useState<any>([]);
+
 
     const toTitleCase = (string: string) => {
         return string.replace(
@@ -110,7 +113,7 @@ export default function MatchCard(props: any) {
     const get_team_data = () => {
         let team_1: Array<any> = [];
         let team_2: Array<any> = [];
-        const stats: any = props.match_data.player_stats
+        const stats: any = props.match_data.player_stats;
         for (const name in stats){
             const id = stats[name]['team_id'];
             if (id == 100){
@@ -119,8 +122,29 @@ export default function MatchCard(props: any) {
                 team_2.push(stats[name])
             }
         }
+        setTeam1Stats(team_1);
+        setTeam1Stats(team_2);
+    }
 
-        console.log(team_1)
+    const render_team_stats = (team: Array<any>) => {
+
+        return (
+            <div className={styles.team_stats_container}>
+                {
+                    team.map((player_data: any) => (
+                        <div className={styles.player_card_container}>
+                            <h3 className={styles.player_name}>{player_data.name}</h3>
+                            <p className={styles.player_card_text}></p>
+                            <p className={styles.player_card_text}></p>
+                            <p className={styles.player_card_text}></p>
+                            <p className={styles.player_card_text}></p>
+                            <p className={styles.player_card_text}></p>
+
+                        </div>
+                    ))
+                }
+            </div>
+        )
     }
 
     const render_match_info = () => {
@@ -137,6 +161,8 @@ export default function MatchCard(props: any) {
                         <h4 className={styles.team_header_text}>Barons Taken</h4>
                     </div>
                     <div className={styles.team_header_data}>
+                        {render_team_stats(team1Stats)}
+                        {render_team_stats(team2Stats)}
 
                     </div>
                 </div>
