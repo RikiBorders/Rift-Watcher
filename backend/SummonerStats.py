@@ -283,7 +283,6 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
         player_list = get_match_participants(match)
         player_stats = calculate_player_stats(match, player_list)
         average_ranks = calculate_average_ranks_for_match(summoners_teams, 'soloduo') # average rank per team is here
-        print(player_stats)
         if not match['info']['gameEndTimestamp']:
             total_match_time = (match['info']['gameDuration'] * 1000) / 60 # convert milliseconds (per riot docs) to minutes
         else:
