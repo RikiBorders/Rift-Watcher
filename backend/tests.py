@@ -15,7 +15,7 @@ def TEST_get_match_statistics():
     region = 'NA'
     summoner_name = 'SL1MEBALL'
     stats = get_match_statistics(riot_api, summoner_name, region)
-    print(stats)
+    # print(stats)
     
 def TEST_calculate_average_ranks():
     '''

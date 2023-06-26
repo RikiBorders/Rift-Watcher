@@ -145,11 +145,9 @@ def calculate_player_stats(match: dict, player_list: list):
             'deaths_pm': int(player['deaths']),
             'kills_pm': int(player['kills']),
             'gold_earned_pm': int(player['goldEarned']),
-            'cs_pm': int(player['totalMinionsKilled']),
-            'turret_kills_pm': int(player['turretKills']),
             'vision_score_pm': int(player['visionScore']),
             'wards_killed_pm': int(player['wardsKilled']),
-            'ward_placed_pm': int(player['wardsPlaced'])
+            'ward_placed_pm': int(player['wardsPlaced']),
         }
 
         for key in per_minute_stats:
@@ -162,7 +160,20 @@ def calculate_player_stats(match: dict, player_list: list):
             'deaths': player['deaths'],
             'assists': player['assists'],
             'champion': player['championName'],
-            'win': player['win']
+            'win': player['win'],
+            'team_id': player['teamId'],
+
+            'dragons_taken': int(player['dragonKills']),
+            'barons_taken': int(player['baronKills']),
+            'dragons_taken': int(player['dragonKills']),
+            'turrets_destroyed': int(player['turretKills']),
+            'total_damage_dealt_to_turrets': int(player['damageDealtToTurrets']),
+            'total_cs': int(player['totalMinionsKilled']),
+            'total_gold_earned': int(player['goldEarned']),
+            'total_gold_spent': int(player['goldSpent']),
+            'total_damage_dealt': int(player['totalDamageDealt']),
+            'total_damage_dealt_to_champs': int(player['totalDamageDealtToChampions']),
+            'total_damage_taken': int(player['totalDamageTaken']),
         }
 
     return player_stats # key = player identifier (summonerName), val = dict of stats
@@ -271,7 +282,8 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
         summoners_teams = riot_api.get_summoner_profiles_from_match(match, region)
         player_list = get_match_participants(match)
         player_stats = calculate_player_stats(match, player_list)
-        average_ranks = calculate_average_ranks_for_match(summoners_teams, 'soloduo')
+        average_ranks = calculate_average_ranks_for_match(summoners_teams, 'soloduo') # average rank per team is here
+        print(player_stats)
         if not match['info']['gameEndTimestamp']:
             total_match_time = (match['info']['gameDuration'] * 1000) / 60 # convert milliseconds (per riot docs) to minutes
         else:
@@ -292,6 +304,7 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
         print(f'match {i} fetched')
 
     return historical_match_data
+
 
 def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, player_list: list, match: dict):
     '''
