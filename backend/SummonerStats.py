@@ -154,6 +154,7 @@ def calculate_player_stats(match: dict, player_list: list):
             per_minute_stats[key] = per_minute_stats[key] / total_match_time
 
         player_stats[player['summonerName']] = {
+            'name': player['summonerName'],
             'per_minute_stats': per_minute_stats,
             'position': player['teamPosition'],
             'kills': player['kills'],

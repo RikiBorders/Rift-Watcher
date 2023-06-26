@@ -107,10 +107,27 @@ export default function MatchCard(props: any) {
         )
     }
 
+    const get_team_data = () => {
+        let team_1: Array<any> = [];
+        let team_2: Array<any> = [];
+        const stats: any = props.match_data.player_stats
+        for (const name in stats){
+            const id = stats[name]['team_id'];
+            if (id == 100){
+                team_1.push(stats[name])
+            } else{
+                team_2.push(stats[name])
+            }
+        }
+
+        console.log(team_1)
+    }
+
     const render_match_info = () => {
+        const teams = get_team_data()
         return (
             <div className={styles.match_info_section}>
-                <div className={styles.winning_team_section}>
+                <div className={styles.team_1_section}>
                     <div className={styles.team_header}>
                         <h4 className={styles.team_header_text}>Team 1</h4>
                         <h4 className={styles.team_header_text}>Average Rank</h4>
@@ -118,6 +135,8 @@ export default function MatchCard(props: any) {
                         <h4 className={styles.team_header_text}>Turrets Destroyed</h4>
                         <h4 className={styles.team_header_text}>Dragons Taken</h4>
                         <h4 className={styles.team_header_text}>Barons Taken</h4>
+                    </div>
+                    <div className={styles.team_header_data}>
 
                     </div>
                 </div>

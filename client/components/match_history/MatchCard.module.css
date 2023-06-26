@@ -98,6 +98,10 @@
 
 /* Match info styles */
 
+.team_1_section {
+    display: block;
+}
+
 .team_header {
     display: flex;
     column-gap: 1.7vw;
