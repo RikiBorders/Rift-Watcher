@@ -1,9 +1,13 @@
-import Image from 'next/image'
+'use client'
+
+import { BrowserRouter, Navigate } from "react-router-dom";
 
 export default function Home() {
   return (
    <div>
-    <h1>index page</h1>
+    <BrowserRouter>
+      <Navigate to="/home" replace={true}/>
+    </BrowserRouter>
    </div>
   )
 }

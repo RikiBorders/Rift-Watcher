@@ -50,11 +50,11 @@ export default function MatchCard(props: any) {
     const render_win = () => {
         if (props.match_data.target_summoner_info.win){
             return (
-                <p className={styles.win_icon}>W</p>
+                <p className={styles.win_icon}>Victory</p>
             )
         } else {
             return (
-                <p className={styles.loss_icon}>L</p>
+                <p className={styles.loss_icon}>Defeat</p>
             )
         }
 
@@ -63,7 +63,12 @@ export default function MatchCard(props: any) {
     const render_meta_info = () => {
         console.log(props)
         return(
-            <div className={styles.meta_section}>
+            <div style={{
+                display: "flex",
+                columnGap: "2vw",
+                backgroundPosition: "center",
+                backgroundImage: `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${toTitleCase(props.match_data.target_summoner_info.champion)}_0.jpg`
+            }}>
                 <div className={styles.meta_summoner_info_section_left}>
                     <h2 className={styles.gamemode_text}>
                         {props.match_data.queue_type}
