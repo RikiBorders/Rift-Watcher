@@ -1,4 +1,4 @@
-import React, { use, useState, useEffect } from 'react';
+import React from 'react';
 import styles from "./MatchCard.module.css";
 
 export default function MatchCard(props: any) {
@@ -89,13 +89,18 @@ export default function MatchCard(props: any) {
                 <div className={styles.meta_summoner_info_section_right}>
                     {render_win()}
                     {render_position_icon()}
-                    <div className={styles.rank}>
-                        {render_rank_icon()}
-                        <p className={styles.meta_summoner_text}>
-                            {props.match_data.target_summoner_info.rank}
-                        </p>
-                        <p className={styles.sub_header}>Avg Rank</p>
-                    </div>
+                    {
+                    props.match_data.queue_type == "Ranked Solo" || 
+                    props.match_data.queue_type == "Ranked Flex" ?
+                        <div className={styles.rank}>
+                            {render_rank_icon()}
+                            <p className={styles.meta_summoner_text}>
+                                {props.match_data.target_summoner_info.rank}
+                            </p>
+                            <p className={styles.sub_header}>Avg Rank</p>
+                        </div> :
+                       <img className={styles.unranked_icon} src="/ranked_icons/unranked.png" />
+                    }
 
                 </div>
             </div>
@@ -105,9 +110,22 @@ export default function MatchCard(props: any) {
     const render_match_info = () => {
         return (
             <div className={styles.match_info_section}>
+                <div className={styles.winning_team_section}>
+                    <div className={styles.team_header}>
+                        <h4 className={styles.team_header_text}>Team 1</h4>
+                        <h4 className={styles.team_header_text}>Average Rank</h4>
+                        <h4 className={styles.team_header_text}>Total Gold</h4>
+                        <h4 className={styles.team_header_text}>Turrets Destroyed</h4>
+                        <h4 className={styles.team_header_text}>Dragons Taken</h4>
+                        <h4 className={styles.team_header_text}>Barons Taken</h4>
 
+                    </div>
+                </div>
+
+                <div className={styles.losing_team_section}>
+                    
+                </div>
             </div>
-
         )
     }
 
@@ -115,7 +133,6 @@ export default function MatchCard(props: any) {
         <div className={styles.card_container}>
             {render_meta_info()}
             {render_match_info()}
-
         </div>
     )
 }

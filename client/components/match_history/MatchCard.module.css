@@ -1,5 +1,6 @@
 .card_container {
     margin-bottom: 3vh;
+    display: flex
 }
 
 .meta_section{
@@ -9,7 +10,6 @@
 
 .meta_summoner_info_section_left {
     text-align: left;
-
 }
 
 .meta_summoner_info_section_right {
@@ -55,8 +55,13 @@
 
 .ranked_icon {
     margin-top: 1vh;
-
     height: 40px;
+    width: 55px; 
+}
+
+.unranked_icon {
+    margin-top: 1vh;
+    height: 50px;
     width: 55px; 
 }
 
@@ -88,4 +93,20 @@
     border-color: #e60303;
     border-style: solid;
     border-width: 2px;
+}
+
+
+/* Match info styles */
+
+.team_header {
+    display: flex;
+}
+
+.team_header_text {
+    color: #F0F4F8;
+    font-family: sans-serif;
+    font-size: 1vh;
+    margin: 0;
+    cursor: default;
+    -webkit-user-drag: none;
 }

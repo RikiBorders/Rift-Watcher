@@ -317,7 +317,7 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
                 elif match['info']['queueId'] == 440:
                     summoner_info['rank'] = summoner['flex_data']['rank']
                 else:
-                    return 'No rank for this queue'
+                    summoner_info['rank'] = 'N/A'
 
     return summoner_info
 
@@ -325,8 +325,12 @@ def get_queue_type(queueId: int):
     '''
     convert integer queue type to its integer representation
     '''
-    if queueId == 420:
+    if queueId == 400:
+        return 'Draft Pick'
+    elif queueId == 420:
         return 'Ranked Solo'
+    elif queueId == 440:
+        return 'Blind Pick'
     elif queueId == 440:
         return 'Ranked Flex'
     elif queueId == 450:
