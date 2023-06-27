@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from "./MatchCard.module.css";
 
 export default function MatchCard(props: any) {
-    const [team1Stats, setTeam1Stats] = useState<any>([]);
-    const [team2Stats, setTeam2Stats] = useState<any>([]);
+    let team1Stats = {
+        total_kills: 0,
+        total_gold: 0,
+        turrets_destroyed: 0,
+        dragons_taken: 0,
+        barons_taken: 0,
+    };
+    const [team1Players, setTeam1Players] = useState<any>([]);
+    let team2Stats = {
+        total_kills: 0,
+        total_gold: 0,
+        turrets_destroyed: 0,
+        dragons_taken: 0,
+        barons_taken: 0,
+    };
+    const [team2Players, setTeam2Players] = useState<any>([]);
+
 
 
     const toTitleCase = (string: string) => {
@@ -69,8 +84,6 @@ export default function MatchCard(props: any) {
             <div style={{
                 display: "flex",
                 columnGap: "2vw",
-                backgroundPosition: "center",
-                backgroundImage: `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${toTitleCase(props.match_data.target_summoner_info.champion)}_0.jpg`
             }}>
                 <div className={styles.meta_summoner_info_section_left}>
                     <h2 className={styles.gamemode_text}>
@@ -86,6 +99,8 @@ export default function MatchCard(props: any) {
                         {`${Math.round(props.match_data.match_length)} Minutes`}
                     </p>
 
+                    <button className={styles.player_stats_btn}>Player Stats</button>
+
 
                 </div>
 
@@ -97,7 +112,7 @@ export default function MatchCard(props: any) {
                     props.match_data.queue_type == "Ranked Flex" ?
                         <div className={styles.rank}>
                             {render_rank_icon()}
-                            <p className={styles.meta_summoner_text}>
+                            <p className={styles.meta_summoner_rank}>
                                 {props.match_data.target_summoner_info.rank}
                             </p>
                             <p className={styles.sub_header}>Avg Rank</p>
@@ -111,19 +126,33 @@ export default function MatchCard(props: any) {
     }
 
     const get_team_data = () => {
+        // Split players into their respective teams, while
+        // calculating team-specific stats
         let team_1: Array<any> = [];
         let team_2: Array<any> = [];
         const stats: any = props.match_data.player_stats;
+
         for (const name in stats){
             const id = stats[name]['team_id'];
             if (id == 100){
-                team_1.push(stats[name])
-            } else{
-                team_2.push(stats[name])
+                team_1.push(stats[name]);
+                team1Stats.total_kills += stats[name].kills;
+                team1Stats.total_gold += stats[name].total_gold_earned;
+                team1Stats.turrets_destroyed += stats[name].turrets_destroyed;
+                team1Stats.dragons_taken += stats[name].dragons_taken;
+                team1Stats.barons_taken += stats[name].barons_taken;
+
+                
+            } else {
+                team_2.push(stats[name]);
+                team2Stats.total_kills += stats[name].kills;
+                team2Stats.turrets_destroyed += stats[name].turrets_destroyed;
+                team2Stats.dragons_taken += stats[name].dragons_taken;
+                team2Stats.barons_taken += stats[name].barons_taken;
             }
         }
-        setTeam1Stats(team_1);
-        setTeam1Stats(team_2);
+        setTeam1Players(team_1);
+        setTeam1Players(team_2);
     }
 
     const render_team_stats = (team: Array<any>) => {
@@ -148,21 +177,37 @@ export default function MatchCard(props: any) {
     }
 
     const render_match_info = () => {
-        const teams = get_team_data()
+
         return (
-            <div className={styles.match_info_section}>
+            <div>
                 <div className={styles.team_1_section}>
                     <div className={styles.team_header}>
                         <h4 className={styles.team_header_text}>Team 1</h4>
-                        <h4 className={styles.team_header_text}>Average Rank</h4>
-                        <h4 className={styles.team_header_text}>Total Gold</h4>
-                        <h4 className={styles.team_header_text}>Turrets Destroyed</h4>
-                        <h4 className={styles.team_header_text}>Dragons Taken</h4>
-                        <h4 className={styles.team_header_text}>Barons Taken</h4>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Average Rank</h4>
+                            <p className={styles.team_stat_text}>{props.match_data.average_ranks.team_1_avg}</p>
+                        </div>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Total Gold</h4>
+                            <p className={styles.team_stat_text}>{team1Stats.total_gold}</p>
+                        </div>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Turrets Destroyed</h4>
+                            <p className={styles.team_stat_text}>{team1Stats.turrets_destroyed}</p>
+                        </div>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Dragons Taken</h4>
+                            <p className={styles.team_stat_text}>{team1Stats.dragons_taken}</p>
+                        </div>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Barons Taken</h4>
+                            <p className={styles.team_stat_text}>{team1Stats.barons_taken}</p>
+                        </div>
+
                     </div>
                     <div className={styles.team_header_data}>
-                        {render_team_stats(team1Stats)}
-                        {render_team_stats(team2Stats)}
+                        {render_team_stats(team1Players)}
+                        {render_team_stats(team2Players)}
 
                     </div>
                 </div>
@@ -174,6 +219,9 @@ export default function MatchCard(props: any) {
         )
     }
 
+    useEffect(() => {
+        get_team_data()
+    }, [])
     return (
         <div className={styles.card_container}>
             {render_meta_info()}
