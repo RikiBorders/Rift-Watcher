@@ -182,26 +182,32 @@ export default function MatchCard(props: any) {
 
         return (
             <div className={styles.team_stats_container}>
-                <div className={styles.player_section_header}>
-                    <h4 className={styles.player_Section_header_text}>KDA</h4>
-                    <h4 className={styles.player_Section_header_text}>CS</h4>
-                    <h4 className={styles.player_Section_header_text}>Damage</h4>
-                    <h4 className={styles.player_Section_header_text}>Vision</h4>
-                    <h4 className={styles.player_Section_header_text}>Build Info</h4>
-                </div>
-                {
-                    team.map((player_data: any) => (
-                        <div className={styles.player_card_container}>
-                            <h3 className={styles.player_name}>{player_data.name}</h3>
-                            <p className={styles.player_card_text}></p>
-                            <p className={styles.player_card_text}></p>
-                            <p className={styles.player_card_text}></p>
-                            <p className={styles.player_card_text}></p>
-                            <p className={styles.player_card_text}></p>
 
-                        </div>
-                    ))
-                }
+                <table style={{width: '100%'}}>
+                    <tr>
+                        <th className={styles.player_section_header_text}>Name</th>
+                        <th className={styles.player_section_header_text}>KDA</th>
+                        <th className={styles.player_section_header_text}>CS</th>
+                        <th className={styles.player_section_header_text}>Damage</th>
+                        <th className={styles.player_section_header_text}>Vision</th>
+                        <th className={styles.player_section_header_text}>Build Info</th>
+                    </tr>
+                    {
+                        team.map((player_data: any) => (
+                            <tr>
+                                <td className={styles.player_name} key={player_data}>{player_data.name}</td>
+                                <td className={styles.player_card_text} key={player_data}>
+                                    {`${player_data.kills}/${player_data.deaths}/${player_data.assists}`}
+
+                                </td>
+                                <td className={styles.player_card_text} key={player_data}>{player_data.total_cs}</td>
+                                <td className={styles.player_card_text} key={player_data}>{player_data.total_damage_dealt}</td>
+                                <td className={styles.player_card_text} key={player_data}>x</td>
+                                <td className={styles.player_card_text} key={player_data}>build info soon</td>
+                            </tr>
+                    ))}
+                </table>
+
             </div>
         )
     }
