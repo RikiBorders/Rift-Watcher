@@ -151,7 +151,7 @@ def calculate_player_stats(match: dict, player_list: list):
         }
 
         for key in per_minute_stats:
-            per_minute_stats[key] = per_minute_stats[key] / total_match_time
+            per_minute_stats[key] = round(per_minute_stats[key] / total_match_time, 1)
 
         player_stats[player['summonerName']] = {
             'name': player['summonerName'],
@@ -342,7 +342,7 @@ def get_queue_type(queueId: int):
         return 'Draft Pick'
     elif queueId == 420:
         return 'Ranked Solo'
-    elif queueId == 440:
+    elif queueId == 430:
         return 'Blind Pick'
     elif queueId == 440:
         return 'Ranked Flex'

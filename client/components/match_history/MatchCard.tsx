@@ -101,8 +101,10 @@ export default function MatchCard(props: any) {
                         {`${Math.round(props.match_data.match_length)} Minutes`}
                     </p>
 
-                    <button className={styles.player_stats_btn}>Player Stats</button>
-
+                    <div className={styles.button_div}>
+                        <button className={styles.player_stats_btn}>Player Stats</button>
+                        <button className={styles.player_stats_btn}>Match Stats</button>
+                    </div>
 
                 </div>
 
@@ -119,7 +121,10 @@ export default function MatchCard(props: any) {
                             </p>
                             <p className={styles.sub_header}>Avg Rank</p>
                         </div> :
-                       <img className={styles.unranked_icon} src="/ranked_icons/unranked.png" />
+                        <div className={styles.rank}>
+                            <img className={styles.unranked_icon} src="/ranked_icons/unranked.png" />
+                            <p className={styles.sub_header}>Unranked<br/>Gamemode</p>
+                        </div>
                     }
 
                 </div>
@@ -162,6 +167,7 @@ export default function MatchCard(props: any) {
             } else {
                 team_2.push(stats[name]);
                 new_team2_stats.total_kills += stats[name].kills;
+                new_team2_stats.total_gold += stats[name].total_gold_earned;
                 new_team2_stats.turrets_destroyed += stats[name].turrets_destroyed;
                 new_team2_stats.dragons_taken += stats[name].dragons_taken;
                 new_team2_stats.barons_taken += stats[name].barons_taken;
@@ -172,7 +178,7 @@ export default function MatchCard(props: any) {
         new_team2_stats.total_gold = num_to_string(new_team2_stats.total_gold)
 
         setTeam1Players(team_1);
-        setTeam1Players(team_2);
+        setTeam2Players(team_2);
         setTeam1Stats(new_team1_stats);
         setTeam2Stats(new_team2_stats);
 
@@ -193,17 +199,18 @@ export default function MatchCard(props: any) {
                         <th className={styles.player_section_header_text}>Build Info</th>
                     </tr>
                     {
-                        team.map((player_data: any) => (
+                        team.map((player_data: any, i: number) => (
                             <tr>
-                                <td className={styles.player_name} key={player_data}>{player_data.name}</td>
-                                <td className={styles.player_card_text} key={player_data}>
+                                <td className={styles.player_name} key={`${player_data.name}`+`${i}`}>{player_data.name}</td>
+                                <td className={styles.player_card_text} key={`${player_data.kills}`+`${i}`}>
                                     {`${player_data.kills}/${player_data.deaths}/${player_data.assists}`}
-
                                 </td>
-                                <td className={styles.player_card_text} key={player_data}>{player_data.total_cs}</td>
-                                <td className={styles.player_card_text} key={player_data}>{player_data.total_damage_dealt}</td>
-                                <td className={styles.player_card_text} key={player_data}>x</td>
-                                <td className={styles.player_card_text} key={player_data}>build info soon</td>
+                                <td className={styles.player_card_text} key={`${player_data.total_cs}`+`${i}`}>{player_data.total_cs}</td>
+                                <td className={styles.player_card_text} key={`${player_data.total_damage_dealt}`+`${i}`}>{player_data.total_damage_dealt}</td>
+                                <td className={styles.player_card_text} key={`${player_data.vision_score_pm}`+`${i}`}>
+                                    {`${player_data.per_minute_stats.vision_score_pm} p/m`}
+                                </td>
+                                <td className={styles.player_card_text}>build info soon</td>
                             </tr>
                     ))}
                 </table>
@@ -241,10 +248,39 @@ export default function MatchCard(props: any) {
                         </div>
 
                     </div>
+
                     <div className={styles.team_header_data}>
                         {render_team_stats(team1Players)}
-                        {render_team_stats(team2Players)}
+                    </div>
 
+                    <div style={{marginBottom: '5vh'}}></div>
+
+                    <div className={styles.team_header}>
+                        <h4 className={styles.team_header_text}>Team 2</h4>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Average Rank</h4>
+                            <p className={styles.team_stat_text}>{props.match_data.average_ranks.team_2_avg}</p>
+                        </div>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Total Gold</h4>
+                            <p className={styles.team_stat_text}>{team2Stats.total_gold}</p>
+                        </div>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Turrets Destroyed</h4>
+                            <p className={styles.team_stat_text}>{team2Stats.turrets_destroyed}</p>
+                        </div>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Dragons Taken</h4>
+                            <p className={styles.team_stat_text}>{team2Stats.dragons_taken}</p>
+                        </div>
+                        <div className={styles.header_column}>
+                            <h4 className={styles.team_header_text}>Barons Taken</h4>
+                            <p className={styles.team_stat_text}>{team2Stats.barons_taken}</p>
+                        </div>
+
+                    </div>
+                    <div className={styles.team_header_data}>
+                        {render_team_stats(team2Players)}
                     </div>
                 </div>
 

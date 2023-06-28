@@ -70,14 +70,14 @@
 
 .ranked_icon {
     margin-top: 1vh;
-    height: 40px;
-    width: 55px; 
+    height: 50px;
+    width: 65px; 
 }
 
 .unranked_icon {
     margin-top: 1vh;
-    height: 50px;
-    width: 55px; 
+    height: 60px;
+    width: 65px; 
 }
 
 .sub_header {
@@ -119,10 +119,6 @@
 
 .team_stats_container{
     display: block;
-}
-
-.team_header_data {
-
 }
 
 .team_header {
@@ -190,4 +186,9 @@
     margin-bottom: 0;
     cursor: default;
     -webkit-user-drag: none;
+}
+
+.button_div {
+    visibility: hidden;
+    display: block;
 }

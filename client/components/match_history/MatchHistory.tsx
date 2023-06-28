@@ -10,8 +10,8 @@ export default function MatchHistory(props: any) {
       console.log(matchData)
       
       return (
-        matchData.map((match: any) => (
-          <MatchCard match_data={match}/>
+        matchData.map((match: any, i: number) => (
+          <MatchCard match_data={match} key={i}/>
         ))
 
     )}
