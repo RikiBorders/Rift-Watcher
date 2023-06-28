@@ -2,24 +2,26 @@ import React, { useState, useEffect } from 'react';
 import styles from "./MatchCard.module.css";
 
 export default function MatchCard(props: any) {
-    let team1Stats = {
+    const [team1Stats, setTeam1Stats] = useState<any>({
         total_kills: 0,
         total_gold: 0,
         turrets_destroyed: 0,
         dragons_taken: 0,
         barons_taken: 0,
-    };
+    });
     const [team1Players, setTeam1Players] = useState<any>([]);
-    let team2Stats = {
+    const [team2Stats, setTeam2Stats] = useState<any>({
         total_kills: 0,
         total_gold: 0,
         turrets_destroyed: 0,
         dragons_taken: 0,
         barons_taken: 0,
-    };
+    });
     const [team2Players, setTeam2Players] = useState<any>([]);
 
-
+    const num_to_string = (num: number) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     const toTitleCase = (string: string) => {
         return string.replace(
@@ -131,28 +133,49 @@ export default function MatchCard(props: any) {
         let team_1: Array<any> = [];
         let team_2: Array<any> = [];
         const stats: any = props.match_data.player_stats;
+        let new_team1_stats: any = {
+            total_kills: 0,
+            total_gold: 0,
+            turrets_destroyed: 0,
+            dragons_taken: 0,
+            barons_taken: 0,
+        }
+        let new_team2_stats: any = {
+            total_kills: 0,
+            total_gold: 0,
+            turrets_destroyed: 0,
+            dragons_taken: 0,
+            barons_taken: 0,
+        }
 
         for (const name in stats){
             const id = stats[name]['team_id'];
             if (id == 100){
                 team_1.push(stats[name]);
-                team1Stats.total_kills += stats[name].kills;
-                team1Stats.total_gold += stats[name].total_gold_earned;
-                team1Stats.turrets_destroyed += stats[name].turrets_destroyed;
-                team1Stats.dragons_taken += stats[name].dragons_taken;
-                team1Stats.barons_taken += stats[name].barons_taken;
+                new_team1_stats.total_kills += stats[name].kills;
+                new_team1_stats.total_gold += stats[name].total_gold_earned;
+                new_team1_stats.turrets_destroyed += stats[name].turrets_destroyed;
+                new_team1_stats.dragons_taken += stats[name].dragons_taken;
+                new_team1_stats.barons_taken += stats[name].barons_taken;
 
                 
             } else {
                 team_2.push(stats[name]);
-                team2Stats.total_kills += stats[name].kills;
-                team2Stats.turrets_destroyed += stats[name].turrets_destroyed;
-                team2Stats.dragons_taken += stats[name].dragons_taken;
-                team2Stats.barons_taken += stats[name].barons_taken;
+                new_team2_stats.total_kills += stats[name].kills;
+                new_team2_stats.turrets_destroyed += stats[name].turrets_destroyed;
+                new_team2_stats.dragons_taken += stats[name].dragons_taken;
+                new_team2_stats.barons_taken += stats[name].barons_taken;
             }
         }
+
+        new_team1_stats.total_gold = num_to_string(new_team1_stats.total_gold)
+        new_team2_stats.total_gold = num_to_string(new_team2_stats.total_gold)
+
         setTeam1Players(team_1);
         setTeam1Players(team_2);
+        setTeam1Stats(new_team1_stats);
+        setTeam2Stats(new_team2_stats);
+
     }
 
     const render_team_stats = (team: Array<any>) => {
