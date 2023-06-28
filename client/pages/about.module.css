@@ -9,7 +9,7 @@
     overflow: hidden;
   }
 
-.page_body{
+.page_body {
     background-image: url("/summoners_rift.jpg");
     position: fixed;
     width: 100%;
@@ -20,72 +20,53 @@
     background-color: #212121;
 }
 
-.info_section{
-    overflow: hidden;
-    background-color: #000000;
+.greeting_section {
+    height: 50vh;
+    margin: 0;
+}
+
+.info_section {
+    background-color: white;
+    height: 50vh;
+    margin: 0;
+}
+
+.greeting_text {
+    /* vertical centering */
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
     display: flex;
-    height: 60vh;
-    margin-left: 2vh;
-    margin-right: 2vh;
-    margin-bottom: 5vh;
-    border-radius: 20px;
+    width: fit-content;
+    padding: 5px;
+    display: flex;
+    margin: 0 auto;
+    color: #ffffff;
+    background-color: #e42323;
 }
 
-.section_text{
-    align-self: center;
-    height: auto;
-    overflow: visible;
-    margin-left: 4vh;
+.info_section_header {
+    justify-content: center;
+    font-size: 5vh;
+    display: flex;
+    padding: 5px;
+    display: flex;
+    padding-top: 5vh;
+    color: #000000;
 }
 
-.section_header{
-    color: #F0F4F8;
-    font-family: sans-serif;
-    font-weight: 400;
-    font-size: 8vh;
-    margin-bottom: 40px;
-}
-
-.section_description{
-    color: #F0F4F8;
-    font-size: 2.5vh;
-    line-height: 1.5;
-    margin-top: 0;
-}
-
-.learn_more{
-    color: #F0F4F8;
-    background: transparent;
-    padding: 0;
-    border: transparent;
-    cursor: pointer;
-    text-decoration: underline;
-    font-size: 2.5vh;
-    margin-bottom: 20px;
-}
-
-.background_image{
-    border-radius: 20px;
-    display: inline-block;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    margin-right: -25vh;
-}
-
-.team_section{
+.info_section_text {
+    font-size: 2vh;
+    line-height: 3.5vh;
     text-align: center;
-    background-color: #000000;
-    border-radius: 20px;
-    margin-left: 20vh;
-    margin-right: 20vh;
-    padding-bottom: 10px;
+    margin-left: 20vw;
+    margin-right: 20vw;
 }
-
-
 
 .disclaimer{
-    color: #F0F4F8;font-size: 2vh;
+    background-color: white;
+    font-size: 2vh;
     text-align: center;
     margin-top: 10vh;
     margin-left: 40vh;
