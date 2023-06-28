@@ -182,6 +182,13 @@ export default function MatchCard(props: any) {
 
         return (
             <div className={styles.team_stats_container}>
+                <div className={styles.player_section_header}>
+                    <h4 className={styles.player_Section_header_text}>KDA</h4>
+                    <h4 className={styles.player_Section_header_text}>CS</h4>
+                    <h4 className={styles.player_Section_header_text}>Damage</h4>
+                    <h4 className={styles.player_Section_header_text}>Vision</h4>
+                    <h4 className={styles.player_Section_header_text}>Build Info</h4>
+                </div>
                 {
                     team.map((player_data: any) => (
                         <div className={styles.player_card_container}>

@@ -139,7 +139,6 @@
     color: #F0F4F8;
     font-family: sans-serif;
     font-size: 1.5vh;
-    
     margin-top: 0;
     margin-bottom: 0;
     cursor: default;
@@ -165,4 +164,21 @@
 
 .player_stats_btn {
     margin: 0;
+}
+
+.player_section_header{
+    margin-left: 1.5vw;
+    display: flex;
+    column-gap: 1.7vw;
+    justify-content: center;
+}
+
+.player_Section_header_text{
+    color: #F0F4F8;
+    font-family: sans-serif;
+    font-size: 1.5vh;
+    margin-top: 0;
+    margin-bottom: 0;
+    cursor: default;
+    -webkit-user-drag: none;
 }
