@@ -5,6 +5,6 @@ export default function Statistics() {
     <div>
       <NavBar/>
       
-      <h1>Statistics</h1>
+      <h1>Build Calculator</h1>
     </div>
 );}
