@@ -190,7 +190,7 @@ export default function MatchCard(props: any) {
             <div className={styles.team_stats_container}>
 
                 <table style={{width: '100%'}}>
-                    <tr>
+                    <tr className={styles.player_section_row}>
                         <th className={styles.player_section_header_text}>Name</th>
                         <th className={styles.player_section_header_text}>KDA</th>
                         <th className={styles.player_section_header_text}>CS</th>
@@ -200,15 +200,15 @@ export default function MatchCard(props: any) {
                     </tr>
                     {
                         team.map((player_data: any, i: number) => (
-                            <tr>
+                            <tr className={styles.player_section_row}>
                                 <td className={styles.player_name} key={`${player_data.name}`+`${i}`}>{player_data.name}</td>
                                 <td className={styles.player_card_text} key={`${player_data.kills}`+`${i}`}>
                                     {`${player_data.kills}/${player_data.deaths}/${player_data.assists}`}
                                 </td>
                                 <td className={styles.player_card_text} key={`${player_data.total_cs}`+`${i}`}>{player_data.total_cs}</td>
-                                <td className={styles.player_card_text} key={`${player_data.total_damage_dealt}`+`${i}`}>{player_data.total_damage_dealt}</td>
+                                <td className={styles.player_card_text} key={`${player_data.total_damage_dealt}`+`${i}`}>{num_to_string(player_data.total_damage_dealt)}</td>
                                 <td className={styles.player_card_text} key={`${player_data.vision_score_pm}`+`${i}`}>
-                                    {`${player_data.per_minute_stats.vision_score_pm} p/m`}
+                                    {`${player_data.per_minute_stats.vision_score_pm}/pm`}
                                 </td>
                                 <td className={styles.player_card_text}>build info soon</td>
                             </tr>
