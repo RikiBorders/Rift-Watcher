@@ -137,7 +137,7 @@ export default function About() {
                   <h2 className={styles.contributor_header}>Marv</h2>
                   <p className={styles.contributor_text}><b>Statistical Consultant</b></p>
                   <p className={styles.contributor_text}>
-                  Responsible for finding and representing useful LoL data. 22-year-old student of physics and geosciences from NYC. I am interested 
+                  Responsible for identifying and representing useful LoL data. 22-year-old student of physics and geosciences from NYC. I am interested 
                   in how games can be represented statistically and can be found playing 
                   Jhin and/or Bard.
                   </p>

@@ -117,7 +117,7 @@ export default function MatchCard(props: any) {
                         <div className={styles.rank}>
                             {render_rank_icon()}
                             <p className={styles.meta_summoner_rank}>
-                                {props.match_data.target_summoner_info.rank}
+                                {props.match_data.average_ranks.combined_avg}
                             </p>
                             <p className={styles.sub_header}>Avg Rank</p>
                         </div> :

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+
 .page_body{
     background-image: url("/summoners_rift.jpg");
     background-position: center;
@@ -22,6 +24,7 @@
 }
 
 .header{
+    font-family: 'Libre Baskerville', serif;
     color: #F0F4F8;
     font-family: sans-serif;
     font-weight: 400;
@@ -30,6 +33,7 @@
 }
 
 .sub_header{
+    font-family: 'Libre Baskerville', serif;
     color: #F0F4F8;
     font-family: sans-serif;
     font-weight: 400;

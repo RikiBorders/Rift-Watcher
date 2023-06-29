@@ -1,14 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+
 .header_text{
+    font-family: 'Libre Baskerville', serif;
     color: #F0F4F8;
     margin-left: 5vh;
-    font-family: sans-serif;
     font-weight: 400;
     font-size: 6vh;
 }
 
 .sub_header{
     color: #F0F4F8;
-    font-family: sans-serif;
     font-weight: 400;
     font-size: 4vh;
     cursor: default;
@@ -77,8 +78,8 @@
 }
 
 .rank_label{
-    color: #F0F4F8;
     font-family: sans-serif;
+    color: #F0F4F8;
     font-weight: 400;
     font-size: 2vh;
     margin: 0;
@@ -113,9 +114,9 @@
 }
 
 .rank_title{
+    font-family: 'Libre Baskerville', serif;
     display: block;
-    font-family: sans-serif;
-    font-size: 4vh;
+    font-size: 25px;
     margin-bottom: 0;
     margin-top: 0;
 }

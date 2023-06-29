@@ -1,3 +1,4 @@
+
 .disabled_scroll {
     position: fixed;
     width: 100%;
@@ -56,6 +57,7 @@
 }
 
 .info_section {
+    font-family: 'Libre Baskerville', serif;
     background-color: #EEEEEE;
     color: #161616;
     height: fit-content;
@@ -65,7 +67,7 @@
 
 .info_section_header {
     justify-content: center;
-    font-size: 5vh;
+    font-size: 6vh;
     display: flex;
     padding: 5px;
     display: flex;
@@ -74,7 +76,7 @@
 }
 
 .info_section_text {
-    font-size: 2vh;
+    font-size: 2.3vh;
     line-height: 3.5vh;
     text-align: justify;
     margin-left: 20vw;
@@ -83,6 +85,7 @@
 }
 
 .disclaimer{
+    font-family: 'Libre Baskerville', serif;
     background-color: #dad9d8;
     font-size: 2vh;
     padding-top: 2vh;
@@ -102,6 +105,7 @@
 }
 
 .contributors {
+    font-family: 'Libre Baskerville', serif;
     justify-content: center;
     column-gap: 3vw;
     display: flex;

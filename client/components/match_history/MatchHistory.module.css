@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+
 .container {
     text-align: center;
     align-items: center;
@@ -15,8 +17,8 @@
 }
 
 .header_text{
+    font-family: 'Libre Baskerville', serif;
     color: #F0F4F8;
-    font-family: sans-serif;
     font-weight: 400;
     font-size: 6vh;
 }
