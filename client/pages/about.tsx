@@ -44,6 +44,9 @@ export default function About() {
 
           <motion.div className={styles.greeting_section}>
             <h1 className={styles.greeting_text}>What is Rift Watcher?</h1>
+            <video className={styles.about_video} loop autoPlay muted>
+              <source src="/about_video.mp4" type="video/mp4"/>
+            </video>
           </motion.div>
 
           <motion.div className={styles.info_section}>
