@@ -49,6 +49,8 @@
 .meta_summoner_rank {
     color: #F0F4F8;
     font-family: sans-serif;
+    margin-top: 8px;
+    margin-bottom: 5px;
     font-size: 2vh;
     cursor: default;
     -webkit-user-drag: none;   
@@ -70,13 +72,13 @@
 }
 
 .position_icon {
-    margin-top: 1vh;
+    margin-top: 25px;
     height: 40px;
     width: 40px;
 }
 
 .ranked_icon {
-    margin-top: 1vh;
+    margin-top: 2vh;
     height: 50px;
     width: 65px; 
 }
