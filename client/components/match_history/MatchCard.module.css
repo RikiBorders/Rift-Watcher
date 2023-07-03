@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 
 .card_container {
+    height: 250px;
     padding: 15px;
-
+    max-height: 5;
     margin-bottom: 3vh;
     display: flex;
     background-color: #212A3E;
@@ -87,6 +88,11 @@
     margin-top: 1vh;
     height: 60px;
     width: 65px; 
+}
+
+.match_info_container{
+    overflow-y: scroll;
+    padding-right: 2vw;
 }
 
 .sub_header {

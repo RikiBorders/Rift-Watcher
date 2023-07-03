@@ -222,7 +222,7 @@ export default function MatchCard(props: any) {
     const render_match_info = () => {
 
         return (
-            <div>
+            <div className={styles.match_info_container}>
                 <div className={styles.team_1_section}>
                     <div className={styles.team_header}>
                         <h4 className={styles.team_header_text}>Team 1</h4>

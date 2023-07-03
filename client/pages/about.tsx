@@ -127,7 +127,7 @@ export default function About() {
                   <h2 className={styles.contributor_header}>Riki</h2>
                   <p className={styles.contributor_text}><b>Website Developer and Rift-Watcher founder</b></p>
                   <p className={styles.contributor_text}>
-                    Responsible for the development and direction of Rift-Watcher. 
+                    Responsible for the technical development and direction of Rift-Watcher. 
                     Software Engineer and avid Yasuo enjoyer -  when I'm not coding 
                     I'm either playing a game or spending time with my cat.
                   </p>
