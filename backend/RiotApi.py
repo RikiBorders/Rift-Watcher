@@ -2,6 +2,7 @@ import os
 import threading
 import requests
 from SummonerStats import *
+from ThreadManager import *
 
 class Riot(): 
     def __init__(self):
@@ -124,6 +125,7 @@ class Riot():
         Note: This function will return a DICTIONARY where key = teamID and value = list of summoners on that particular team
         '''
         summoner_teams = {}
+
         for participant in match['info']['participants']:
             summoner_name = participant['summonerName']
             team_id = participant['teamId']
@@ -149,6 +151,16 @@ class Riot():
         
         return summoner_accounts
 
+
+    def __get_summoner_match(self, match_id, matches, routing_value):
+        '''
+        Get an individual match's data. This function is to be used with _get_summoner_matches
+        '''
+        url = f"https://{routing_value}.api.riotgames.com/lol/match/v5/matches/{match_id}"
+        match_data = requests.get(url, headers=self.request_headers).json()
+        matches.append(match_data)
+
+
     def __get_summoner_matches(self, region: str, puuid: str):
         '''
         Get the last 20 games for the given player. This function takes a while to complete
@@ -162,16 +174,25 @@ class Riot():
         else:
             routing_value = "SEA"
 
+        match_fetching_threads = []
         url = f"https://{routing_value}.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids"
         match_ids = requests.get(url, headers=self.request_headers).json()
         
         matches = []
         for match_id in match_ids:
-            url = f"https://{routing_value}.api.riotgames.com/lol/match/v5/matches/{match_id}"
-            match_data = requests.get(url, headers=self.request_headers).json()
-            matches.append(match_data)
+            try:
+                thread = threading.Thread(target=self.__get_summoner_match, args=[match_id, matches, routing_value])
+                thread.start()
+            except:
+                print('Exception caught within thread.')
+            time.sleep(1) # Handle rate limits
+            match_fetching_threads.append(thread)
+
+
+        monitor_thread_pool(match_fetching_threads)
 
         return matches
+    
 
     def summoner_exists(self, summoner_name: str, region: str):
         '''

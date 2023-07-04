@@ -4,6 +4,7 @@ match history analyzations, etc.
 '''
 import time
 import threading
+from ThreadManager import *
 
 def calculate_winrate(wins: int, losses: int):
     '''
@@ -275,20 +276,18 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     Calculate and return statistics (AND OTHER DATA WE WILL DISPLAY) for each match in a player's match history.
     This process is very slow (20+ seconds)
     '''
-    summoner_profile_fetching_threads = []
-
-    start_time = time.time()
-    print('function entered')
-
     match_history = riot_api.get_summoner_matches(summoner_name, region)
+    summoner_profile_fetching_threads = []
     historical_match_data = []
-    print(f'riot api matches fetched in {time.time() - start_time} seconds')
 
     start_time = time.time()
-    print("number of games: 2")
+    time.sleep(2) # Sleep so we don't send too many requests at once
 
-    for i in range(3): # Fetch the last 3 matches (this should be updated later. details in ticket)
+    for i in range(2): # Fetch the last 2 matches (this should be updated later. details in ticket)
         match = match_history[i]
+        if 'message' in match and match['message'] == 'Rate limit exceeded':
+            print('Rate limit exceeded')
+            continue
         try:
             thread = threading.Thread(target=fetch_match_data, args=[riot_api, match, summoner_name, region, historical_match_data])
             thread.start()
@@ -297,14 +296,7 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
 
         summoner_profile_fetching_threads.append(thread)
 
-    while summoner_profile_fetching_threads:
-        for i in range(len(summoner_profile_fetching_threads)):
-            thread = summoner_profile_fetching_threads[i]
-            if not thread.is_alive():
-                summoner_profile_fetching_threads.pop(i)
-                break
-            else:
-                time.sleep(1)
+    monitor_thread_pool(summoner_profile_fetching_threads)
 
     print(f'matches fetched and processed in {time.time() - start_time} seconds (parallelized)')
     return historical_match_data
