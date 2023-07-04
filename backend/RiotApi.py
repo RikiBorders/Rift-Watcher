@@ -1,4 +1,5 @@
 import os
+import threading
 import requests
 from SummonerStats import *
 
@@ -8,7 +9,7 @@ class Riot():
             "Accept-Language": "en-US,en;q=0.5",
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
             "Origin": "https://developer.riotgames.com",                 # update the below 'riot token' key before launch
-            "X-Riot-Token": 'RGAPI-4672e530-aa28-4848-ba42-2e213555f90d' # API KEY FROM .ENV SHOULD GO HERE
+            "X-Riot-Token": 'RGAPI-ad8b9800-70c5-4910-b176-77b1ee2c8399' # API KEY FROM .ENV SHOULD GO HERE
         }
         self.regions = {
             "NA" : "na1",

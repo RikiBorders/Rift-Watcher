@@ -1,5 +1,6 @@
 from RiotApi import Riot
 from SummonerStats import *
+import time
 
 '''
 The process of fetching and processing data is getting long,
@@ -12,9 +13,11 @@ def TEST_get_match_statistics():
     '''
     test the get_match_statistics function. This will only grab the last 5 games
     '''
+    start_time = time.time()
     region = 'NA'
     summoner_name = 'SL1MEBALL'
     stats = get_match_statistics(riot_api, summoner_name, region)
+    print(f'took {time.time() - start_time} seconds to execute')
     # print(stats)
     
 def TEST_calculate_average_ranks():

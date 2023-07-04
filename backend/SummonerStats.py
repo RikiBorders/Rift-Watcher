@@ -2,6 +2,8 @@
 Statistics calculations for each summoner. Examples include solo/duo and flex winrates,
 match history analyzations, etc.
 '''
+import time
+import threading
 
 def calculate_winrate(wins: int, losses: int):
     '''
@@ -273,37 +275,67 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     Calculate and return statistics (AND OTHER DATA WE WILL DISPLAY) for each match in a player's match history.
     This process is very slow (20+ seconds)
     '''
+    summoner_profile_fetching_threads = []
+
+    start_time = time.time()
+    print('function entered')
+
     match_history = riot_api.get_summoner_matches(summoner_name, region)
     historical_match_data = []
+    print(f'riot api matches fetched in {time.time() - start_time} seconds')
 
+    start_time = time.time()
     print("number of games: 2")
-    for i in range(2): # Fetch the last 3 matches (this should be updated later. details in ticket)
+
+    for i in range(3): # Fetch the last 3 matches (this should be updated later. details in ticket)
         match = match_history[i]
-        # Match data
-        summoners_teams = riot_api.get_summoner_profiles_from_match(match, region)
-        player_list = get_match_participants(match)
-        player_stats = calculate_player_stats(match, player_list)
-        average_ranks = calculate_average_ranks_for_match(summoners_teams, 'soloduo') # average rank per team is here
-        if not match['info']['gameEndTimestamp']:
-            total_match_time = (match['info']['gameDuration'] * 1000) / 60 # convert milliseconds (per riot docs) to minutes
-        else:
-            total_match_time = (match['info']['gameDuration']) / 60 # convert seconds to minutes
-        queue_type = get_queue_type(match['info']['queueId'])
+        try:
+            thread = threading.Thread(target=fetch_match_data, args=[riot_api, match, summoner_name, region, historical_match_data])
+            thread.start()
+        except:
+            print('Exception caught within thread.')
 
-        # Get information related to the target summoner
-        target_summoner_info = get_summoner_info_for_match(summoner_name, summoners_teams, player_list, match)
-        
-        historical_match_data.append({
-            'player_stats': player_stats, 
-            'average_ranks': average_ranks, 
-            'match_length': total_match_time,
-            'target_summoner_info': target_summoner_info,
-            'queue_type': queue_type
-        })
+        summoner_profile_fetching_threads.append(thread)
 
-        print(f'match {i} fetched')
+    while summoner_profile_fetching_threads:
+        for i in range(len(summoner_profile_fetching_threads)):
+            thread = summoner_profile_fetching_threads[i]
+            if not thread.is_alive():
+                summoner_profile_fetching_threads.pop(i)
+                break
+            else:
+                time.sleep(1)
 
+    print(f'matches fetched and processed in {time.time() - start_time} seconds (parallelized)')
     return historical_match_data
+
+def fetch_match_data(riot_api, match, summoner_name, region, historical_match_data):
+    '''
+    build a match object to be appeneded to the record of historical match data
+    '''
+    summoners_teams = riot_api.get_summoner_profiles_from_match(match, region)
+    
+    player_list = get_match_participants(match)
+    player_stats = calculate_player_stats(match, player_list)
+    average_ranks = calculate_average_ranks_for_match(summoners_teams, 'soloduo') # average rank per team is here
+    if not match['info']['gameEndTimestamp']:
+        total_match_time = (match['info']['gameDuration'] * 1000) / 60 # convert milliseconds (per riot docs) to minutes
+    else:
+        total_match_time = (match['info']['gameDuration']) / 60 # convert seconds to minutes
+    queue_type = get_queue_type(match['info']['queueId'])
+
+    # Get information related to the target summoner
+    target_summoner_info = get_summoner_info_for_match(summoner_name, summoners_teams, player_list, match)
+    
+    historical_match_data.append({
+        'player_stats': player_stats, 
+        'average_ranks': average_ranks, 
+        'match_length': total_match_time,
+        'target_summoner_info': target_summoner_info,
+        'queue_type': queue_type
+    })
+
+    return 1
 
 
 def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, player_list: list, match: dict):
