@@ -4,15 +4,14 @@ import { motion } from "framer-motion";
 import RegionDropdown from "../components/RegionSelectDropdown"
 import styles from "./SearchBar.module.css";
 
-export default function SearchBar() {
-  
-    let state = {
-      searchTerm: '',
-      selectedRegion: 'NA',
-      placeholder: 'Summoner, Champion, etc',
-      redirect: false
-    };
-    const router = useRouter();
+export default function SearchBar(currentGame) {
+  let state = {
+    searchTerm: '',
+    selectedRegion: 'NA',
+    placeholder: 'Summoner, Champion, etc',
+    redirect: false
+  };
+  const router = useRouter();
   
   const handleInputChange = (event) => {
     const searchTerm = event.target.value;
@@ -25,7 +24,15 @@ export default function SearchBar() {
     const selectedRegion = state.selectedRegion;
     const data = {username: searchTerm, region: selectedRegion};
 
-    const response = fetch("http://127.0.0.1:5000/summoner_exists_by_name", { // update the url when pushed to prod
+    let url = "http://127.0.0.1:5000/summoner_exists_by_name"
+    let path = "/summoners/"+searchTerm
+
+    if (currentGame.currentGame === "TFT"){
+      url = "http://127.0.0.1:5000/tft_summoner_exists"
+      path = "/tft_summoners/"+searchTerm
+    }
+    
+    const response = fetch(url, { // update the url when pushed to prod
       method: "POST",
       mode: "cors",
       headers: {
@@ -35,10 +42,9 @@ export default function SearchBar() {
       
     }).then(response => response.json()
     ).then( response => {
-
       if (response['status']) { // check here if the response is valid
         router.push({
-          pathname: "/summoners/"+searchTerm,
+          pathname: path,
           query: {region: selectedRegion},
           title: "halo reach"
         });

@@ -10,7 +10,7 @@ class Riot():
             "Accept-Language": "en-US,en;q=0.5",
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
             "Origin": "https://developer.riotgames.com",                 # update the below 'riot token' key before launch
-            "X-Riot-Token": 'RGAPI-ad8b9800-70c5-4910-b176-77b1ee2c8399' # API KEY FROM .ENV SHOULD GO HERE
+            "X-Riot-Token": 'RGAPI-58317760-2c61-4a7f-9bc5-63ff590107cd' # API KEY FROM .ENV SHOULD GO HERE
         }
         self.regions = {
             "NA" : "na1",
@@ -278,8 +278,9 @@ class Riot():
             parsed_account_data = self.__parse_tft_account_data(account_data)
             parsed_account_data['profileIcon'] = meta_summoner_data['profileIconId']
 
-            match_history = self.__get_summoner_matches(region, meta_summoner_data['puuid'])
-            user_data = {'summoner_data': parsed_account_data, 'match_history': match_history}
+            # match_history = self.__get_summoner_matches(region, meta_summoner_data['puuid'])
+            match_history = []
+            user_data = {'summoner_info': parsed_account_data, 'match_history': match_history}
 
             return {'status': 1, 'summoner_data': user_data}
 

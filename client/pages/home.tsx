@@ -26,7 +26,7 @@ export default function Home() {
             <img className={styles.logo} src="/logo.png"/>
             <h2 className={styles.sub_header}>Take Your League Journey to the Next Level.</h2>
             <GameSelector currentGame={currentGame} selectGame={selectGame}/>
-            <SearchBar/>
+            <SearchBar currentGame={currentGame}/>
           </div>
       </div>
     </div>
