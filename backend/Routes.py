@@ -53,7 +53,7 @@ def summoner_exists_by_name():
         response = riot_api.summoner_exists(query['username'], query['region'])
         return response, 201
 
-@app.route("/tft_summoner_exists")
+@app.route("/tft_summoner_exists", methods=['POST'])
 def tft_summoner_exists_by_name():
     query = request.get_json()
     if not query:
