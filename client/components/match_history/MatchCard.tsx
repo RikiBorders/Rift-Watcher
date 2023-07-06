@@ -91,6 +91,10 @@ export default function MatchCard(props: any) {
                     <h2 className={styles.gamemode_text}>
                         {props.match_data.queue_type}
                     </h2>
+                    <img 
+                        src={"http://ddragon.leagueoflegends.com/cdn/13.13.1/img/champion/"+toTitleCase(props.match_data.target_summoner_info.champion)+".png" } 
+                        className={styles.champion_image}
+                    />
                     <p className={styles.meta_summoner_text}>
                         {props.match_data.target_summoner_info.champion}
                     </p>

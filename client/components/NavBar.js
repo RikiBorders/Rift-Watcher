@@ -9,7 +9,7 @@ class NavBar extends Component {
     return (
       <nav className={styles.nav}>
         <NextLink href="/home" className={styles.nav_link}>Home</NextLink>
-        <NextLink href="/statistics" className={styles.nav_link}>Statistics</NextLink>
+        <NextLink href="/BuildCalculator" className={styles.nav_link}>Build Calculator</NextLink>
         <NextLink href="/about" className={styles.nav_link}>About</NextLink>
       </nav>
     );

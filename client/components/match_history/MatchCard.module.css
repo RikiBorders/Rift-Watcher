@@ -17,7 +17,7 @@
 }
 
 .meta_summoner_info_section_left {
-    text-align: left;
+    text-align: center;
 }
 
 .meta_summoner_info_section_right {
@@ -45,6 +45,11 @@
     margin-bottom: 1vh;
     cursor: default;
     -webkit-user-drag: none;
+}
+
+.champion_image {
+    border-radius: 50%;
+    width: 100px;
 }
 
 .meta_summoner_rank {
