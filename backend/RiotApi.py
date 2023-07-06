@@ -10,7 +10,7 @@ class Riot():
             "Accept-Language": "en-US,en;q=0.5",
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
             "Origin": "https://developer.riotgames.com",                 # update the below 'riot token' key before launch
-            "X-Riot-Token": 'RGAPI-58317760-2c61-4a7f-9bc5-63ff590107cd' # API KEY FROM .ENV SHOULD GO HERE
+            "X-Riot-Token": 'RGAPI-4aad3410-c084-4c86-9384-c4cfbac598d1' # API KEY FROM .ENV SHOULD GO HERE
         }
         self.regions = {
             "NA" : "na1",
@@ -112,7 +112,7 @@ class Riot():
         # If we have a status key, then there has been an error
         if 'status' in summoner_data:
             print(summoner_data['status'])
-            return {'status': 0, 'summoner_data': None}
+            return None
         
         else:
             match_history = self.__get_summoner_matches(region, summoner_data['puuid'])
@@ -165,6 +165,7 @@ class Riot():
         '''
         Get the last 20 games for the given player. This function takes a while to complete
         '''
+        interval = 0.5 # We'll wait this amount of time (in seconds) between match id fetching in order to handle rate limits
         if (region in ['NA', 'BR', 'LAN', 'LAS']):
             routing_value = "AMERICAS"
         elif (region in ['KR', 'JP']):
@@ -177,7 +178,6 @@ class Riot():
         match_fetching_threads = []
         url = f"https://{routing_value}.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids"
         match_ids = requests.get(url, headers=self.request_headers).json()
-        
         matches = []
         for match_id in match_ids:
             try:
@@ -185,12 +185,10 @@ class Riot():
                 thread.start()
             except:
                 print('Exception caught within thread.')
-            time.sleep(1) # Handle rate limits
+            time.sleep(interval) 
             match_fetching_threads.append(thread)
 
-
         monitor_thread_pool(match_fetching_threads)
-
         return matches
     
 

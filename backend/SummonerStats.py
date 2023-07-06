@@ -266,7 +266,6 @@ def get_division(lp_value, minimum, maximum, tier_4, tier_3, tier_2):
         return 'III'
     elif minimum <= lp_value <= tier_4:
         return 'IV'
-
     else:
         return None # Values are invalid 
 
@@ -276,12 +275,21 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     Calculate and return statistics (AND OTHER DATA WE WILL DISPLAY) for each match in a player's match history.
     This process is very slow (20+ seconds)
     '''
+    # start_time = time.time()
+
     match_history = riot_api.get_summoner_matches(summoner_name, region)
     summoner_profile_fetching_threads = []
     historical_match_data = []
+    interval = 0 # Handle rate limits by waiting this time (in seconds) between match fetching
 
-    start_time = time.time()
-    time.sleep(2) # Sleep so we don't send too many requests at once
+    # Handle exceeding rate limits
+    if match_history == 0:
+        print('Rate limit exceeded')
+        return 'Rate limit exceeded'
+
+
+    # print(f'match history fetched in {time.time() - start_time} seconds')
+    # start_time = time.time()
 
     for i in range(2): # Fetch the last 2 matches (this should be updated later. details in ticket)
         match = match_history[i]
@@ -294,11 +302,12 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
         except:
             print('Exception caught within thread.')
 
+        time.sleep(interval)
         summoner_profile_fetching_threads.append(thread)
 
     monitor_thread_pool(summoner_profile_fetching_threads)
 
-    print(f'matches fetched and processed in {time.time() - start_time} seconds (parallelized)')
+    # print(f'match objects fetched in {time.time() - start_time} seconds')
     return historical_match_data
 
 def fetch_match_data(riot_api, match, summoner_name, region, historical_match_data):
