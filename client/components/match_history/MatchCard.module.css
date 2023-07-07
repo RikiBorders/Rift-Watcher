@@ -243,6 +243,16 @@
     column-gap: 10px;
 }
 
+.cs_cspm_section {
+    display: flex;
+    column-gap: 5px;
+}
+
+.vision_section {
+    display: block;
+    column-gap: 5px;
+}
+
 .overview_text {
     color: #F0F4F8;
     text-align: center;

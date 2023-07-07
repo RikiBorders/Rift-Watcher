@@ -340,7 +340,7 @@ def fetch_match_data(riot_api, match, summoner_name, region, historical_match_da
     queue_type = get_queue_type(match['info']['queueId'])
 
     # Get information related to the target summoner
-    target_summoner_info = get_summoner_info_for_match(summoner_name, summoners_teams, player_list, match)
+    target_summoner_info = get_summoner_info_for_match(summoner_name, summoners_teams, player_list, match, total_match_time)
     
     historical_match_data.append({
         'player_stats': player_stats, 
@@ -353,7 +353,7 @@ def fetch_match_data(riot_api, match, summoner_name, region, historical_match_da
     return 1
 
 
-def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, player_list: list, match: dict):
+def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, player_list: list, match: dict, total_match_time: int):
     '''
     Get the information of a particular summoner. This is intended to be used with the
     get_summoner_profiles_from_match function
@@ -364,6 +364,12 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
         if summoner_name.upper() == summoner['summonerName'].upper():
             summoner_info['champion'] = summoner['championName']
             summoner_info['position'] = summoner['teamPosition']
+            summoner_info['cs'] = summoner['totalMinionsKilled']
+            summoner_info['wards_placed'] = summoner['wardsPlaced']
+            summoner_info['wards_destroyed'] = summoner['wardsKilled']
+            summoner_info['vision_score'] = summoner['visionScore']
+
+            summoner_info['cs_pm'] = round((summoner_info['cs'] / total_match_time), 1)
             summoner_info['win'] = summoner['win']
             summoner_info['kills_assists_deaths'] = [
                 summoner['kills'],

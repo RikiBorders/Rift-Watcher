@@ -317,13 +317,41 @@ export default function MatchCard(props: any) {
                         </div>
                         <div className={styles.overview_sub_section}>
                             <p className={styles.overview_text}>{props.match_data.target_summoner_info.kd}</p>
-                            <p className={styles.overview_text}>KD</p>  
+                            <p className={styles.overview_text}>KD</p> 
+
                         </div>
                     </div>
                 </div>
 
                 <div className={styles.overview_section}>
-                    <p className={styles.overview_text}>CS</p>
+                    <div className={styles.cs_cspm_section}>
+                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.cs}</p>
+                            <p className={styles.overview_text}>({props.match_data.target_summoner_info.cs_pm})</p>
+                    </div>
+                    <div className={styles.small_vertical_spacer}/>
+                    <p className={styles.overview_text}>CS</p>  
+                </div>
+
+                <div className={styles.overview_section}>
+                    <div className={styles.vision_section}>
+                        <div className={styles.overview_sub_section}>
+                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.wards_placed}</p>
+                            <p className={styles.overview_text}>Wards Placed</p>
+                        </div>
+
+                        <div className={styles.overview_sub_section}>
+                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.wards_destroyed}</p>
+                            <p className={styles.overview_text}>Wards Destroyed</p>  
+
+                        </div>
+
+                        <div className={styles.overview_sub_section}>
+                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.vision_score}</p>
+                            <p className={styles.overview_text}>Vision Score</p>  
+
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
