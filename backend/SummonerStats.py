@@ -132,9 +132,23 @@ def lp_to_rank(lp_value):
     return f'{rank} {division}'
 
 
+def calculate_kd(kills: int, deaths: int):
+    '''
+    calculate the kill/death ratio. 
+    '''
+    return round(kills/deaths, 1)
+
+
+def calculate_kda(kills: int, assists: int, deaths: int):
+    '''
+    calculate the kill&assist/death ratio. 
+    '''
+    return round((kills+assists)/deaths, 1)
+
+
 def calculate_player_stats(match: dict, player_list: list):
     '''
-    calculate stats per player
+    calculate stats per player in a league of legends match
     '''
     player_stats = {}
     if not match['info']['gameEndTimestamp']:
@@ -351,6 +365,17 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
             summoner_info['champion'] = summoner['championName']
             summoner_info['position'] = summoner['teamPosition']
             summoner_info['win'] = summoner['win']
+            summoner_info['kills_assists_deaths'] = [
+                summoner['kills'],
+                summoner['assists'],
+                summoner['deaths']
+            ]
+            summoner_info['kd'] = calculate_kd(summoner['kills'], summoner['deaths'])
+            summoner_info['kda'] = calculate_kda(
+                summoner['kills'], 
+                summoner['assists'], 
+                summoner['deaths']
+            )
 
 
     for team in summoners_teams.values():

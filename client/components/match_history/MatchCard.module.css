@@ -55,10 +55,10 @@
 
 .meta_summoner_rank {
     color: #F0F4F8;
-    font-family: sans-serif;
+    font-family: 'Libre Baskerville', serif;
     margin-top: 8px;
     margin-bottom: 5px;
-    font-size: 2vh;
+    font-size: 18px;
     cursor: default;
     -webkit-user-drag: none;   
 }
@@ -97,6 +97,7 @@
 }
 
 .match_info_container{
+    visibility: visible;
     overflow-y: scroll;
     padding-right: 2vw;
 }
@@ -216,4 +217,43 @@
 .button_div {
     visibility: hidden;
     display: block;
+}
+
+/* overview styles */
+
+.overview_container {
+    column-gap: 10px;
+    margin-left: 10px;
+    display: flex;
+
+
+}
+
+.overview_section {
+    display: block;
+    align-self: center;
+}
+
+.overview_sub_section {
+    display: block;
+}
+
+.kd_kda_section {
+    display: flex;
+    column-gap: 10px;
+}
+
+.overview_text {
+    color: #F0F4F8;
+    text-align: center;
+    font-family: 'Libre Baskerville', serif;
+    margin: 0;
+}
+
+/* spacers */
+
+.small_vertical_spacer {
+    margin-top: 10px;
+    margin-left: 0;
+    margin-right: 0;
 }

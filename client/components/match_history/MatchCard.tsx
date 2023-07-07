@@ -86,6 +86,8 @@ export default function MatchCard(props: any) {
             <div style={{
                 display: "flex",
                 columnGap: "2vw",
+                alignSelf: "center",
+
             }}>
                 <div className={styles.meta_summoner_info_section_left}>
                     <h2 className={styles.gamemode_text}>
@@ -295,13 +297,47 @@ export default function MatchCard(props: any) {
         )
     }
 
+    const render_overview = () => {
+        return (
+            <div className={styles.overview_container}>
+                <div className={styles.overview_section}>
+
+                    <p className={styles.overview_text}>
+                        {props.match_data.target_summoner_info.kills_assists_deaths['0']}
+                        /
+                        {props.match_data.target_summoner_info.kills_assists_deaths['1']}
+                        /
+                        {props.match_data.target_summoner_info.kills_assists_deaths['2']}
+                    </p>
+                    <div className={styles.small_vertical_spacer}/>
+                    <div className={styles.kd_kda_section}>
+                        <div className={styles.overview_sub_section}>
+                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.kda}</p>
+                            <p className={styles.overview_text}>KDA</p>
+                        </div>
+                        <div className={styles.overview_sub_section}>
+                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.kd}</p>
+                            <p className={styles.overview_text}>KD</p>  
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.overview_section}>
+                    <p className={styles.overview_text}>CS</p>
+                </div>
+
+            </div>
+        )
+    }
+
     useEffect(() => {
         get_team_data()
     }, [])
     return (
         <div className={styles.card_container}>
             {render_meta_info()}
-            {render_match_info()}
+            {render_overview()}
+            {/* {render_match_info()} */}
         </div>
     )
 }
