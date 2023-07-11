@@ -297,6 +297,14 @@ export default function MatchCard(props: any) {
         )
     }
 
+    const render_items = () => {
+        return (
+            <div className={styles.item_container}>
+
+            </div>
+        )
+    }
+
     const render_overview = () => {
         return (
             <div className={styles.overview_container}>
@@ -305,9 +313,9 @@ export default function MatchCard(props: any) {
                     <p className={styles.overview_text}>
                         {props.match_data.target_summoner_info.kills_assists_deaths['0']}
                         /
-                        {props.match_data.target_summoner_info.kills_assists_deaths['1']}
-                        /
                         {props.match_data.target_summoner_info.kills_assists_deaths['2']}
+                        /
+                        {props.match_data.target_summoner_info.kills_assists_deaths['1']}
                     </p>
                     <div className={styles.small_vertical_spacer}/>
                     <div className={styles.kd_kda_section}>
@@ -334,26 +342,23 @@ export default function MatchCard(props: any) {
 
                 <div className={styles.overview_section}>
                     <div className={styles.vision_section}>
-                        <div className={styles.overview_sub_section}>
-                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.wards_placed}</p>
-                            <p className={styles.overview_text}>Wards Placed</p>
-                        </div>
 
                         <div className={styles.overview_sub_section}>
-                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.wards_destroyed}</p>
-                            <p className={styles.overview_text}>Wards Destroyed</p>  
-
-                        </div>
-
-                        <div className={styles.overview_sub_section}>
-                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.vision_score}</p>
-                            <p className={styles.overview_text}>Vision Score</p>  
-
+                            <p className={styles.overview_text}>
+                                {props.match_data.target_summoner_info.wards_placed} /
+                                {props.match_data.target_summoner_info.wards_destroyed} /
+                                {props.match_data.target_summoner_info.control_wards_placed} (
+                                {props.match_data.target_summoner_info.vision_score})
+                            </p>
+                            <p className={styles.overview_text}>Vision</p>
                         </div>
                     </div>
-
                 </div>
 
+                <div className={styles.overview_section}>
+                    <p className={styles.overview_text}>Items</p>
+                    {render_items()}
+                </div>
             </div>
         )
     }

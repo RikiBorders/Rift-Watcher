@@ -366,6 +366,7 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
             summoner_info['position'] = summoner['teamPosition']
             summoner_info['cs'] = summoner['totalMinionsKilled']
             summoner_info['wards_placed'] = summoner['wardsPlaced']
+            summoner_info['control_wards_placed'] = summoner['detectorWardsPlaced']
             summoner_info['wards_destroyed'] = summoner['wardsKilled']
             summoner_info['vision_score'] = summoner['visionScore']
 
@@ -382,6 +383,15 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
                 summoner['assists'], 
                 summoner['deaths']
             )
+            summoner_info['items'] = [
+                summoner['item0'],
+                summoner['item1'],
+                summoner['item2'],
+                summoner['item3'],
+                summoner['item4'],
+                summoner['item5'],
+                summoner['item6'],
+            ]
 
 
     for team in summoners_teams.values():
