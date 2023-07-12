@@ -7,6 +7,8 @@ import threading
 import requests
 import json
 from ThreadManager import *
+import re
+ITEM_DATA_CONTENT_REGEX = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});') 
 
 def calculate_winrate(wins: int, losses: int):
     '''
@@ -412,7 +414,7 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
 
     return summoner_info
 
-def build_item_dict(items):
+def build_item_dict(items: list):
     '''
     Get the image links for each item, along with their description
     '''
@@ -428,13 +430,18 @@ def build_item_dict(items):
                 item_response.append({
                     'icon_path': base_path+asset_subpath,
                     'name': item_data['name'],
-                    'description': item_data['description']
+                    'description': remove_html_tags(item_data['description'])
                 })
-
 
     return item_response
 
 
+def remove_html_tags(raw_html: str):
+    '''
+    Remove html tags from raw string text to get only the content
+    '''
+    cleantext = re.sub(ITEM_DATA_CONTENT_REGEX, '', raw_html)
+    return cleantext
 
 
 def get_queue_type(queueId: int):
