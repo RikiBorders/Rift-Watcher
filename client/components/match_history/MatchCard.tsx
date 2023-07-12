@@ -35,7 +35,7 @@ export default function MatchCard(props: any) {
     const render_position_icon = () => {
         const position = (props.match_data.target_summoner_info.position).toLowerCase()
         let position_icon = (<></>)
-        if (['bottom', 'support', 'jungle', 'middle', 'top'].includes(position)){
+        if (['bottom', 'UTILITY', 'jungle', 'middle', 'top'].includes(position)){
             position_icon = (<img className={styles.position_icon} src={`/position_icons/position-${position}.png`} />)
         }
 
@@ -298,11 +298,35 @@ export default function MatchCard(props: any) {
     }
 
     const render_items = () => {
-        return (
-            <div className={styles.item_container}>
+        let trinket = <></>
+        let items: Array<any> = []
 
+        props.match_data.target_summoner_info.items.map((item: any, i: number) => {
+            if (item.name == "Oracle Lens" || 
+                item.name == "Stealth Ward" || 
+                item.name == "Farsight Alteration"){
+                trinket = <img className={styles.trinket_icon} src={item.icon_path} />
+            } else {
+                items.push(<img className={styles.item_icon} src={item.icon_path} />)
+            }
+            
+        })
+
+        return (
+            <div className={styles.item_section}>
+                <div className={styles.item_container}>
+                    {
+                        items.map((item: any) => (
+                            item
+                        ))
+                        
+                    }
+                </div>
+
+                {trinket}
             </div>
         )
+
     }
 
     const render_overview = () => {
@@ -357,6 +381,7 @@ export default function MatchCard(props: any) {
 
                 <div className={styles.overview_section}>
                     <p className={styles.overview_text}>Items</p>
+                    <div className={styles.small_vertical_spacer}/>
                     {render_items()}
                 </div>
             </div>

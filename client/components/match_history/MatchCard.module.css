@@ -260,12 +260,31 @@
     margin: 0;
 }
 
-.item_container {
+.item_section {
+    align-items: center;
+    display: flex;
+}
 
+.item_container {
+    max-width: 200px;
 }
 
 .item {
     
+}
+
+.trinket_icon {
+    height: 50px;
+    width: 50px;
+    margin-left: 15px;
+}
+
+.item_icon {
+    height: 50px;
+    width: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
+
 }
 
 /* spacers */

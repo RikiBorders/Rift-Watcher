@@ -70,7 +70,7 @@ export default function username() {
   const render_icon = () => {
     if (summonerData){
       return (
-        <img src={"http://ddragon.leagueoflegends.com/cdn/13.11.1/img/profileicon/"+summonerData.summoner_account_data.profileIcon+".png"} className={styles.profile_image}/>
+        <img src={"https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/"+summonerData.summoner_account_data.profileIcon+".jpg"} className={styles.profile_image}/>
     )}
   }
 
