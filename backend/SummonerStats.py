@@ -4,6 +4,8 @@ match history analyzations, etc.
 '''
 import time
 import threading
+import requests
+import json
 from ThreadManager import *
 
 def calculate_winrate(wins: int, losses: int):
@@ -383,7 +385,7 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
                 summoner['assists'], 
                 summoner['deaths']
             )
-            summoner_info['items'] = [
+            summoner_info['items'] = build_item_dict([
                 summoner['item0'],
                 summoner['item1'],
                 summoner['item2'],
@@ -391,7 +393,9 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
                 summoner['item4'],
                 summoner['item5'],
                 summoner['item6'],
-            ]
+            ])
+
+            break
 
 
     for team in summoners_teams.values():
@@ -407,6 +411,31 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
                     summoner_info['rank'] = 'N/A'
 
     return summoner_info
+
+def build_item_dict(items):
+    '''
+    Get the image links for each item, along with their description
+    '''
+    url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
+    response = requests.get(url)
+    json = response.json()
+    item_response = []
+    for item_data in json:
+       for item_id in items:
+            if item_id == item_data['id']:
+                base_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/'
+                asset_subpath = item_data['iconPath'].lower().split('/')[-1]
+                item_response.append({
+                    'icon_path': base_path+asset_subpath,
+                    'name': item_data['name'],
+                    'description': item_data['description']
+                })
+
+
+    return item_response
+
+
+
 
 def get_queue_type(queueId: int):
     '''

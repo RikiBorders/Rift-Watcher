@@ -45,8 +45,15 @@ def TEST_calculate_player_stats():
     per_minute_stats = calculate_player_stats(match)
     print(per_minute_stats)
 
+def TEST_build_item_dict():
+    '''
+    this tests build_item_dict
+    '''
+    response = build_item_dict([6672, 3006, 1053, 1038, 1054, 3340])
+    print(response)
 
 if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()
-    TEST_get_match_statistics()
+    # TEST_get_match_statistics()
+    TEST_build_item_dict()
