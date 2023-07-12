@@ -33,9 +33,10 @@ export default function MatchCard(props: any) {
     }
 
     const render_position_icon = () => {
-        const position = (props.match_data.target_summoner_info.position).toLowerCase()
+        let position = (props.match_data.target_summoner_info.position).toLowerCase()
+        if (position == 'utility'){position = 'support'}
         let position_icon = (<></>)
-        if (['bottom', 'UTILITY', 'jungle', 'middle', 'top'].includes(position)){
+        if (['bottom', 'support', 'jungle', 'middle', 'top'].includes(position)){
             position_icon = (<img className={styles.position_icon} src={`/position_icons/position-${position}.png`} />)
         }
 
