@@ -56,11 +56,12 @@ def TEST_get_rune_paths():
     '''
     this tests get_rune_paths
     '''
-    response = get_rune_paths()
+    response = get_rune_paths(8214, 8369)
     print(response)
 
 if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()
     # TEST_get_match_statistics()
-    TEST_build_item_dict()
+    # TEST_build_item_dict()
+    TEST_get_rune_paths()

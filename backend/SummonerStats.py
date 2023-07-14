@@ -311,7 +311,7 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     # print(f'match history fetched in {time.time() - start_time} seconds')
     # start_time = time.time()
 
-    for i in range(3): # Fetch the last 3 matches (this should be updated later. details in ticket)
+    for i in range(1): # Fetch the last 1 matches (this should be updated later. details in ticket)
         match = match_history[i]
         if 'message' in match and match['message'] == 'Rate limit exceeded':
             print('Rate limit exceeded')
@@ -400,11 +400,11 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
             ])
 
             # summoner_info['summoner_spells'] = get_summoner_spell_paths(summoner['summoner1Id'], summoner['summoner2Id'])
-            summoner_info['runes'] = get_rune_paths(summoner['perks']['styles'][0]['description'], 
-                                                    summoner['perks']['styles'][1]['description']
+            summoner_info['runes'] = get_rune_paths(summoner['perks']['styles'][0]['selections']['perk'], 
+                                                    summoner['perks']['styles'][1]['selections']['perk']
                                                     )
-            break
 
+            break
 
     for team in summoners_teams.values():
         for summoner in team:
@@ -433,14 +433,22 @@ def get_rune_paths(rune1: int, rune2: int):
     Get paths for summoner rune icons
     '''
     url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json'
+    base_rune_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/'
     response = requests.get(url)
     json = response.json()
     rune_response = []
 
-    # for rune_data in json:
-    #     if rune_data['id'] == rune1:
-    #         print(rune_data['id']['iconPath'])
-    return rune1, rune2
+    for rune_data in json:
+        if rune_data['id'] == rune1 or rune_data['id'] == rune2:
+            raw_asset_subpath = rune_data['iconPath'].lower()
+            asset_subpath = raw_asset_subpath[raw_asset_subpath.find('styles'):]
+
+            rune_response.append(base_rune_path+asset_subpath)
+
+        if len(rune_response) == 2:
+            break
+            
+    return rune_response
 
 
 def build_item_dict(items: list):
@@ -448,16 +456,16 @@ def build_item_dict(items: list):
     Get the image links for each item, along with their description
     '''
     url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
+    base_item_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/'
     response = requests.get(url)
     json = response.json()
     item_response = []
     for item_data in json:
        for item_id in items:
             if item_id == item_data['id']:
-                base_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/'
                 asset_subpath = item_data['iconPath'].lower().split('/')[-1]
                 item_response.append({
-                    'icon_path': base_path+asset_subpath,
+                    'icon_path': base_item_path+asset_subpath,
                     'name': item_data['name'],
                     'description': remove_html_tags(item_data['description'])
                 })
