@@ -311,7 +311,7 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     # print(f'match history fetched in {time.time() - start_time} seconds')
     # start_time = time.time()
 
-    for i in range(1): # Fetch the last 1 matches (this should be updated later. details in ticket)
+    for i in range(3): # Fetch the last 3 matches (this should be updated later. details in ticket)
         match = match_history[i]
         if 'message' in match and match['message'] == 'Rate limit exceeded':
             print('Rate limit exceeded')
@@ -398,12 +398,10 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
                 summoner['item5'],
                 summoner['item6'],
             ])
-
             # summoner_info['summoner_spells'] = get_summoner_spell_paths(summoner['summoner1Id'], summoner['summoner2Id'])
-            summoner_info['runes'] = get_rune_paths(summoner['perks']['styles'][0]['selections']['perk'], 
-                                                    summoner['perks']['styles'][1]['selections']['perk']
+            summoner_info['runes'] = get_rune_paths(summoner['perks']['styles'][0]['selections'][0]['perk'], 
+                                                    summoner['perks']['styles'][1]['selections'][0]['perk']
                                                     )
-
             break
 
     for team in summoners_teams.values():
@@ -439,11 +437,25 @@ def get_rune_paths(rune1: int, rune2: int):
     rune_response = []
 
     for rune_data in json:
-        if rune_data['id'] == rune1 or rune_data['id'] == rune2:
+        if rune_data['id'] == rune1:
             raw_asset_subpath = rune_data['iconPath'].lower()
             asset_subpath = raw_asset_subpath[raw_asset_subpath.find('styles'):]
 
             rune_response.append(base_rune_path+asset_subpath)
+
+        elif rune_data['id'] == rune2: # For secondary runes, we'll just show what tree (i.e Inspiration) it belongs to
+            raw_asset_subpath = rune_data['iconPath'].lower()
+            if 'inspiration' in raw_asset_subpath:
+                tree_icon_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7203_whimsy.png'
+            elif 'domination' in raw_asset_subpath:
+                tree_icon_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7200_domination.png'
+            elif 'precision' in raw_asset_subpath:
+                tree_icon_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7201_precision.png'
+            elif 'resolve' in raw_asset_subpath:
+                tree_icon_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7204_resolve.png'
+            else: # sorcery tree
+                tree_icon_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7202_sorcery.png'
+            rune_response.append(tree_icon_path)
 
         if len(rune_response) == 2:
             break

@@ -102,12 +102,18 @@ export default function MatchCard(props: any) {
                     <p className={styles.meta_summoner_text}>
                         {props.match_data.target_summoner_info.champion}
                     </p>
-                    <p className={styles.meta_summoner_text}>
-                        {toTitleCase(props.match_data.target_summoner_info.position)}
-                    </p>
-                    <p className={styles.match_length_text}>
-                        {`${Math.round(props.match_data.match_length)} Minutes`}
-                    </p>
+
+                    <div className={styles.rune_container}>
+                        <img 
+                            src={props.match_data.target_summoner_info.runes[0] } 
+                            className={styles.rune_image}
+                        />
+                        <img 
+                            src={props.match_data.target_summoner_info.runes[1] } 
+                            className={styles.secondary_rune_image}
+                        />
+                    </div>
+
 
                 </div>
 

@@ -133,6 +133,20 @@
     border-width: 2px;
 }
 
+.rune_container {
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.rune_image {
+    width: 30px;
+}
+
+.secondary_rune_image {
+    width: 25px;
+}
 
 /* Match info styles */
 
