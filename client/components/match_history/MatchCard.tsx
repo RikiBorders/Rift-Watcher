@@ -114,6 +114,17 @@ export default function MatchCard(props: any) {
                         />
                     </div>
 
+                    <div className={styles.summoner_spell_container}>
+                        <img 
+                            src={props.match_data.target_summoner_info.summoner_spells[0] } 
+                            className={styles.summoner_spell_image}
+                        />
+                        <img 
+                            src={props.match_data.target_summoner_info.summoner_spells[1] } 
+                            className={styles.summoner_spell_image}
+                        />
+                    </div>
+
 
                 </div>
 

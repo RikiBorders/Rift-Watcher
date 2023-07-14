@@ -398,7 +398,7 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
                 summoner['item5'],
                 summoner['item6'],
             ])
-            # summoner_info['summoner_spells'] = get_summoner_spell_paths(summoner['summoner1Id'], summoner['summoner2Id'])
+            summoner_info['summoner_spells'] = get_summoner_spell_paths(summoner['summoner1Id'], summoner['summoner2Id'])
             summoner_info['runes'] = get_rune_paths(summoner['perks']['styles'][0]['selections'][0]['perk'], 
                                                     summoner['perks']['styles'][1]['selections'][0]['perk']
                                                     )
@@ -419,12 +419,25 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
     return summoner_info
 
 
-def get_summoner_spell_paths():
+def get_summoner_spell_paths(summoner_id1: int, summoner_id2: int):
     '''
     Get paths for summoner spell icons
     '''
-    url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
-    
+    url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells.json'
+    base_summoner_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/'
+    response = requests.get(url)
+    json = response.json()
+    summoner_spell_response = []
+    for icon_data in json:
+        if summoner_id1 == icon_data['id'] or summoner_id2 == icon_data['id']:
+            subpath = icon_data['iconPath'].lower().split('/')[-1]
+            summoner_spell_response.append(base_summoner_path+subpath)
+
+        if len(summoner_spell_response) == 2:
+            break
+
+    return summoner_spell_response
+
 
 def get_rune_paths(rune1: int, rune2: int):
     '''

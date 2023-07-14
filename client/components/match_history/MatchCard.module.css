@@ -31,7 +31,7 @@
     font-family: sans-serif;
     font-size: 17px;
     margin-top: 0;
-    margin-bottom: 2vh;
+    margin-bottom: 10px;
     cursor: default;
     -webkit-user-drag: none; 
 }
@@ -86,7 +86,7 @@
 }
 
 .ranked_icon {
-    margin-top: 2vh;
+    margin-top: 5px;
     height: 50px;
     width: 65px; 
 }
@@ -140,8 +140,21 @@
     justify-content: center;
 }
 
+.summoner_spell_container {
+    margin-top: 5px;
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
 .rune_image {
     width: 30px;
+}
+
+.summoner_spell_image {
+    width: 25px;
+    border-radius: 10px;
 }
 
 .secondary_rune_image {
