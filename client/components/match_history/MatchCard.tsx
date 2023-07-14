@@ -86,8 +86,8 @@ export default function MatchCard(props: any) {
         return(
             <div style={{
                 display: "flex",
-                columnGap: "2vw",
                 alignSelf: "center",
+                marginBottom: 0,
 
             }}>
                 <div className={styles.meta_summoner_info_section_left}>
@@ -320,10 +320,8 @@ export default function MatchCard(props: any) {
                         items.map((item: any) => (
                             item
                         ))
-                        
                     }
                 </div>
-
                 {trinket}
             </div>
         )
@@ -333,54 +331,56 @@ export default function MatchCard(props: any) {
     const render_overview = () => {
         return (
             <div className={styles.overview_container}>
-                <div className={styles.overview_section}>
+                <div className={styles.overview_stats_container}>
+                    <div className={styles.overview_stats_section}>
 
-                    <p className={styles.overview_text}>
-                        {props.match_data.target_summoner_info.kills_assists_deaths['0']}
-                        /
-                        {props.match_data.target_summoner_info.kills_assists_deaths['2']}
-                        /
-                        {props.match_data.target_summoner_info.kills_assists_deaths['1']}
-                    </p>
-                    <div className={styles.small_vertical_spacer}/>
-                    <div className={styles.kd_kda_section}>
-                        <div className={styles.overview_sub_section}>
-                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.kda}</p>
-                            <p className={styles.overview_text}>KDA</p>
+                        <p className={styles.kda_text}>
+                            {props.match_data.target_summoner_info.kills_assists_deaths['0']}
+                            /
+                            {props.match_data.target_summoner_info.kills_assists_deaths['2']}
+                            /
+                            {props.match_data.target_summoner_info.kills_assists_deaths['1']}
+                        </p>
+                        <div className={styles.kd_kda_section}>
+                            <div className={styles.overview_sub_section}>
+                                <p className={styles.overview_text}>{props.match_data.target_summoner_info.kda}</p>
+                                <p className={styles.sub_header}>KDA</p>
+                            </div>
+                            <div className={styles.overview_sub_section}>
+                                <p className={styles.overview_text}>{props.match_data.target_summoner_info.kd}</p>
+                                <p className={styles.sub_header}>KD</p> 
+
+                            </div>
                         </div>
-                        <div className={styles.overview_sub_section}>
-                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.kd}</p>
-                            <p className={styles.overview_text}>KD</p> 
+                        <div className={styles.vertical_divider}/>
+                    </div>
 
+                    <div className={styles.overview_stats_section}>
+                        <div className={styles.cs_cspm_section}>
+                                <p className={styles.overview_text}>{props.match_data.target_summoner_info.cs}</p>
+                                <p className={styles.overview_text}>({props.match_data.target_summoner_info.cs_pm})</p>
+                        </div>
+                        <p className={styles.sub_header}>CS</p>  
+                        <div className={styles.vertical_divider}/>
+                    </div>
+
+                    <div className={styles.overview_stats_section}>
+                        <div className={styles.vision_section}>
+
+                            <div className={styles.overview_sub_section}>
+                                <p className={styles.overview_text}>
+                                    {props.match_data.target_summoner_info.wards_placed} /
+                                    {props.match_data.target_summoner_info.wards_destroyed} /
+                                    {props.match_data.target_summoner_info.control_wards_placed} (
+                                    {props.match_data.target_summoner_info.vision_score})
+                                </p>
+                                <p className={styles.sub_header}>Vision</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className={styles.overview_section}>
-                    <div className={styles.cs_cspm_section}>
-                            <p className={styles.overview_text}>{props.match_data.target_summoner_info.cs}</p>
-                            <p className={styles.overview_text}>({props.match_data.target_summoner_info.cs_pm})</p>
-                    </div>
-                    <div className={styles.small_vertical_spacer}/>
-                    <p className={styles.overview_text}>CS</p>  
-                </div>
-
-                <div className={styles.overview_section}>
-                    <div className={styles.vision_section}>
-
-                        <div className={styles.overview_sub_section}>
-                            <p className={styles.overview_text}>
-                                {props.match_data.target_summoner_info.wards_placed} /
-                                {props.match_data.target_summoner_info.wards_destroyed} /
-                                {props.match_data.target_summoner_info.control_wards_placed} (
-                                {props.match_data.target_summoner_info.vision_score})
-                            </p>
-                            <p className={styles.overview_text}>Vision</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.overview_section}>
+                <div className={styles.overview_items_section}>
                     <p className={styles.overview_text}>Items</p>
                     <div className={styles.small_vertical_spacer}/>
                     {render_items()}
@@ -395,6 +395,7 @@ export default function MatchCard(props: any) {
     return (
         <div className={styles.card_container}>
             {render_meta_info()}
+            <div className={styles.horizontal_spacer} />
             {render_overview()}
             {/* {render_match_info()} */}
         </div>

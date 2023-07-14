@@ -14,6 +14,8 @@ def calculate_winrate(wins: int, losses: int):
     '''
     Calculate the users winrate (as a PERCENTAGE) for the given wins and losses
     '''
+    if not wins:
+        return 0
     total_games = wins+losses
     win_ratio = wins/total_games
 
@@ -140,14 +142,14 @@ def calculate_kd(kills: int, deaths: int):
     '''
     calculate the kill/death ratio. 
     '''
-    return round(kills/deaths, 1)
+    return round(kills/deaths, 1) if deaths else 0
 
 
 def calculate_kda(kills: int, assists: int, deaths: int):
     '''
     calculate the kill&assist/death ratio. 
     '''
-    return round((kills+assists)/deaths, 1)
+    return round((kills+assists)/deaths, 1) if kills else 0
 
 
 def calculate_player_stats(match: dict, player_list: list):
@@ -309,7 +311,7 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     # print(f'match history fetched in {time.time() - start_time} seconds')
     # start_time = time.time()
 
-    for i in range(2): # Fetch the last 2 matches (this should be updated later. details in ticket)
+    for i in range(3): # Fetch the last 3 matches (this should be updated later. details in ticket)
         match = match_history[i]
         if 'message' in match and match['message'] == 'Rate limit exceeded':
             print('Rate limit exceeded')
