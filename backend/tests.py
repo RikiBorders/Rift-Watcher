@@ -52,6 +52,13 @@ def TEST_build_item_dict():
     response = build_item_dict([6672, 3006, 1053, 1038, 1054, 3340])
     print(response)
 
+def TEST_get_rune_paths():
+    '''
+    this tests get_rune_paths
+    '''
+    response = get_rune_paths()
+    print(response)
+
 if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()

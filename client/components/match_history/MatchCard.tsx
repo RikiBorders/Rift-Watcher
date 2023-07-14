@@ -87,6 +87,7 @@ export default function MatchCard(props: any) {
             <div style={{
                 display: "flex",
                 alignSelf: "center",
+                columnGap: "20px",
                 marginBottom: 0,
 
             }}>
@@ -107,11 +108,6 @@ export default function MatchCard(props: any) {
                     <p className={styles.match_length_text}>
                         {`${Math.round(props.match_data.match_length)} Minutes`}
                     </p>
-
-                    <div className={styles.button_div}>
-                        <button className={styles.player_stats_btn}>Player Stats</button>
-                        <button className={styles.player_stats_btn}>Match Stats</button>
-                    </div>
 
                 </div>
 

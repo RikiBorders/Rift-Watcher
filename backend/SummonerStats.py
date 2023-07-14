@@ -399,6 +399,10 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
                 summoner['item6'],
             ])
 
+            # summoner_info['summoner_spells'] = get_summoner_spell_paths(summoner['summoner1Id'], summoner['summoner2Id'])
+            summoner_info['runes'] = get_rune_paths(summoner['perks']['styles'][0]['description'], 
+                                                    summoner['perks']['styles'][1]['description']
+                                                    )
             break
 
 
@@ -415,6 +419,29 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
                     summoner_info['rank'] = 'N/A'
 
     return summoner_info
+
+
+def get_summoner_spell_paths():
+    '''
+    Get paths for summoner spell icons
+    '''
+    url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
+    
+
+def get_rune_paths(rune1: int, rune2: int):
+    '''
+    Get paths for summoner rune icons
+    '''
+    url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json'
+    response = requests.get(url)
+    json = response.json()
+    rune_response = []
+
+    # for rune_data in json:
+    #     if rune_data['id'] == rune1:
+    #         print(rune_data['id']['iconPath'])
+    return rune1, rune2
+
 
 def build_item_dict(items: list):
     '''
