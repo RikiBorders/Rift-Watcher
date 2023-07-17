@@ -334,6 +334,44 @@
 
 }
 
+.overview_champ_icon {
+    border-radius: 50%;
+    width: 25px;
+    margin: 0;
+
+}
+
+.overview_position_icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.overview_summoner_name {
+    color: #F0F4F8;
+    text-align: center;
+    font-family: 'Libre Baskerville', serif;
+    margin: 0;
+    font-size: 8px;
+}
+
+.matchup_container {
+    display: block;
+    align-self: center;
+    justify-content: center;
+}
+
+.matchup_row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex_wrapper {
+    display: flex;
+}
+
 /* spacers */
 
 .horizontal_spacer {

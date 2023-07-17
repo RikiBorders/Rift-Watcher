@@ -184,6 +184,7 @@ def calculate_player_stats(match: dict, player_list: list):
             'deaths': player['deaths'],
             'assists': player['assists'],
             'champion': player['championName'],
+            'champ_icon': get_champion_icon(player['championName']),
             'win': player['win'],
             'team_id': player['teamId'],
 
@@ -437,6 +438,19 @@ def get_summoner_spell_paths(summoner_id1: int, summoner_id2: int):
             break
 
     return summoner_spell_response
+
+def get_champion_icon(champ_name: str):
+    '''
+    get the icon for a given champion name
+    '''
+    url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json'
+    base_icon_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/'
+    response = requests.get(url)
+    json = response.json()
+    for champ_data in json:
+        if champ_data['alias'] == champ_name:
+            subpath = champ_data['squarePortraitPath']
+            return base_icon_path+subpath.split('/')[-1]
 
 
 def get_rune_paths(rune1: int, rune2: int):

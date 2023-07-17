@@ -59,9 +59,17 @@ def TEST_get_rune_paths():
     response = get_rune_paths(8214, 8369)
     print(response)
 
+def TEST_get_champion_icon():
+    '''
+    this tests get_champion_icon
+    '''
+    response = get_champion_icon("KSante")
+    print(response)
+
 if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()
     # TEST_get_match_statistics()
     # TEST_build_item_dict()
-    TEST_get_rune_paths()
+    TEST_get_champion_icon()
+    # TEST_get_rune_paths()

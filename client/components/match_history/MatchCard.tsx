@@ -43,6 +43,17 @@ export default function MatchCard(props: any) {
         return position_icon
     }
 
+    const render_position_icon_for_overview = (pos: string) => {
+        let position = pos.toLowerCase()
+        if (position == 'utility'){position = 'support'}
+        let position_icon = (<></>)
+        if (['bottom', 'support', 'jungle', 'middle', 'top'].includes(position)){
+            position_icon = (<img className={styles.overview_position_icon} src={`/position_icons/position-${position}.png`} />)
+        }
+
+        return position_icon
+    }
+
     const render_rank_icon = () => {
         const rank = props.match_data.average_ranks.combined_avg.toLowerCase();
         let ranked_icon = (<></>)
@@ -341,6 +352,77 @@ export default function MatchCard(props: any) {
 
     }
 
+    const abreviate_name = (name: string) => {
+        if (name.length > 11) {
+            name = `${name.substring(0, 11)}...`
+        }
+        return name
+    }
+
+    const render_matchups = () => {
+        // element 0 is a team1 player, element 1 is a team2 player
+        // we'll add the matchups in order from top to support  to the matchups array
+        let top_matchup: Array<any> = []
+        let jungle_matchup: Array<any> = []
+        let mid_matchup: Array<any> = []
+        let bot_matchup: Array<any> = []
+        let sup_matchup: Array<any> = []
+        let player_details: Array<any> = []
+        let matchups: Array<any> = [] 
+        let url = ""
+        let summoner_name = ""
+
+        const map_matchup = (team: Array<any>) => {
+            team.map((player: any) => {
+                summoner_name = abreviate_name(player.name)
+                player_details = [player.champ_icon, summoner_name, player.position]
+                console.log(player_details)
+                if (player.position == "TOP") {
+                    console.log(url)
+                    top_matchup.push(player_details)
+                }
+                if (player.position == "JUNGLE") {
+                    jungle_matchup.push(player_details)
+                }
+                if (player.position == "MIDDLE") {
+                    mid_matchup.push(player_details)
+                }
+                if (player.position == "BOTTOM") {
+                    bot_matchup.push(player_details)
+                }
+                if (player.position == "UTILITY") {
+                    sup_matchup.push(player_details)
+                }
+            })
+        }
+
+        map_matchup(team1Players)
+        map_matchup(team2Players)
+        matchups.push(top_matchup)
+        matchups.push(jungle_matchup)
+        matchups.push(mid_matchup)
+        matchups.push(bot_matchup)
+        matchups.push(sup_matchup)
+
+        return(
+            <div className={styles.matchup_container}>
+                {matchups.map((matchup: any) => (
+                    <div className={styles.matchup_row}>
+                        <div className={styles.matchup_row_player}>
+                            <img src={matchup[0][0]} className={styles.overview_champ_icon} />
+                            <p className={styles.overview_summoner_name}>{matchup[0][1]}</p>
+                        </div>
+                        {render_position_icon_for_overview(matchup[0][2])}
+                        <div className={styles.matchup_row_player}>
+                            <img src={matchup[1][0]} className={styles.overview_champ_icon} />
+                            <p className={styles.overview_summoner_name}>{matchup[1][1]}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
     const render_overview = () => {
         return (
             <div className={styles.overview_container}>
@@ -398,6 +480,7 @@ export default function MatchCard(props: any) {
                     <div className={styles.small_vertical_spacer}/>
                     {render_items()}
                 </div>
+                {render_matchups()}
             </div>
         )
     }
