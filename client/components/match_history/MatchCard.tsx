@@ -353,8 +353,8 @@ export default function MatchCard(props: any) {
     }
 
     const abreviate_name = (name: string) => {
-        if (name.length > 11) {
-            name = `${name.substring(0, 11)}...`
+        if (name.length > 8) {
+            name = `${name.substring(0, 8)}...`
         }
         return name
     }
