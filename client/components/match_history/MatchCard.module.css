@@ -15,7 +15,7 @@
 
 .card_container_expanded {
     display: block;
-    height: 660px;
+    height: 680px;
     padding: 15px;
     max-height: 5;
     margin-bottom: 3vh;
@@ -400,6 +400,16 @@
     display: flex;
 }
 
+.arrow_visible{
+    visibility: visible;
+    width: 20px;
+}
+
+.arrow_hidden{
+    visibility: hidden;
+    width: 20px;
+}
+
 /* spacers */
 
 .horizontal_spacer {
@@ -426,6 +436,3 @@
 }
 
 
-.down_arrow{
-    width: 20px;
-}

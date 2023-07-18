@@ -22,6 +22,9 @@ export default function MatchCard(props: any) {
 
     const [cardStyle, setCardStyle] = useState(styles.card_container)
     const [matchInfoPane, setMatchInfoPane] = useState(styles.match_info_container_hidden)
+    const [arrowOpenStyle, setOpenArrowStyle] = useState(styles.arrow_visible)
+    const [arrowCloseStyle, setCloseArrowStyle] = useState(styles.arrow_hidden)
+
 
     const num_to_string = (num: number) => {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -353,7 +356,9 @@ export default function MatchCard(props: any) {
                     </div>
 
                     <div style={{marginBottom: '5vh'}}></div>
+                </div>
 
+                <div className={styles.losing_team_section}>
                     <div className={styles.team_header}>
                         <h4 className={styles.team_header_text}>Team 2</h4>
                         <div className={styles.header_column}>
@@ -382,10 +387,9 @@ export default function MatchCard(props: any) {
                         {render_team_stats(team2Players)}
                     </div>
                 </div>
+                <div className={styles.small_vertical_spacer}/>
+                <img src='/arrow_up.png' className={arrowCloseStyle} onClick={show_match_info}/>
 
-                <div className={styles.losing_team_section}>
-                    
-                </div>
             </div>
         )
     }
@@ -492,9 +496,14 @@ export default function MatchCard(props: any) {
         if (cardStyle == styles.card_container){
             setCardStyle(styles.card_container_expanded)
             setMatchInfoPane(styles.match_info_container_visible)
+            setOpenArrowStyle(styles.arrow_hidden)
+            setCloseArrowStyle(styles.arrow_visible)
+
         } else {
             setCardStyle(styles.card_container)
             setMatchInfoPane(styles.match_info_container_hidden)
+            setOpenArrowStyle(styles.arrow_visible)
+            setCloseArrowStyle(styles.arrow_hidden)
         }
     }
 
@@ -509,7 +518,7 @@ export default function MatchCard(props: any) {
                 {render_overview()}
                 {render_matchups()}
             </div>
-            <img src='/arrow_down.png' className={styles.down_arrow} onClick={show_match_info}/>
+            <img src='/arrow_down.png' className={arrowOpenStyle} onClick={show_match_info}/>
             {render_match_info()}
         </div>
     )
