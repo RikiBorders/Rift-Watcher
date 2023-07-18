@@ -149,7 +149,7 @@ def calculate_kda(kills: int, assists: int, deaths: int):
     '''
     calculate the kill&assist/death ratio. 
     '''
-    return round((kills+assists)/deaths, 1) if kills else 0
+    return round((kills+assists)/deaths, 1) if (kills or assists) else 0
 
 
 def calculate_player_stats(match: dict, player_list: list):
