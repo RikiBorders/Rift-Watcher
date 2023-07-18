@@ -20,6 +20,9 @@ export default function MatchCard(props: any) {
     const [team2Players, setTeam2Players] = useState<any>([]);
     const [matchups, setMatchups] = useState<any>([])
 
+    const [cardStyle, setCardStyle] = useState(styles.card_container)
+    const [matchInfoPane, setMatchInfoPane] = useState(styles.match_info_container_hidden)
+
     const num_to_string = (num: number) => {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -129,7 +132,7 @@ export default function MatchCard(props: any) {
                         {props.match_data.queue_type}
                     </h2>
                     <img 
-                        src={"http://ddragon.leagueoflegends.com/cdn/13.13.1/img/champion/"+toTitleCase(props.match_data.target_summoner_info.champion)+".png" } 
+                        src={props.match_data.target_summoner_info.champion_img_link} 
                         className={styles.champion_image}
                     />
                     <p className={styles.meta_summoner_text}>
@@ -318,7 +321,7 @@ export default function MatchCard(props: any) {
     const render_match_info = () => {
 
         return (
-            <div className={styles.match_info_container}>
+            <div className={matchInfoPane}>
                 <div className={styles.team_1_section}>
                     <div className={styles.team_header}>
                         <h4 className={styles.team_header_text}>Team 1</h4>
@@ -485,16 +488,29 @@ export default function MatchCard(props: any) {
         )
     }
 
+    const show_match_info = () => {
+        if (cardStyle == styles.card_container){
+            setCardStyle(styles.card_container_expanded)
+            setMatchInfoPane(styles.match_info_container_visible)
+        } else {
+            setCardStyle(styles.card_container)
+            setMatchInfoPane(styles.match_info_container_hidden)
+        }
+    }
+
     useEffect(() => {
             get_team_data()
     }, []);
     return (
-        <div className={styles.card_container}>
-            {render_meta_info()}
-            <div className={styles.horizontal_spacer} />
-            {render_overview()}
-            {/* {render_match_info()} */}
-            {render_matchups()}
+        <div className={cardStyle}>
+            <div className={styles.card_info_container}>
+                {render_meta_info()}
+                <div className={styles.horizontal_spacer} />
+                {render_overview()}
+                {render_matchups()}
+            </div>
+            <img src='/arrow_down.png' className={styles.down_arrow} onClick={show_match_info}/>
+            {render_match_info()}
         </div>
     )
 }

@@ -1,15 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 
 .card_container {
-    height: 200px;
+    display: block;
+    height: 220px;
     padding: 15px;
     max-height: 5;
     margin-bottom: 3vh;
-    display: flex;
     background-color: #212A3E;
     box-shadow: 3px 4px 4px;
     border-radius: 15px;
     padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.card_container_expanded {
+    display: block;
+    height: 660px;
+    padding: 15px;
+    max-height: 5;
+    margin-bottom: 3vh;
+    background-color: #212A3E;
+    box-shadow: 3px 4px 4px;
+    border-radius: 15px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.card_info_container {
+
+    display: flex;
+
 }
 
 .meta_section{
@@ -97,9 +117,13 @@
     width: 65px; 
 }
 
-.match_info_container{
+.match_info_container_visible{
     visibility: visible;
-    overflow-y: scroll;
+    padding-right: 2vw;
+}
+
+.match_info_container_hidden{
+    visibility: hidden;
     padding-right: 2vw;
 }
 
@@ -324,6 +348,8 @@
     height: 40px;
     width: 40px;
     margin-left: 15px;
+    margin-right: 30px;
+
 }
 
 .item_icon {
@@ -397,4 +423,9 @@
     margin-top: 10px;
     margin-left: 0;
     margin-right: 0;
+}
+
+
+.down_arrow{
+    width: 20px;
 }

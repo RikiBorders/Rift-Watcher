@@ -370,6 +370,7 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
     for summoner in player_list:
         if summoner_name.upper() == summoner['summonerName'].upper():
             summoner_info['champion'] = summoner['championName']
+            summoner_info['champion_img_link'] = get_champion_icon(summoner['championName'])
             summoner_info['position'] = summoner['teamPosition']
             summoner_info['cs'] = summoner['totalMinionsKilled']
             summoner_info['wards_placed'] = summoner['wardsPlaced']
