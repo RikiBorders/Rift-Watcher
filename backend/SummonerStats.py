@@ -362,7 +362,7 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
         print('Rate limit exceeded')
         return 'Rate limit exceeded'
 
-    for i in range(1): # Fetch the last 1 matches (this should be updated later. details in ticket)
+    for i in range(3): # Fetch the last 3 matches (this should be updated later. details in ticket)
         match = match_history[i]
         if 'message' in match and match['message'] == 'Rate limit exceeded':
             print('Rate limit exceeded')
@@ -464,9 +464,9 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
             if summoner['summoner_name'] == summoner_name:
 
                 # Get rank
-                if match['info']['queueId'] == 420:
+                if match['info']['queueId'] == 420 and 'solo_data' in summoner:
                     summoner_info['rank'] = summoner['solo_data']['rank']
-                elif match['info']['queueId'] == 440:
+                elif match['info']['queueId'] == 440 and 'flex_data' in summoner:
                     summoner_info['rank'] = summoner['flex_data']['rank']
                 else:
                     summoner_info['rank'] = 'N/A'
