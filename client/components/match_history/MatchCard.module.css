@@ -2,7 +2,8 @@
 
 .card_container {
     display: block;
-    height: 220px;
+    height: fit-content;
+    max-height: 270px;
     padding: 15px;
     max-height: 5;
     margin-bottom: 3vh;
@@ -226,6 +227,11 @@
     color: #F0F4F8;
     font-family: sans-serif;
     font-size: 1.5vh;
+}
+
+.team_stats_champ_icon {
+    width: 30px;
+    border-radius: 30px;
 }
 
 .player_card_text {

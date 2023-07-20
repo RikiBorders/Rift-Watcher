@@ -18,8 +18,6 @@ export default function MatchCard(props: any) {
         barons_taken: 0,
     });
     const [team2Players, setTeam2Players] = useState<any>([]);
-    const [matchups, setMatchups] = useState<any>([])
-
     const [cardStyle, setCardStyle] = useState(styles.card_container)
     const [matchInfoPane, setMatchInfoPane] = useState(styles.match_info_container_hidden)
     const [arrowOpenStyle, setOpenArrowStyle] = useState(styles.arrow_visible)
@@ -42,7 +40,7 @@ export default function MatchCard(props: any) {
     const render_matchups = () => {
         return(
             <div className={styles.matchup_container}>
-                {matchups.map((matchup: any) => (
+                {props.match_data.matchups.map((matchup: any) => (
                     <div className={styles.matchup_row}>
                         <div className={styles.matchup_row_player}>
                             <img src={matchup[0][0]} className={styles.overview_champ_icon} />
@@ -57,7 +55,6 @@ export default function MatchCard(props: any) {
                 ))}
             </div>
         )
-
     }
 
     const render_position_icon = () => {
@@ -163,8 +160,6 @@ export default function MatchCard(props: any) {
                             className={styles.summoner_spell_image}
                         />
                     </div>
-
-
                 </div>
 
                 <div className={styles.meta_summoner_info_section_right}>
@@ -234,57 +229,12 @@ export default function MatchCard(props: any) {
         new_team1_stats.total_gold = num_to_string(new_team1_stats.total_gold)
         new_team2_stats.total_gold = num_to_string(new_team2_stats.total_gold)
 
-
-        get_matchups(team_1, team_2)
         setTeam1Players(team_1);
         setTeam2Players(team_2);
         setTeam1Stats(new_team1_stats);
         setTeam2Stats(new_team2_stats);
-
     }
     
-    const get_matchups = (team_1_players: any, team_2_players: any) => {
-        // element 0 is a team1 player, element 1 is a team2 player
-        // we'll add the matchups in order from top to support  to the matchups array
-        let top_matchup: Array<any> = []
-        let jungle_matchup: Array<any> = []
-        let mid_matchup: Array<any> = []
-        let bot_matchup: Array<any> = []
-        let sup_matchup: Array<any> = []
-        let player_details: Array<any> = []
-        let current_matchups: Array<any> = [] 
-        let summoner_name = ""
-
-        const map_matchup = (team: Array<any>) => {
-            team.map((player: any) => {
-                summoner_name = abreviate_name(player.name)
-                player_details = [player.champ_icon, summoner_name, player.position]
-                if (player.position == "TOP") {
-                    top_matchup.push(player_details)
-                }
-                if (player.position == "JUNGLE") {
-                    jungle_matchup.push(player_details)
-                }
-                if (player.position == "MIDDLE") {
-                    mid_matchup.push(player_details)
-                }
-                if (player.position == "BOTTOM") {
-                    bot_matchup.push(player_details)
-                }
-                if (player.position == "UTILITY") {
-                    sup_matchup.push(player_details)
-                }
-            })
-        }
-        map_matchup(team_1_players)
-        map_matchup(team_2_players)
-        current_matchups.push(top_matchup)
-        current_matchups.push(jungle_matchup)
-        current_matchups.push(mid_matchup)
-        current_matchups.push(bot_matchup)
-        current_matchups.push(sup_matchup)
-        setMatchups(current_matchups)
-    }
 
     const render_team_stats = (team: Array<any>) => {
 
@@ -303,7 +253,10 @@ export default function MatchCard(props: any) {
                     {
                         team.map((player_data: any, i: number) => (
                             <tr className={styles.player_section_row}>
-                                <td className={styles.player_name} key={`${player_data.name}`+`${i}`}>{player_data.name}</td>
+                                <td className={styles.player_name} key={`${player_data.name}`+`${i}`}>
+                                    {/* <img src={player_data.champ_icon} className={styles.team_stats_champ_icon} /> */}
+                                    {player_data.name}
+                                </td>
                                 <td className={styles.player_card_text} key={`${player_data.kills}`+`${i}`}>
                                     {`${player_data.kills}/${player_data.deaths}/${player_data.assists}`}
                                 </td>
@@ -508,7 +461,7 @@ export default function MatchCard(props: any) {
     }
 
     useEffect(() => {
-            get_team_data()
+        get_team_data()
     }, []);
     return (
         <div className={cardStyle}>

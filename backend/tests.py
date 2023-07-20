@@ -18,7 +18,7 @@ def TEST_get_match_statistics():
     summoner_name = 'SL1MEBALL'
     stats = get_match_statistics(riot_api, summoner_name, region)
     print(f'took {time.time() - start_time} seconds to execute')
-    # print(stats)
+    print(stats)
     
 def TEST_calculate_average_ranks():
     '''
@@ -66,10 +66,21 @@ def TEST_get_champion_icon():
     response = get_champion_icon("KSante")
     print(response)
 
+def TEST_get_summoner_profile():
+    '''
+    this tests get_summoner_profile
+    '''
+    region = 'NA'
+    summoner_name = 'SL1MEBALL'
+
+    summoner_data = riot_api.get_summoner_profile(summoner_name, region)
+    print(summoner_data)
+
 if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()
     # TEST_get_match_statistics()
     # TEST_build_item_dict()
-    TEST_get_champion_icon()
+    # TEST_get_champion_icon()
     # TEST_get_rune_paths()
+    TEST_get_summoner_profile()

@@ -5,27 +5,32 @@ export default function SummonerInfo(props: any) {
 
     const render_rank_icon = (summoner_rank: string) => {
         // this can be refactored pretty easily. Fix this before launch
-        const rank = summoner_rank.toLowerCase();
         let ranked_icon = (<></>)
-        if (rank.includes("iron")) {
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-iron.png" />)
-        } else if (rank.includes("bronze")){
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-bronze.png" />)
-        } else if (rank.includes("silver")){
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-silver.png" />)
-        } else if (rank.includes("gold")){
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" />)
-        } else if (rank.includes("platinum")){
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" />)
-        } else if (rank.includes("diamond")){
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" />)
-        } else if (rank.includes("master")){
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-master.png" />)
-        } else if (rank.includes("grandmaster")){
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-grandmaster.png" />)
-        } else if (rank.includes("challenger")){
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-challenger.png" />)
+        if (!summoner_rank){
+            ranked_icon = (<img className={styles.unranked_icon} src="/ranked_icons/unranked.png" />)
+        } else {
+            const rank = summoner_rank.toLowerCase();
+            if (rank.includes("iron")) {
+                ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-iron.png" />)
+            } else if (rank.includes("bronze")){
+                ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-bronze.png" />)
+            } else if (rank.includes("silver")){
+                ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-silver.png" />)
+            } else if (rank.includes("gold")){
+                ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" />)
+            } else if (rank.includes("platinum")){
+                ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" />)
+            } else if (rank.includes("diamond")){
+                ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" />)
+            } else if (rank.includes("master")){
+                ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-master.png" />)
+            } else if (rank.includes("grandmaster")){
+                ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-grandmaster.png" />)
+            } else if (rank.includes("challenger")){
+                ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-challenger.png" />)
+            }
         }
+
         return ranked_icon
     }  
 
@@ -66,6 +71,16 @@ export default function SummonerInfo(props: any) {
         )}
     }
 
+    const render_winrate = (queue_type: string) => {
+        if (queue_type == 'soloduo' && props.summonerData.summoner_account_data.solo_winrate){
+            return (<h3 className={styles.rank_label}>{`${props.summonerData.summoner_account_data.solo_winrate} % Winrate`}</h3>)
+        } else if (queue_type == 'flex' && props.summonerData.summoner_account_data.flex_winrate){
+            return(<h3 className={styles.rank_label}>{`${props.summonerData.summoner_account_data.flex_winrate} % Winrate`}</h3>)
+        } else {
+            return (<h3 className={styles.rank_label}>No winrate available</h3>)
+        }
+    }
+
     return (
         <div className={styles.summoner_info_container}>
             <div className={styles.account_info}>
@@ -79,25 +94,24 @@ export default function SummonerInfo(props: any) {
                 </div>
 
                 <div className={styles.rank_section}>
-                <div className={styles.rank}>
-                    <h3 className={styles.rank_label}>Solo/Duo Rank:</h3>
-                    <div className={styles.rank_data}>
-                    {render_rank_icon(props.summonerData.summoner_account_data.solo_data.rank[0])}
-                    {render_rank('soloduo')}
-                    <h3 className={styles.rank_label}>{`${props.summonerData.summoner_account_data.solo_winrate} % Winrate`}</h3>
+                    <div className={styles.rank}>
+                        <h3 className={styles.rank_label}>Solo/Duo Rank:</h3>
+                        <div className={styles.rank_data}>
+                        {render_rank_icon(props.summonerData.summoner_account_data.solo_data.rank[0])}
+                        {render_rank('soloduo')}
+                        {render_winrate('soloduo')}
 
+                        </div>
                     </div>
-                </div>
-                
-                <div className={styles.rank}>
-                    <h3 className={styles.rank_label}>Flex Rank:</h3>
-                    <div className={styles.rank_data}>
-                        {render_rank_icon(props.summonerData.summoner_account_data.flex_data.rank[0])}
-                        {render_rank('flex')}
-                        <h3 className={styles.rank_label}>{`${props.summonerData.summoner_account_data.flex_winrate} % Winrate`}</h3>
-
+                    
+                    <div className={styles.rank}>
+                        <h3 className={styles.rank_label}>Flex Rank:</h3>
+                        <div className={styles.rank_data}>
+                            {render_rank_icon(props.summonerData.summoner_account_data.flex_data.rank[0])}
+                            {render_rank('flex')}
+                            {render_winrate('flex')}
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

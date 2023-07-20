@@ -3,6 +3,7 @@
 .container {
     text-align: center;
     align-items: center;
+    height: fit-content;
     width: fit-content;
     background-color: #212A3E;
     border-radius: 15px;

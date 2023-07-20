@@ -204,6 +204,52 @@ def calculate_player_stats(match: dict, player_list: list):
     return player_stats # key = player identifier (summonerName), val = dict of stats
 
 
+def get_matchup_info(player_list: list):
+    '''
+    order matchup info
+    '''
+    matchup_data = {
+        'top_matchup': [],
+        'jungle_matchup ': [],
+        'mid_matchup': [],
+        'bot_matchup': [],
+        'support_matchup': []
+    }
+
+
+    team_1, team_2 = [], []
+    for player in player_list:
+        if player['team_id'] == 100:
+            team_1.append(player)                
+        else:
+            team_2.append(player)
+
+    for player in team_1:
+        if player['position'] == 'top':
+            matchup_data['top_matchup'].append(player)
+        elif player['position'] == 'middle':
+            matchup_data['mid_matchup'].append(player)
+        elif player['position'] == 'jungle':
+            matchup_data['jungle_matchup'].append(player)
+        elif player['position'] == 'bottom':
+            matchup_data['bot_matchup'].append(player)
+        elif player['position'] == 'utility':
+            matchup_data['support_matchup'].append(player)
+
+    for player in team_2:
+        if player['position'] == 'top':
+            matchup_data['top_matchup'].append(player)
+        elif player['position'] == 'middle':
+            matchup_data['mid_matchup'].append(player)
+        elif player['position'] == 'jungle':
+            matchup_data['jungle_matchup'].append(player)
+        elif player['position'] == 'bottom':
+            matchup_data['bot_matchup'].append(player)
+        elif player['position'] == 'utility':
+            matchup_data['support_matchup'].append(player)
+
+    return matchup_data
+
 def normalize_rank(full_rank, lp):
     '''
     Take a player's rank and normalize it. This formula was provided by Marvin
@@ -346,6 +392,8 @@ def fetch_match_data(riot_api, match, summoner_name, region, historical_match_da
         total_match_time = (match['info']['gameDuration']) / 60 # convert seconds to minutes
     queue_type = get_queue_type(match['info']['queueId'])
 
+    matchup_info = get_matchup_info(player_stats)
+
     # Get information related to the target summoner
     target_summoner_info = get_summoner_info_for_match(summoner_name, summoners_teams, player_list, match, total_match_time)
     
@@ -354,6 +402,7 @@ def fetch_match_data(riot_api, match, summoner_name, region, historical_match_da
         'average_ranks': average_ranks, 
         'match_length': total_match_time,
         'target_summoner_info': target_summoner_info,
+        'matchup_info': matchup_info,
         'queue_type': queue_type
     })
 

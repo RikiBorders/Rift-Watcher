@@ -50,7 +50,6 @@ class Riot():
         '''
         url = f"https://{self.regions[region]}.api.riotgames.com/lol/league/v4/entries/by-summoner/{summoner_id}"
         account_info = requests.get(url, headers=self.request_headers)
-
         return account_info.json()
     
     def __parse_account_data(self, account_data):
@@ -92,16 +91,26 @@ class Riot():
             parsed_account_data = self.__parse_account_data(account_data)
             parsed_account_data['profileIcon'] = summoner_data['profileIconId']
             
-            # Winrate calculations
-            solo_wins, flex_wins = parsed_account_data['solo_data']['wins'], parsed_account_data['flex_data']['wins']
-            solo_losses, flex_losses = parsed_account_data['solo_data']['losses'], parsed_account_data['flex_data']['losses']
-            solo_winrate = calculate_winrate(solo_wins, solo_losses)
-            flex_winrate = calculate_winrate(flex_wins, flex_losses)
-            parsed_account_data['solo_winrate'] = solo_winrate
-            parsed_account_data['flex_winrate'] = flex_winrate
+            # Winrate calculations. Note that the else conditions are if the player is unranked
+            if parsed_account_data and 'solo_data' in parsed_account_data:
+                solo_wins = parsed_account_data['solo_data']['wins']
+                solo_losses= parsed_account_data['solo_data']['losses']
+                solo_winrate = calculate_winrate(solo_wins, solo_losses)
+                parsed_account_data['solo_winrate'] = solo_winrate
+            else:
+                parsed_account_data['solo_data'] = {'rank': [None, None], 'wins': None, 'losses': None, 'lp': None}
+                parsed_account_data['solo_winrate'] = None
+
+            if parsed_account_data and 'flex_data' in parsed_account_data:
+                flex_wins = parsed_account_data['flex_data']['wins']
+                flex_losses = parsed_account_data['flex_data']['losses']
+                flex_winrate = calculate_winrate(flex_wins, flex_losses)
+                parsed_account_data['flex_winrate'] = flex_winrate
+            else:
+                parsed_account_data['flex_data'] = {'rank': [None, None], 'wins': None, 'losses': None, 'lp': None}
+                parsed_account_data['flex_winrate'] = None
             
             user_data = {'summoner_account_data': parsed_account_data}
-
             return {'status': 1, 'summoner_data': user_data}
     
     def get_summoner_matches(self, summoner_name: str, region: str):
