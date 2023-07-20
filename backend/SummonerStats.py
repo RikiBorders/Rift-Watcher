@@ -74,20 +74,26 @@ def calculate_average_ranks_for_match(rank_data: dict, queue_type: str):
     else: # if this isnt soloduo or flex, we don't care
         return {'team_1_avg': 1, 'team_2_avg': 1, 'combined_avg': 1}
 
-    team_1_avg = 0
-    for rank in team_1_ranks:
-        normalized_rank = normalize_rank(rank['rank'], rank['lp'])
-        team_1_avg += normalized_rank
+    # handle unranked lobbies. This can occur during offseason, season start, etc.
+    if team_1_ranks and team_2_ranks:
+        team_1_avg = 0
+        for rank in team_1_ranks:
+            normalized_rank = normalize_rank(rank['rank'], rank['lp'])
+            team_1_avg += normalized_rank
+        
+        team_1_avg = team_1_avg // len(team_1_ranks)
 
-    team_1_avg = team_1_avg // len(team_1_ranks)
+        team_2_avg = 0
+        for rank in team_2_ranks:
+            normalized_rank = normalize_rank(rank['rank'], rank['lp'])
+            team_2_avg += normalized_rank
 
-    team_2_avg = 0
-    for rank in team_2_ranks:
-        normalized_rank = normalize_rank(rank['rank'], rank['lp'])
-        team_2_avg += normalized_rank
+        team_2_avg = team_2_avg // len(team_2_ranks)
+        game_average = (team_1_avg + team_2_avg) // 2
 
-    team_2_avg = team_2_avg // len(team_2_ranks)
-    game_average = (team_1_avg + team_2_avg) // 2
+    else:
+        team_1_avg, team_2_avg = -500, -500
+        game_average = -500
 
     return {'team_1_avg': lp_to_rank(team_1_avg), 'team_2_avg': lp_to_rank(team_2_avg), 'combined_avg': lp_to_rank(game_average)}
 
@@ -95,7 +101,11 @@ def calculate_average_ranks_for_match(rank_data: dict, queue_type: str):
 def lp_to_rank(lp_value):
     '''
     This function is to be used when calculating average rank values using total LP value.
+    We use the special (and impossible for a player to have) value of -500 to identify unranked players
     '''
+    if lp_value == -500:
+        return "UNRANKED"
+
     # Borderline ranks (0 lp within division or currently in promotional series)
     if lp_value == 400: # iron/bronze
         return "IRON/BRONZE"
@@ -210,45 +220,45 @@ def get_matchup_info(player_list: list):
     '''
     matchup_data = {
         'top_matchup': [],
-        'jungle_matchup ': [],
+        'jungle_matchup': [],
         'mid_matchup': [],
         'bot_matchup': [],
         'support_matchup': []
     }
-
-
+    
     team_1, team_2 = [], []
-    for player in player_list:
+    for player_name in player_list.keys():
+        player = player_list[player_name]
         if player['team_id'] == 100:
             team_1.append(player)                
         else:
             team_2.append(player)
 
     for player in team_1:
-        if player['position'] == 'top':
+        if player['position'] == 'TOP':
             matchup_data['top_matchup'].append(player)
-        elif player['position'] == 'middle':
+        elif player['position'] == 'MIDDLE':
             matchup_data['mid_matchup'].append(player)
-        elif player['position'] == 'jungle':
+        elif player['position'] == 'JUNGLE':
             matchup_data['jungle_matchup'].append(player)
-        elif player['position'] == 'bottom':
+        elif player['position'] == 'BOTTOM':
             matchup_data['bot_matchup'].append(player)
-        elif player['position'] == 'utility':
+        elif player['position'] == 'UTILITY':
             matchup_data['support_matchup'].append(player)
-
+    
     for player in team_2:
-        if player['position'] == 'top':
+        if player['position'] == 'TOP':
             matchup_data['top_matchup'].append(player)
-        elif player['position'] == 'middle':
+        elif player['position'] == 'MIDDLE':
             matchup_data['mid_matchup'].append(player)
-        elif player['position'] == 'jungle':
+        elif player['position'] == 'JUNGLE':
             matchup_data['jungle_matchup'].append(player)
-        elif player['position'] == 'bottom':
+        elif player['position'] == 'BOTTOM':
             matchup_data['bot_matchup'].append(player)
-        elif player['position'] == 'utility':
+        elif player['position'] == 'UTILITY':
             matchup_data['support_matchup'].append(player)
 
-    return matchup_data
+    return [matchup for matchup in matchup_data.values()]
 
 def normalize_rank(full_rank, lp):
     '''
@@ -342,8 +352,6 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
     Calculate and return statistics (AND OTHER DATA WE WILL DISPLAY) for each match in a player's match history.
     This process is very slow (20+ seconds)
     '''
-    # start_time = time.time()
-
     match_history = riot_api.get_summoner_matches(summoner_name, region)
     summoner_profile_fetching_threads = []
     historical_match_data = []
@@ -354,11 +362,7 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
         print('Rate limit exceeded')
         return 'Rate limit exceeded'
 
-
-    # print(f'match history fetched in {time.time() - start_time} seconds')
-    # start_time = time.time()
-
-    for i in range(3): # Fetch the last 3 matches (this should be updated later. details in ticket)
+    for i in range(1): # Fetch the last 1 matches (this should be updated later. details in ticket)
         match = match_history[i]
         if 'message' in match and match['message'] == 'Rate limit exceeded':
             print('Rate limit exceeded')
@@ -406,7 +410,7 @@ def fetch_match_data(riot_api, match, summoner_name, region, historical_match_da
         'queue_type': queue_type
     })
 
-    return 1
+    return historical_match_data
 
 
 def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, player_list: list, match: dict, total_match_time: int):

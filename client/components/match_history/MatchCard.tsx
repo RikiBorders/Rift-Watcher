@@ -38,18 +38,19 @@ export default function MatchCard(props: any) {
     }
 
     const render_matchups = () => {
+        const matchups = props.match_data.matchup_info
         return(
             <div className={styles.matchup_container}>
-                {props.match_data.matchups.map((matchup: any) => (
+                {matchups.map((matchup: any) => (
                     <div className={styles.matchup_row}>
                         <div className={styles.matchup_row_player}>
-                            <img src={matchup[0][0]} className={styles.overview_champ_icon} />
-                            <p className={styles.overview_summoner_name}>{matchup[0][1]}</p>
+                            <img src={matchup[0]['champ_icon']} className={styles.overview_champ_icon} />
+                            <p className={styles.overview_summoner_name}>{matchup[0]['name']}</p>
                         </div>
-                        {render_position_icon_for_overview(matchup[0][2])}
+                        {render_position_icon_for_overview(matchup[0]['position'])}
                         <div className={styles.matchup_row_player}>
-                            <img src={matchup[1][0]} className={styles.overview_champ_icon} />
-                            <p className={styles.overview_summoner_name}>{matchup[1][1]}</p>
+                            <img src={matchup[1]['champ_icon']} className={styles.overview_champ_icon} />
+                            <p className={styles.overview_summoner_name}>{matchup[1]['name']}</p>
                         </div>
                     </div>
                 ))}
