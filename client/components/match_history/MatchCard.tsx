@@ -255,7 +255,7 @@ export default function MatchCard(props: any) {
                         team.map((player_data: any, i: number) => (
                             <tr className={styles.player_section_row}>
                                 <td className={styles.player_name} key={`${player_data.name}`+`${i}`}>
-                                    {/* <img src={player_data.champ_icon} className={styles.team_stats_champ_icon} /> */}
+                                    <img src={player_data.champ_icon} className={styles.team_stats_champ_icon} />
                                     {player_data.name}
                                 </td>
                                 <td className={styles.player_card_text} key={`${player_data.kills}`+`${i}`}>
