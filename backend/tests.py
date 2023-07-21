@@ -38,14 +38,14 @@ def TEST_get_matchup_info():
     This will test the get_matchup_info function 
     '''
     region = 'NA'
-    summoner_name = 'SL1MEBALL'
+    summoner_name = 'FIYAH MARSHALL'
     match_history = riot_api.get_summoner_matches(summoner_name, region)
     match= match_history[0]
 
     player_list = get_match_participants(match)
     player_stats = calculate_player_stats(match, player_list)
     matchup_info = get_matchup_info(player_stats)
-    print(matchup_info)
+    # print(matchup_info)
 
 def TEST_calculate_player_stats():
     '''
@@ -93,7 +93,8 @@ def TEST_get_summoner_profile():
 if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()
-    TEST_get_match_statistics()
+    TEST_get_matchup_info()
+    # TEST_get_match_statistics()
     # TEST_build_item_dict()
     # TEST_get_champion_icon()
     # TEST_get_rune_paths()

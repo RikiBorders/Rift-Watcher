@@ -401,15 +401,15 @@ def fetch_match_data(riot_api, match, summoner_name, region, historical_match_da
     # Get information related to the target summoner
     target_summoner_info = get_summoner_info_for_match(summoner_name, summoners_teams, player_list, match, total_match_time)
     
-    historical_match_data.append({
-        'player_stats': player_stats, 
-        'average_ranks': average_ranks, 
-        'match_length': total_match_time,
-        'target_summoner_info': target_summoner_info,
-        'matchup_info': matchup_info,
-        'queue_type': queue_type
-    })
-
+    if queue_type != 'unsupported':
+        historical_match_data.append({
+            'player_stats': player_stats, 
+            'average_ranks': average_ranks, 
+            'match_length': total_match_time,
+            'target_summoner_info': target_summoner_info,
+            'matchup_info': matchup_info,
+            'queue_type': queue_type
+        })
     return historical_match_data
 
 
@@ -419,9 +419,12 @@ def get_summoner_info_for_match(summoner_name: str, summoners_teams: dict, playe
     get_summoner_profiles_from_match function
     '''
     summoner_info = {}
+    summoner_name = summoner_name.replace(' ', '')
 
     for summoner in player_list:
-        if summoner_name.upper() == summoner['summonerName'].upper():
+        name = summoner['summonerName'].replace(' ', '')
+        name = name.upper()
+        if summoner_name.upper() == name:
             summoner_info['champion'] = summoner['championName']
             summoner_info['champion_img_link'] = get_champion_icon(summoner['championName'])
             summoner_info['position'] = summoner['teamPosition']
@@ -589,7 +592,7 @@ def get_queue_type(queueId: int):
     elif queueId == 450:
         return 'Aram'
     else:
-        return 'unsupported gamemode'
+        return 'unsupported'
 
 
 # Summoner stats file. To test the functions in this file, please use the tests.py file
