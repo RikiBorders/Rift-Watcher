@@ -15,7 +15,7 @@ def TEST_get_match_statistics():
     '''
     start_time = time.time()
     region = 'NA'
-    summoner_name = 'SL1MEBALL'
+    summoner_name = 'YONKLE'
     stats = get_match_statistics(riot_api, summoner_name, region)
     print(f'took {time.time() - start_time} seconds to execute')
     # print(stats)
@@ -25,7 +25,7 @@ def TEST_calculate_average_ranks():
     This will test the calculate_average_ranks function using live data pulled from the riot API
     '''
     region = 'NA'
-    summoner_name = 'PRIDEKITTEN'
+    summoner_name = 'pridekitt3n'
 
     summoner_data = riot_api.get_summoner_profile(summoner_name, region)
     match = riot_api.get_summoner_matches(summoner_name, region)
@@ -52,7 +52,7 @@ def TEST_calculate_player_stats():
     This will test the calculate_player_stats function using live data pulled from the riot API
     '''
     region = 'NA'
-    summoner_name = 'SL1MEBALL'
+    summoner_name = 'YONKLE'
 
     summoner_data = riot_api.get_summoner_profile(summoner_name, region)
     match = summoner_data['summoner_data']['match_history'][0]
@@ -85,7 +85,7 @@ def TEST_get_summoner_profile():
     this tests get_summoner_profile
     '''
     region = 'NA'
-    summoner_name = 'SL1MEBALL'
+    summoner_name = 'YONKLE'
 
     summoner_data = riot_api.get_summoner_profile(summoner_name, region)
     print(summoner_data)

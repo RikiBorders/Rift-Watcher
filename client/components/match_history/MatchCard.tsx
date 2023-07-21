@@ -178,6 +178,7 @@ export default function MatchCard(props: any) {
                         </div> :
                         <div className={styles.rank}>
                             <img className={styles.unranked_icon} src="/ranked_icons/unranked.png" />
+                            <p className={styles.meta_summoner_rank}>Unranked</p>
                             <p className={styles.sub_header}>Unranked<br/>Gamemode</p>
                         </div>
                     }
