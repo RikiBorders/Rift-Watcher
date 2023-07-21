@@ -152,7 +152,9 @@ class Riot():
                 if 'status' in summoner_data and summoner_data['status']['status_code'] == 429: # Check if rate limit was exceeded 
                     print('RATE LIMIT EXCEEDED. EXITING EARLY')
                     return summoner_accounts
-
+                elif 'status' in summoner_data and summoner_data['status']['status_code'] == 429:
+                    print('summoner not found. Perhaps they had a name change?')
+                    continue
                 account_data = self.__get_league_data_by_summoner_id(summoner_data['id'], region)
                 parsed_account_data = self.__parse_account_data(account_data)
                 parsed_account_data['summoner_name'] = summoner_data['name']

@@ -197,6 +197,15 @@ def calculate_player_stats(match: dict, player_list: list):
             'champ_icon': get_champion_icon(player['championName']),
             'win': player['win'],
             'team_id': player['teamId'],
+            'items': build_item_dict([
+                player['item0'],
+                player['item1'],
+                player['item2'],
+                player['item3'],
+                player['item4'],
+                player['item5'],
+                player['item6'],
+            ]),
 
             'dragons_taken': int(player['dragonKills']),
             'barons_taken': int(player['baronKills']),

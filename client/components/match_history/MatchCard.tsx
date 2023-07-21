@@ -235,6 +235,17 @@ export default function MatchCard(props: any) {
         setTeam1Stats(new_team1_stats);
         setTeam2Stats(new_team2_stats);
     }
+
+    const render_items_for_table = (player_data: any) => {
+        return (
+            <div className={styles.item_row}>
+                {player_data.items.map((item_data: any) => {
+                    return(<img src={item_data.icon_path} className={styles.team_stats_item} />)
+                })}
+                
+            </div>
+        )
+    }
     
 
     const render_team_stats = (team: Array<any>) => {
@@ -266,7 +277,9 @@ export default function MatchCard(props: any) {
                                 <td className={styles.player_card_text} key={`${player_data.vision_score_pm}`+`${i}`}>
                                     {`${player_data.per_minute_stats.vision_score_pm}/pm`}
                                 </td>
-                                <td className={styles.player_card_text}>build info soon</td>
+                                <td className={styles.player_card_text}>
+                                    {render_items_for_table(player_data)}
+                                </td>
                             </tr>
                     ))}
                 </table>

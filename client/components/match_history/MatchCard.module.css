@@ -421,6 +421,12 @@
     width: 20px;
 }
 
+.team_stats_item {
+    margin-left: 5px;
+    height: 25px;
+    width: 25px;
+}
+
 /* spacers */
 
 .horizontal_spacer {
