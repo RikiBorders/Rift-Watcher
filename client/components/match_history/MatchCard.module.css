@@ -208,8 +208,28 @@
     display: block;
 }
 
+.blue_team_header_text {
+    color: #4f9abd;
+    font-family: sans-serif;
+    font-size: 1.5vh;
+    margin-top: 0;
+    margin-bottom: 0;
+    cursor: default;
+    -webkit-user-drag: none;
+}
+
+.red_team_header_text {
+    color: #bd4f4f;
+    font-family: sans-serif;
+    font-size: 1.5vh;
+    margin-top: 0;
+    margin-bottom: 0;
+    cursor: default;
+    -webkit-user-drag: none;
+}
+
 .team_header_text {
-    color: #F0F4F8;
+    color: #f8f0f0;
     font-family: sans-serif;
     font-size: 1.5vh;
     margin-top: 0;
@@ -342,33 +362,54 @@
     margin: 0;
 }
 
+.overview_text_green {
+    color: #4cbd5b;
+    text-align: center;
+    font-family: 'Libre Baskerville', serif;
+    margin: 0;
+}
+
+.overview_text_red {
+    color: #bd4c4c;
+    text-align: center;
+    font-family: 'Libre Baskerville', serif;
+    margin: 0;
+}
+
 .item_section {
     align-items: center;
     display: flex;
 }
 
 .item_container {
-    max-width: 150px;
+    max-width: 152px;
 }
 
-.item {
-    
-}
 
 .trinket_icon {
+    border-radius: 10px;
     height: 40px;
     width: 40px;
     margin-left: 15px;
     margin-right: 30px;
-
 }
 
 .item_icon {
+    border-radius: 10px;
     height: 40px;
     width: 40px;
     margin-left: 5px;
     margin-right: 5px;
 
+}
+
+.item_icon_blank {
+    background-color: rgb(68, 68, 68);
+    border-radius: 10px;
+    height: 40px;
+    width: 40px;
+    margin-left: 5px;
+    margin-right: 5px;   
 }
 
 .overview_champ_icon {
@@ -427,6 +468,24 @@
 }
 
 .team_stats_item {
+    margin-left: 5px;
+    height: 25px;
+    width: 25px;
+}
+
+.team_stats_mythic_item {
+    border-color: rgb(255, 38, 0);
+    border-width: 1px;
+    border-style: solid;
+    margin-left: 5px;
+    height: 25px;
+    width: 25px;
+}
+
+.team_stats_trinket {
+    border-color: rgb(255, 196, 0);
+    border-width: 1px;
+    border-style: solid;
     margin-left: 5px;
     height: 25px;
     width: 25px;

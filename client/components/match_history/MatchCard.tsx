@@ -238,11 +238,35 @@ export default function MatchCard(props: any) {
     }
 
     const render_items_for_table = (player_data: any) => {
+        let trinket = <></>
+        let items: Array<any> = []
+
+        player_data.items.map((item: any, i: number) => {
+            if (item.name == "Oracle Lens" || 
+                item.name == "Stealth Ward" || 
+                item.name == "Farsight Alteration"){
+                trinket = <img className={styles.team_stats_trinket} src={item.icon_path} />
+            } else if (item.tier == 'mythic') {
+                items.push(<img className={styles.team_stats_mythic_item} src={item.icon_path} />)
+            } else {
+                items.push(<img className={styles.team_stats_item} src={item.icon_path} />)
+            }
+        })
+
+        if (items.length != 6){
+            for (let i =0; i <= 6 - items.length; i++) {
+                items.push(<img src='/item_frame.png' className={styles.team_stats_item}/>);
+             }
+        }
+
         return (
             <div className={styles.item_row}>
-                {player_data.items.map((item_data: any) => {
-                    return(<img src={item_data.icon_path} className={styles.team_stats_item} />)
-                })}
+                {
+                    items.map((item: any) => (
+                        item
+                    ))
+                }
+                {trinket}
                 
             </div>
         )
@@ -295,7 +319,7 @@ export default function MatchCard(props: any) {
             <div className={matchInfoPane}>
                 <div className={styles.team_1_section}>
                     <div className={styles.team_header}>
-                        <h4 className={styles.team_header_text}>Team 1</h4>
+                        <h4 className={styles.blue_team_header_text}>Blue Team</h4>
                         <div className={styles.header_column}>
                             <h4 className={styles.team_header_text}>Average Rank</h4>
                             <p className={styles.team_stat_text}>{props.match_data.average_ranks.team_1_avg}</p>
@@ -328,7 +352,7 @@ export default function MatchCard(props: any) {
 
                 <div className={styles.losing_team_section}>
                     <div className={styles.team_header}>
-                        <h4 className={styles.team_header_text}>Team 2</h4>
+                        <h4 className={styles.red_team_header_text}>Red Team</h4>
                         <div className={styles.header_column}>
                             <h4 className={styles.team_header_text}>Average Rank</h4>
                             <p className={styles.team_stat_text}>{props.match_data.average_ranks.team_2_avg}</p>
@@ -369,13 +393,19 @@ export default function MatchCard(props: any) {
         props.match_data.target_summoner_info.items.map((item: any, i: number) => {
             if (item.name == "Oracle Lens" || 
                 item.name == "Stealth Ward" || 
-                item.name == "Farsight Alteration"){
+                item.name == "Farsight Alteration") {
                 trinket = <img className={styles.trinket_icon} src={item.icon_path} />
             } else {
                 items.push(<img className={styles.item_icon} src={item.icon_path} />)
             }
             
         })
+
+        if (items.length != 6){
+            for (let i =0; i <= 6 - items.length; i++) {
+                items.push(<img src='/item_frame.png' className={styles.item_icon_blank}/>);
+             }
+        }
 
         return (
             <div className={styles.item_section}>
@@ -390,13 +420,6 @@ export default function MatchCard(props: any) {
             </div>
         )
 
-    }
-
-    const abreviate_name = (name: string) => {
-        if (name.length > 8) {
-            name = `${name.substring(0, 8)}...`
-        }
-        return name
     }
 
     const render_overview = () => {
@@ -414,11 +437,23 @@ export default function MatchCard(props: any) {
                         </p>
                         <div className={styles.kd_kda_section}>
                             <div className={styles.overview_sub_section}>
-                                <p className={styles.overview_text}>{props.match_data.target_summoner_info.kda}</p>
+                                <p className={
+                                    props.match_data.target_summoner_info.kda >= 3 ? styles.overview_text_green : 
+                                    props.match_data.target_summoner_info.kda <= 0.7 ? styles.overview_text_red:
+                                    styles.overview_text
+                                }>
+                                    {props.match_data.target_summoner_info.kda}
+                                </p>
                                 <p className={styles.sub_header}>KDA</p>
                             </div>
                             <div className={styles.overview_sub_section}>
-                                <p className={styles.overview_text}>{props.match_data.target_summoner_info.kd}</p>
+                                <p className={
+                                    props.match_data.target_summoner_info.kd >= 2 ? styles.overview_text_green : 
+                                    props.match_data.target_summoner_info.kd <= 0.5 ? styles.overview_text_red:
+                                    styles.overview_text
+                                }>
+                                    {props.match_data.target_summoner_info.kd}
+                                </p>
                                 <p className={styles.sub_header}>KD</p> 
 
                             </div>

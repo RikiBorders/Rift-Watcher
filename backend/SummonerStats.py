@@ -558,7 +558,9 @@ def get_rune_paths(rune1: int, rune2: int):
 
 def build_item_dict(items: list):
     '''
-    Get the image links for each item, along with their description
+    Get the image links for each item, along with their description.
+    Note that the item response is ordered (and will be rendered of the 
+    frontend in the order the dict is constructed here)
     '''
     url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
     base_item_path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/'
@@ -569,11 +571,21 @@ def build_item_dict(items: list):
        for item_id in items:
             if item_id == item_data['id']:
                 asset_subpath = item_data['iconPath'].lower().split('/')[-1]
-                item_response.append({
+                response = {
                     'icon_path': base_item_path+asset_subpath,
                     'name': item_data['name'],
                     'description': remove_html_tags(item_data['description'])
-                })
+                }
+                if 'Mythic Passive' in response['description']:
+                    response['tier'] = 'mythic'
+                else:
+                    response['tier'] = 'basic'
+
+                if (response['tier'] == 'mythic'):
+                    item_response = [response] + item_response
+                else:
+                    item_response.append(response)
+
 
     return item_response
 
