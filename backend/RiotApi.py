@@ -4,6 +4,8 @@ import requests
 from SummonerStats import *
 from ThreadManager import *
 
+# This class if concerned exclusively with Riot API information, so info from datadragon or communitydragon are not considered
+
 class Riot(): 
     def __init__(self):
         self.request_headers = {
