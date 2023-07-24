@@ -21,25 +21,23 @@ def fetch_champions():
     champion_list_json = champion_list_response.json()
     response = []
 
-
-    for champion_data in champion_list_json:
+    for champion_data in champion_list_json.values():
         champ_info = {
             'name': champion_data['name'],
-            'health': champion_data['health'],
-            'healthRegen': champion_data['healthRegen'],
-            'mana': champion_data['mana'],
-            'manaRegen': champion_data['manaRegen'],
-            'armor': champion_data['armor'],
-            'magicResistance': champion_data['magicResistance'],
-            'attackDamage': champion_data['attackDamage'],
-            'movespeed': champion_data['movespeed'],
-            'criticalStrikeDamage': champion_data['criticalStrikeDamage'],
-            'criticalStrikeDamageModifier': champion_data['criticalStrikeDamageModifier'],
-            'attackSpeed': champion_data['attackSpeed'],
-            'attackSpeedRatio': champion_data['attackSpeedRatio'],
-            'attackRange': champion_data['attackRange'],
-            '': champion_data[''],
-            '': champion_data[''],
+            'health': champion_data['stats']['health'],
+            'healthRegen': champion_data['stats']['healthRegen'],
+            'mana': champion_data['stats']['mana'],
+            'manaRegen': champion_data['stats']['manaRegen'],
+            'armor': champion_data['stats']['armor'],
+            'magicResistance': champion_data['stats']['magicResistance'],
+            'attackDamage': champion_data['stats']['attackDamage'],
+            'abilityPower': 0, # Base AP is 0 for everyone
+            'movespeed': champion_data['stats']['movespeed'],
+            'criticalStrikeDamage': champion_data['stats']['criticalStrikeDamage'],
+            'criticalStrikeDamageModifier': champion_data['stats']['criticalStrikeDamageModifier'],
+            'attackSpeed': champion_data['stats']['attackSpeed'],
+            'attackSpeedRatio': champion_data['stats']['attackSpeedRatio'],
+            'attackRange': champion_data['stats']['attackRange'],
         }
 
         response.append(champ_info)

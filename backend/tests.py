@@ -1,5 +1,6 @@
 from RiotApi import Riot
 from SummonerStats import *
+from BuildCalculator import *
 import time
 
 '''
@@ -90,10 +91,20 @@ def TEST_get_summoner_profile():
     summoner_data = riot_api.get_summoner_profile(summoner_name, region)
     print(summoner_data)
 
+def TEST_fetch_champions():
+    '''
+    this tests get_summoner_profile
+    '''
+    start_time = time.time()
+    champ_info = fetch_champions()
+    print(champ_info)
+    print(f'champ info fetched in {time.time()-start_time} seconds')
+
 if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()
-    TEST_get_matchup_info()
+    # TEST_get_matchup_info()
+    TEST_fetch_champions()
     # TEST_get_match_statistics()
     # TEST_build_item_dict()
     # TEST_get_champion_icon()
