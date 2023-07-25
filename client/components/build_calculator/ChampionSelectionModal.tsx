@@ -3,9 +3,7 @@ import { motion } from "framer-motion";
 import React, { useState, useEffect } from 'react';
 
 const ChampionSelectionModal = ({close_modal}: any, champion_data: any) => {
-
     const [selectedChampion, setSelectedChampion] = useState()
-
 
     return (
         <div onClick={close_modal} className={styles.container}>

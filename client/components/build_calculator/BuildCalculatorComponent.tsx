@@ -20,10 +20,14 @@ export default function BuildCalculator(props: any) {
       setScrollEnabled(!scrollEnabled);
     };
 
+    useEffect(() => {
+        console.log('run effect')
+        console.log(props)
+      }, [])
     const render_champion_select_modal = () => {
         if (showChampionSelectionModal) {
             return (
-                <ChampionSelectionModal close_modal={close_modal}/>
+                <ChampionSelectionModal close_modal={close_modal} champ_data={props.calculator_data}/>
             )
         } else {
             return(<></>)

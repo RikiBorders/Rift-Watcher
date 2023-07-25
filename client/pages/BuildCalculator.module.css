@@ -17,3 +17,8 @@
     font-size: 70px;
     font-family: 'Libre Baskerville', serif;
 }
+
+.loading_image{
+    height: 90px;
+    width: 110px;
+}
