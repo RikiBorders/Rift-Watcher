@@ -21,13 +21,11 @@ export default function BuildCalculator(props: any) {
     };
 
     useEffect(() => {
-        console.log('run effect')
-        console.log(props)
-      }, [])
+    }, [])
     const render_champion_select_modal = () => {
         if (showChampionSelectionModal) {
             return (
-                <ChampionSelectionModal close_modal={close_modal} champ_data={props.calculator_data}/>
+                <ChampionSelectionModal close_modal={close_modal} champ_data={props.calculator_data.champions}/>
             )
         } else {
             return(<></>)
