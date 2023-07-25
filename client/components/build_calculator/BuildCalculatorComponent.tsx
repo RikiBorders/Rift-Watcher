@@ -1,7 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./BuildCalculatorComponent.module.css";
+import ChampionSelectionModal from './ChampionSelectionModal';
 
 export default function BuildCalculator(props: any) {
+    const [showChampionSelectionModal, setChampionSelectionModal] = useState(false);
+    const [scrollEnabled, setScrollEnabled] = useState(true);
+    
+    const open_modal = () => {
+        setChampionSelectionModal(true);
+        toggleScroll();
+    }
+  
+    const close_modal = () => {
+      setChampionSelectionModal(false);
+      toggleScroll();
+    }
+  
+    const toggleScroll = () => {
+      setScrollEnabled(!scrollEnabled);
+    };
+
+    const render_champion_select_modal = () => {
+        if (showChampionSelectionModal) {
+            return (
+                <ChampionSelectionModal close_modal={close_modal}/>
+            )
+        } else {
+            return(<></>)
+        }
+    }
+
 
     useEffect(() => {
     }, [])
@@ -17,20 +45,16 @@ export default function BuildCalculator(props: any) {
                 </div>
             </div>
 
-            <div className={styles.build_section}>
-                <div className={styles.search}>
+            {/* Modals go here */}
+            {render_champion_select_modal()}
+            
 
-                </div>
-
-                <div className={styles.current_build}>
-
-                </div>
-
-                <div className={styles.build_data}>
-
-                </div>
-            </div>
-
+            <button 
+                className={styles.champion_selection_button} 
+                onClick={() => {open_modal()}}
+            >
+                Select Champion
+            </button>
         </div>
     )
 }

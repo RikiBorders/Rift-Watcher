@@ -50,7 +50,7 @@ def get_data_for_build_calculator():
     Get match history + statistics for a given summoner
     '''
     response = get_build_calculator_data()
-    return response, 201
+    return {'status': 1, 'calculator_data': response}, 201
 
 @app.route("/summoner_exists_by_name", methods=['POST'])
 def summoner_exists_by_name():
