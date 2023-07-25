@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_restful import Resource, Api
 from RiotApi import Riot
 from SummonerStats import get_match_statistics
+from BuildCalculator import get_build_calculator_data
 
 # Implementation and usage notes:
 # Each endpoint from the riot API should be called AT MOST ONCE per route in this file.
@@ -41,6 +42,14 @@ def get_match_data():
     query = request.get_json()
     match_history = get_match_statistics(riot_api, query['username'], query['region']) # VERY DANGEROUS, PASSING THE API IS BAD.
     response = {'status': 1, 'match_history': match_history}
+    return response, 201
+
+@app.route("/get_data_for_build_calculator", methods=['GET'])
+def get_match_data():
+    '''
+    Get match history + statistics for a given summoner
+    '''
+    response = get_build_calculator_data()
     return response, 201
 
 @app.route("/summoner_exists_by_name", methods=['POST'])

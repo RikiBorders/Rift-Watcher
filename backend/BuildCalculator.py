@@ -2,19 +2,54 @@
 This file contains all backend logic related to the build calculator.
 '''
 import requests
+import threading
+from ThreadManager import *
+from SummonerStats import get_champion_icon
 
 def fetch_items():
     '''
-    Fetch raw item response data
+    Fetch relevant item data such as price, stats, etc.
     '''
-    item_list_url = 'https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items/'
-    response = requests.get(item_list_url)
-    json = response.json()
+    base_item_url = 'https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items/'
+    item_list_url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
+    item_list = requests.get(item_list_url).json()
+    item_response = []
+    item_fetching_threads = []
+
+    for raw_item_data in item_list:
+        id = raw_item_data['id']
+        if id >= 222000 or id == 1104: # for some reason 1104 returns error 404
+            break
+
+        item_url = base_item_url+str(id)+'.json'
+        thread = threading.Thread(target=fetch_item, args=[item_response, item_url])
+        thread.start()
+        item_fetching_threads.append(thread)
+
+    monitor_thread_pool(item_fetching_threads)
+
+    return item_response
+
+def fetch_item(item_response: list, url: str):
+    '''
+    fetch item data from cdn
+    '''
+    raw_item_data = requests.get(url).json()
+    item_data = {
+        'name': raw_item_data['name'],
+        'stats': raw_item_data['stats'],
+        'passives': raw_item_data['passives'],
+        'active': raw_item_data['active'],
+        'icon': raw_item_data['icon'],
+        'shop_info': raw_item_data['shop']
+    }
+
+    item_response.append(item_data)
 
 
 def fetch_champions():
     '''
-    Fetch raw champion response data
+    Fetch champion base statistics
     '''
     champion_list_url = 'https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions.json'
     champion_list_response = requests.get(champion_list_url)
@@ -24,6 +59,7 @@ def fetch_champions():
     for champion_data in champion_list_json.values():
         champ_info = {
             'name': champion_data['name'],
+            'name': get_champion_icon(champion_data['name']),
             'health': champion_data['stats']['health'],
             'healthRegen': champion_data['stats']['healthRegen'],
             'mana': champion_data['stats']['mana'],
@@ -44,21 +80,15 @@ def fetch_champions():
 
     return response
 
-def build_item_dict():
-    '''
-    Build the response containing all item information/data
-    '''
-    item_response = fetch_items()
-
-def build_champ_dict():
-    '''
-    Build the response containing all relevant champion information/data
-    pertaining to builds.
-    '''
-    pass
 
 def get_build_calculator_data():
     '''
     Fetch all necessary data to allow users to create and customize builds for champions
     '''
-    pass
+    champ_data = fetch_champions()
+    item_data = fetch_items()
+    response = {
+        'champions': champ_data,
+        'items': item_data
+    }
+    return response
