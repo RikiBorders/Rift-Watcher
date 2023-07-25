@@ -45,7 +45,7 @@ def get_match_data():
     return response, 201
 
 @app.route("/get_data_for_build_calculator", methods=['GET'])
-def get_match_data():
+def get_data_for_build_calculator():
     '''
     Get match history + statistics for a given summoner
     '''
