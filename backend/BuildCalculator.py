@@ -59,7 +59,7 @@ def fetch_champions():
     for champion_data in champion_list_json.values():
         champ_info = {
             'name': champion_data['name'],
-            'name': get_champion_icon(champion_data['name']),
+            'icon_path': get_champion_icon(champion_data['name']),
             'health': champion_data['stats']['health'],
             'healthRegen': champion_data['stats']['healthRegen'],
             'mana': champion_data['stats']['mana'],
