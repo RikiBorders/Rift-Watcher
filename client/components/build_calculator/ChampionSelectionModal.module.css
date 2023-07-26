@@ -52,7 +52,8 @@
 
 .selected_champion {
     display: flex;
-    margin-left: 30px;
+    align-items: center;
+    justify-content: center;
 }
 
 .selected_champ_icon{
@@ -122,10 +123,4 @@
     position: relative;
     text-align: center;
     margin-left: 30px;
-}
-
-.ultimate_element{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
 }
