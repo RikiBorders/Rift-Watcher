@@ -2,7 +2,8 @@ import styles from "./ChampionSelectionModal.module.css";
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from 'react';
 
-const ChampionSelectionModal = ({close_modal}: any, champ_data: any) => {
+// champ_data: any, {close_modal}: any
+const ChampionSelectionModal = (props: any) => {
     const [championSelected, setChampionSelected] = useState(false)
     const [selectedChampion, setSelectedChampion] = useState({
         'icon_path': '',
@@ -14,13 +15,14 @@ const ChampionSelectionModal = ({close_modal}: any, champ_data: any) => {
 
     })
     useEffect(() => {
-        console.log(champ_data)
+        console.log('loaded')
+        console.log(props.champ_data)
     }, [])
     return (
-        <div onClick={close_modal} className={styles.container}>
+        <div onClick={props.close_modal} className={styles.container}>
             <div onClick={(e) => {e.stopPropagation();}} className={styles.content_container}>
 
-            <motion.button onClick={close_modal} className={styles.close_button}></motion.button>
+            <motion.button onClick={props.close_modal} className={styles.close_button}></motion.button>
             <h2 className={styles.header_text}>Currently Selected:</h2>
             <div className={styles.selected_champion}>
 
