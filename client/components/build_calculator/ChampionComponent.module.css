@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+
+.card_text{
+    color: #F0F4F8;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 20px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.411);
+}

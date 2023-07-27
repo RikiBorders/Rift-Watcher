@@ -13,16 +13,39 @@ const ChampionSelectionModal = (props: any) => {
         'damage_style': '',
     })
     const [championCards, setChampionCards] = useState<any>([]);
+    const [champIndex, setChampIndex] = useState(0)
 
     const load_champion_cards = () => {
         let champ_cards: Array<any> = []
         for (const id in props.champ_data){
             const champion = props.champ_data[id]
-            const champ_card = <ChampionComponent champ_data={champion}/>
+            const champ_card = <ChampionComponent champ_data={champion} set_selected_champion={set_selected_champion}/>
             champ_cards.push(champ_card)
         }
         setChampionCards(champ_cards)
-        console.log('champ cards loaded')
+    }
+
+    const set_selected_champion = (champ: any) => {
+        setChampionSelected(true)
+        setSelectedChampion(champ)
+    }
+
+    const render_champ_cards = () => {
+        let champs: Array<any> = [];
+        let limit = Math.min(championCards.length, champIndex+6)
+
+        for (let i=champIndex; i < limit; i++){
+            champs.push(championCards[i])
+        }
+
+        return(
+            <div className={styles.champ_carousel}>
+                {champs.map((champion: any) => (
+                    champion
+                ))}
+            </div>
+        )
+        
     }
 
     useEffect(() => {
@@ -106,11 +129,11 @@ const ChampionSelectionModal = (props: any) => {
                         
                         </div>
                     }
-                <div className={styles.champion_box}>
+                    
                     {championCards.length == 0 ? 
                         <></>:
-                        championCards[0]}
-                </div>
+                        render_champ_cards()
+                    }
 
 
             </div>

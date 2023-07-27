@@ -63,6 +63,7 @@ def fetch_champions():
             'roles': champion_data['roles'],
             'difficulty': champion_data['attributeRatings']['difficulty'],
             'icon_path': get_champion_icon(champion_data['name']),
+            'splash_icon': get_champion_splash_icon(champion_data['name']),
             'health': champion_data['stats']['health'],
             'healthRegen': champion_data['stats']['healthRegen'],
             'mana': champion_data['stats']['mana'],
@@ -82,6 +83,16 @@ def fetch_champions():
         response.append(champ_info)
 
     return response
+
+
+def get_champion_splash_icon(champ_name: str):
+    '''
+    Get the loading screen art for the given champion
+    '''
+    name = champ_name.lower()
+    base_path = 'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/characters/'
+    url = base_path+name+'/skins/base/'+name+'loadscreen.jpg'
+    return url
 
 
 def get_build_calculator_data():
