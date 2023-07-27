@@ -1,6 +1,7 @@
 from RiotApi import Riot
 from SummonerStats import *
 from BuildCalculator import *
+from testData import *
 import time
 
 '''
@@ -119,15 +120,28 @@ def TEST_get_build_calculator_data():
     # print(response)
     print(response['champions'][0])
 
+def TEST_parse_abilities():
+    '''
+    this tests get_build_calculator_data
+    '''
+    response = parse_abilities(RAW_ABILITY_DATA)
+    print(response)
+
 if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()
     # TEST_get_matchup_info()
     # TEST_fetch_champions()
     # TEST_fetch_items()
-    TEST_get_build_calculator_data()
+    # TEST_get_build_calculator_data()
+    TEST_parse_abilities()
     # TEST_get_match_statistics()
     # TEST_build_item_dict()
     # TEST_get_champion_icon()
     # TEST_get_rune_paths()
     # TEST_get_summoner_profile()
+
+
+'''
+big test data
+'''

@@ -61,6 +61,7 @@ def fetch_champions():
             'name': champion_data['name'],
             'damage_style': parse_champ_damage(champion_data['adaptiveType']),
             'roles': parse_champ_roles(champion_data['roles']),
+            'abilities': parse_abilities(champion_data['abilities']),
             'difficulty': champion_data['attributeRatings']['difficulty'],
             'icon_path': get_champion_icon(champion_data['name']),
             'splash_icon': get_champion_splash_icon(champion_data['name']),
@@ -85,11 +86,16 @@ def fetch_champions():
     return response
 
 
+def parse_abilities(abilities: list):
+    '''
+    Convert raw ability json into text we'll display on the fronted
+    '''
+    print(abilities)
+
 def parse_champ_roles(roles: list):
     '''
     Convert raw champion roles into a more readable format
     '''
-    print(roles)
     roles_text = roles[0].title()
     for i in range(1, len(roles)):
         roles_text += '/'+roles[i].title()
@@ -102,7 +108,7 @@ def parse_champ_damage(dmg_type: str):
     Convert raw champion damage style data into a more readable format
     '''
     formatted_dmg = dmg_type.replace('_', ' ')
-    return formatted_dmg.lower()
+    return formatted_dmg.title()
 
 
 def get_champion_splash_icon(champ_name: str):
