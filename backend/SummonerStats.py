@@ -505,6 +505,7 @@ def get_summoner_spell_paths(summoner_id1: int, summoner_id2: int):
 
     return summoner_spell_response
 
+
 def get_champion_icon(champ_name: str):
     '''
     get the icon for a given champion name
@@ -514,9 +515,19 @@ def get_champion_icon(champ_name: str):
     response = requests.get(url)
     json = response.json()
     for champ_data in json:
-        if champ_data['alias'] == champ_name:
+        if champ_data['alias'].lower() == parse_champ_name(champ_name):
             subpath = champ_data['squarePortraitPath']
             return base_icon_path+subpath.split('/')[-1]
+
+
+def parse_champ_name(name: str):
+    '''
+    Convert champion name to its cdragon equivalent so we can pull loading screen art, portraits, etc
+    in the get_champion_splash_icon function and get_champ_icon function
+    '''
+    name = name.replace("'", "")
+    name = name.replace(' ', '').replace('.', '')
+    return name.lower()
 
 
 def get_rune_paths(rune1: int, rune2: int):

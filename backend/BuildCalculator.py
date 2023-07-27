@@ -4,7 +4,7 @@ This file contains all backend logic related to the build calculator.
 import requests
 import threading
 from ThreadManager import *
-from SummonerStats import get_champion_icon
+from SummonerStats import get_champion_icon, parse_champ_name
 
 def fetch_items():
     '''
@@ -113,11 +113,52 @@ def parse_champ_damage(dmg_type: str):
 
 def get_champion_splash_icon(champ_name: str):
     '''
-    Get the loading screen art for the given champion
+    Get the loading screen art for the given champion. Many exceptions to handle
     '''
-    name = champ_name.lower()
+    name = parse_champ_name(champ_name)
+    print(name)
     base_path = 'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/characters/'
-    url = base_path+name+'/skins/base/'+name+'loadscreen.jpg'
+    
+    if name == 'ahri':
+        url = base_path+name+'/skins/base/ahriloadscreen_0.skins_ahri_asu_prepro.jpg'
+    elif name == 'aurelion sol':
+        url = base_path+name+'/skins/base/aurelionsolloadscreen.jpg'
+    elif name == 'belveth':
+        url = base_path+name+'/skins/base/belvethloadscreen_0.jpg'
+    elif name == 'caitlyn':
+        url = base_path+name+'/skins/base/caitlynloadscreen_0.jpg'
+    elif name == 'gwen':
+        url = base_path+name+'/skins/base/gwenloadscreen_0.jpg'
+    elif name == 'drmundo':
+        url = base_path+name+'/skins/base/drmundoloadscreen_0.jpg'
+    elif name == 'hecarim':
+        url = base_path+name+'/skins/base/hecarimloadscreen_0.pie_c_13_6.jpg'
+    elif name == 'kassadin':
+        url = base_path+name+'/skins/base/kassadinloadscreen_0.jpg'
+    elif name == 'ksante':
+        url = base_path+name+'/skins/base/ksanteloadscreen_0.ksante.jpg'
+    elif name == 'milio':
+        url = base_path+name+'/skins/base/milioloadscreen_0.milio.jpg'
+    elif name == 'naafiri':
+        url = base_path+name+'/skins/base/naafiriloadscreen_0.naafiri.jpg'
+    elif name == 'nilah':
+        url = base_path+name+'/skins/base/nilahloadscreen_0.nilah.jpg'
+    elif name == 'nunu&willump':
+        url = base_path+'nunu/skins/base/nunuloadscreen.jpg'
+    elif name == 'renataglasc':
+        url = base_path+'renata'+'/skins/base/renataloadscreen_0.jpg'
+    elif name == 'sivir':
+        url = base_path+name+'/skins/base/sivirloadscreen_0.jpg'
+    elif name == 'udyr':
+        url = base_path+name+'/skins/base/udyrloadscreen_0.udyrvgu.jpg'
+    elif name == 'vex':
+        url = base_path+name+'/skins/base/vexloadscreen_0.jpg'
+    elif name == 'wukong':
+        url = base_path+'monkeyking/skins/base/monkeykingloadscreen.jpg'
+    elif name == 'zeri':
+        url = base_path+name+'/skins/base/zeriloadscreen_0.jpg'
+    else:
+        url = base_path+name+'/skins/base/'+name+'loadscreen.jpg'
     return url
 
 

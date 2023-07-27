@@ -40,7 +40,7 @@ const ChampionSelectionModal = (props: any) => {
 
     const render_champ_cards = () => {
         let champs: Array<any> = [];
-        let limit = Math.min(championCards.length, champIndex+6)
+        let limit = Math.max(championCards.length, champIndex+6)
 
         for (let i=champIndex; i < limit; i++){
             champs.push(championCards[i])
