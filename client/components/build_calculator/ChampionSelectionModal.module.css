@@ -91,6 +91,8 @@
 
 .ability_icon{
     border-radius: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
     width: 40px;
     height: 40px;
 }
@@ -132,7 +134,5 @@
     display: flex;
     column-gap: 50px;
     row-gap: 30px;
-    padding-left: 55px;
-    padding-right: 55px;
     flex-wrap: wrap;
 }

@@ -56,12 +56,18 @@ def fetch_champions():
     champion_list_json = champion_list_response.json()
     response = []
 
+    # the .abilities key has keys that correspond to ability keys (i.e, the keys for each ability is P,Q,W,E,R (P for passive))
+    # ['name', 'icon', 'effects', 'cost', 'cooldown', 'targeting', 'affects', 'spellshieldable', 'resource', 'damageType', 
+    # 'spellEffects', 'projectile', 'onHitEffects', 'occurrence', 'notes', 'blurb', 'missileSpeed', 'rechargeRate', 
+    # 'collisionRadius', 'tetherRadius', 'onTargetCdStatic', 'innerRadius', 'speed', 'width', 'angle', 'castTime', 
+    # 'effectRadius', 'targetRange']
+
     for champion_data in champion_list_json.values():
         champ_info = {
             'name': champion_data['name'],
             'damage_style': parse_champ_damage(champion_data['adaptiveType']),
             'roles': parse_champ_roles(champion_data['roles']),
-            'abilities': parse_abilities(champion_data['abilities']),
+            'abilities': champion_data['abilities'],
             'difficulty': champion_data['attributeRatings']['difficulty'],
             'icon_path': get_champion_icon(champion_data['name']),
             'splash_icon': get_champion_splash_icon(champion_data['name']),
@@ -85,12 +91,6 @@ def fetch_champions():
 
     return response
 
-
-def parse_abilities(abilities: list):
-    '''
-    Convert raw ability json into text we'll display on the fronted
-    '''
-    print(abilities)
 
 def parse_champ_roles(roles: list):
     '''
