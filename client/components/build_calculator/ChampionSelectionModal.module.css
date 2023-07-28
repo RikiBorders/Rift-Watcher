@@ -128,8 +128,7 @@
 
 .champ_carousel{
     display: block;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
 }
 
 .carousel_button_left {  
@@ -166,7 +165,6 @@
     align-items: center;
     justify-content: center;
     column-gap: 50px;
-    row-gap: 30px;
 }
 
 .stats_container{

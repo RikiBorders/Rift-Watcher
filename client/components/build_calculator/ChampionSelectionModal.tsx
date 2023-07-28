@@ -65,10 +65,10 @@ const ChampionSelectionModal = (props: any) => {
         let champs2: Array<any> = [];
         let limit = Math.min(championCards.length, champIndex+10)
 
-        for (let i=champIndex; i < limit/2; i++){
+        for (let i=champIndex; i < champIndex+5; i++){
             champs1.push(championCards[i])
         }
-        for (let i=limit/2; i < limit; i++){
+        for (let i=champIndex+5; i < limit; i++){
             champs2.push(championCards[i])
         }
 
@@ -84,7 +84,9 @@ const ChampionSelectionModal = (props: any) => {
                             champion
                         ))}
                     </div>
+
                     <div className={styles.horizontal_spacer_large}/>
+                    
                     <div className={styles.champ_row}>
                         {champs2.map((champion: any) => (
                             champion
