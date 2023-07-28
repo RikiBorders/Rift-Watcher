@@ -75,7 +75,7 @@ const ChampionSelectionModal = (props: any) => {
         return(
             <div className={styles.champ_carousel_container}>
                 <motion.button 
-                    whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.7 }} 
+                    whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} 
                     className={styles.carousel_button_left} onClick={() => update_champ_index(0)}
                 />
                 <div className={styles.champ_carousel}>
@@ -95,7 +95,7 @@ const ChampionSelectionModal = (props: any) => {
                     
                 </div>
                 <motion.button 
-                    whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.7 }} 
+                    whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} 
                     className={styles.carousel_button_right} onClick={() => update_champ_index(1)}
                 />
             </div>

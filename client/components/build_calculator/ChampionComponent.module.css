@@ -44,3 +44,24 @@
     justify-content: center;
     column-gap: 20px;
 }
+
+
+/* card rotation styles */
+
+.card3d {
+    margin: 4px;
+    transform: scale(1);
+    perspective: 600px;
+  }
+  
+  .card3d:hover {
+    z-index: 10;
+    transform: scale(1.1);
+  }
+  
+  .card3d,
+  .card3d #championCard {
+    transition: all 1000ms ease-out;
+  }
+
+  /* end card rotation styles */

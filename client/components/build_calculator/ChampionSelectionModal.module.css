@@ -124,11 +124,14 @@
 
 .champ_carousel_container{
     display: flex;
+    align-items: center;
 }
 
 .champ_carousel{
     display: block;
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .carousel_button_left {  
@@ -138,10 +141,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     border: 0;
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
     padding: 0;
+    margin-left: 20px;
 }
 
 .carousel_button_right {  
@@ -151,10 +155,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     border: 0;
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
     padding: 0;
+    margin-right: 20px;
 }
 
 .champ_row{
@@ -202,7 +207,6 @@
     font-family: 'Libre Baskerville', serif;
     font-size: 20px;
 }
-
 
 .horizontal_spacer_large {
     border-bottom: 2px solid rgba(99, 99, 99, 0.356);
