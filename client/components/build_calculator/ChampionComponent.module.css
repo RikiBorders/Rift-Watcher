@@ -9,3 +9,38 @@
     margin-bottom: 0;
     background-color: rgba(0, 0, 0, 0.411);
 }
+
+.card_footer{
+    visibility: visible;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.411);
+}
+
+.statistic_row{
+    display: flex;
+}
+
+.stat_icon{
+    width: 25px;
+    height: 25px;
+    margin: 0;
+}
+
+.stat_text{
+    color: #F0F4F8;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 10px;
+}
+
+.health_row{
+    display: flex;
+    margin-bottom: -5px;
+    padding: 0;
+    justify-content: center;
+}
+
+.bottom_stats{
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+}

@@ -387,7 +387,6 @@ def get_match_statistics(riot_api: object, summoner_name: str, region: str):
 
     monitor_thread_pool(summoner_profile_fetching_threads)
 
-    # print(f'match objects fetched in {time.time() - start_time} seconds')
     return historical_match_data
 
 def fetch_match_data(riot_api, match, summoner_name, region, historical_match_data):

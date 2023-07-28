@@ -116,7 +116,6 @@ def get_champion_splash_icon(champ_name: str):
     Get the loading screen art for the given champion. Many exceptions to handle
     '''
     name = parse_champ_name(champ_name)
-    print(name)
     base_path = 'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/characters/'
     
     if name == 'ahri':

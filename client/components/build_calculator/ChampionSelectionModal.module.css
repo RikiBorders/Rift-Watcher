@@ -41,14 +41,8 @@
     text-align: center;
 }
 
-.body_text{
-    color: #F0F4F8;
-    text-align: left;
-    font-size: 2.5vh;
-    line-height: 1.5;
-    margin-top: 0;
-    margin-left: 10vh;
-    margin-right: 10vh;
+.selected_champion_container{
+    background-color: rgba(15, 15, 15, 0.404);
 }
 
 .selected_champion {
@@ -129,6 +123,12 @@
 }
 
 .champ_carousel{
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+.champ_row{
     display: flex;
     padding-left: 100px;
     padding-right: 100px;
@@ -137,6 +137,59 @@
     justify-content: center;
     column-gap: 50px;
     row-gap: 30px;
-    margin-top: 60px;
+}
 
+.stats_container{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 50%;
+    border-radius: 20px;
+    width: fit-content;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.stat_row{
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+
+}
+
+.stat_item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat_icon{
+    width: 35px;
+    height: 35px;
+}
+
+.stat_text{
+    color: #F0F4F8;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 20px;
+}
+
+
+.horizontal_spacer_large {
+    border-bottom: 2px solid rgba(99, 99, 99, 0.356);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+
+.horizontal_spacer_medium {
+    border-bottom: 2px solid rgba(99, 99, 99, 0.356);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
 }
