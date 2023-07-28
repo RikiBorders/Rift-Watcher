@@ -122,10 +122,40 @@
     margin-left: 30px;
 }
 
+.champ_carousel_container{
+    display: flex;
+}
+
 .champ_carousel{
     display: block;
     align-items: center;
     justify-content: center;
+}
+
+.carousel_button_left {  
+    background-color: transparent;
+    background-image: url("/arrow_left.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 0;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.carousel_button_right {  
+    background-color: transparent;
+    background-image: url("/arrow_right.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 0;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    padding: 0;
 }
 
 .champ_row{

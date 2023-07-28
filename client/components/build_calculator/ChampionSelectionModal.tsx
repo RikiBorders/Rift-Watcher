@@ -43,6 +43,23 @@ const ChampionSelectionModal = (props: any) => {
         setSelectedChampion(champ)
     }
 
+    const update_champ_index = (operation: number) => {
+        let new_index = 0
+        
+        if (operation){
+            new_index = champIndex + 10
+            if (new_index > championCards.length){
+                new_index = new_index - championCards.length
+            }
+        } else {
+            new_index = champIndex - 10
+            if (new_index < 0){
+                new_index = 0
+            }
+        }
+        setChampIndex(new_index)
+    }
+
     const render_champ_cards = () => {
         let champs1: Array<any> = [];
         let champs2: Array<any> = [];
@@ -56,18 +73,29 @@ const ChampionSelectionModal = (props: any) => {
         }
 
         return(
-            <div className={styles.champ_carousel}>
-                <div className={styles.champ_row}>
-                    {champs1.map((champion: any) => (
-                        champion
-                    ))}
+            <div className={styles.champ_carousel_container}>
+                <motion.button 
+                    whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.7 }} 
+                    className={styles.carousel_button_left} onClick={() => update_champ_index(0)}
+                />
+                <div className={styles.champ_carousel}>
+                    <div className={styles.champ_row}>
+                        {champs1.map((champion: any) => (
+                            champion
+                        ))}
+                    </div>
+                    <div className={styles.horizontal_spacer_large}/>
+                    <div className={styles.champ_row}>
+                        {champs2.map((champion: any) => (
+                            champion
+                        ))}
+                    </div>
+                    
                 </div>
-                <div className={styles.horizontal_spacer_large}/>
-                <div className={styles.champ_row}>
-                    {champs2.map((champion: any) => (
-                        champion
-                    ))}
-                </div>
+                <motion.button 
+                    whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.7 }} 
+                    className={styles.carousel_button_right} onClick={() => update_champ_index(1)}
+                />
             </div>
         )
     }
@@ -228,13 +256,10 @@ const ChampionSelectionModal = (props: any) => {
                         </div>
                     }
 
-                    
-
                     {championCards.length == 0 ? 
                         <></>:
                         render_champ_cards()
                     }
-
 
             </div>
         </div>
