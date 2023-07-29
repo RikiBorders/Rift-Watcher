@@ -277,7 +277,7 @@ const ChampionSelectionModal = (props: any) => {
                             <input
                                 className={styles.search_input}
                                 type="text"
-                                placeholder='Champion Name'
+                                placeholder='Champion Search'
                                 defaultValue=''
                                 onChange={handleInputChange}
                             />
