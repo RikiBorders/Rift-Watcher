@@ -49,14 +49,14 @@ const ChampionSelectionModal = (props: any) => {
         let new_index = 0
         
         if (operation){
-            new_index = champIndex + 10
-            if (new_index > championCards.length){
+            new_index = champIndex + 8
+            if (new_index >= championCards.length){
                 new_index = new_index - championCards.length
             }
         } else {
-            new_index = champIndex - 10
+            new_index = champIndex - 8
             if (new_index < 0){
-                new_index = 0
+                new_index = championCards.length-8
             }
         }
         setChampIndex(new_index)
