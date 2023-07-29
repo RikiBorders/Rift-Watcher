@@ -218,6 +218,25 @@
     font-size: 20px;
 }
 
+.champion_search_container{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.search_input{
+    line-height: 50px;
+    width: 200px;
+    background: #131313;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+/* spacers */
+
 .horizontal_spacer_large {
     border-bottom: 2px solid rgba(99, 99, 99, 0.356);
     margin-top: 20px;

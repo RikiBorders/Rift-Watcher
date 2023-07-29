@@ -26,17 +26,22 @@ const ChampionSelectionModal = (props: any) => {
         }
     })
     const [championCards, setChampionCards] = useState<any>([]);
+    const [visibleChampionCards, setVisibleChampionCards] = useState<any>([]);
     const [champIndex, setChampIndex] = useState(0)
 
-    const load_champion_cards = () => {
+    const load_champion_cards = (query: string) => {
+        console.log(query)
         let champ_cards: Array<any> = []
         for (const id in props.champ_data){
             const champion = props.champ_data[id]
-            const champ_card = <ChampionComponent champ_data={champion} set_selected_champion={set_selected_champion}/>
-            
-            champ_cards.push(champ_card)
+            let champ_name = champion.name.toLowerCase()
+            if (query == '' || champ_name.includes(query.toLowerCase())){
+                const champ_card = <ChampionComponent champ_data={champion} set_selected_champion={set_selected_champion}/>
+                champ_cards.push(champ_card)
+            }
         }
         setChampionCards(champ_cards)
+        setVisibleChampionCards(champ_cards)
     }
     
 
@@ -65,13 +70,13 @@ const ChampionSelectionModal = (props: any) => {
     const render_champ_cards = () => {
         let champs1: Array<any> = [];
         let champs2: Array<any> = [];
-        let limit = Math.min(championCards.length, champIndex+8)
+        let limit = Math.min(visibleChampionCards.length, champIndex+8)
 
         for (let i=champIndex; i < champIndex+4; i++){
-            champs1.push(championCards[i])
+            champs1.push(visibleChampionCards[i])
         }
         for (let i=champIndex+4; i < limit; i++){
-            champs2.push(championCards[i])
+            champs2.push(visibleChampionCards[i])
         }
 
         return(
@@ -104,8 +109,14 @@ const ChampionSelectionModal = (props: any) => {
         )
     }
 
+    const handleInputChange = (event: any) => {
+        event.preventDefault();
+        console.log(event.target.value)
+        load_champion_cards(event.target.value)
+    }
+
     useEffect(() => {
-        load_champion_cards()
+        load_champion_cards('')
     }, [])
     return (
         <div onClick={props.close_modal} className={styles.container}>
@@ -259,6 +270,18 @@ const ChampionSelectionModal = (props: any) => {
                         
                         </div>
                     }
+
+                    <div className={styles.champion_search_container}>
+                        <form className={styles.search_form}>
+                            <input
+                                className={styles.search_input}
+                                type="text"
+                                placeholder='Champion Name'
+                                defaultValue=''
+                                onChange={handleInputChange}
+                            />
+                        </form>
+                    </div>
 
                     {championCards.length == 0 ? 
                         <></>:
