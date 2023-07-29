@@ -33,10 +33,12 @@ const ChampionSelectionModal = (props: any) => {
         for (const id in props.champ_data){
             const champion = props.champ_data[id]
             const champ_card = <ChampionComponent champ_data={champion} set_selected_champion={set_selected_champion}/>
+            
             champ_cards.push(champ_card)
         }
         setChampionCards(champ_cards)
     }
+    
 
     const set_selected_champion = (champ: any) => {
         setChampionSelected(true)

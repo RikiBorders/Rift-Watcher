@@ -47,21 +47,15 @@
 
 
 /* card rotation styles */
-
-.card3d {
-    margin: 4px;
-    transform: scale(1);
-    perspective: 600px;
-  }
   
   .card3d:hover {
     z-index: 10;
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   
   .card3d,
   .card3d #championCard {
-    transition: all 1000ms ease-out;
+    transition: all 500ms ease-out;
   }
 
   /* end card rotation styles */

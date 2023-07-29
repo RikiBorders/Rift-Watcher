@@ -1,50 +1,61 @@
 import styles from "./ChampionComponent.module.css";
 import { motion } from "framer-motion";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const ChampionComponent = (props: any) => {
+    const myRef = useRef<any>(null);
 
     function map(mouse_pos: number, minA: number, maxA: number, minB: number, maxB: number) {
         return minB + ((mouse_pos - minA) * (maxB - minB)) / (maxA - minA);
     }
 
-    function Card3D(card: any, event: any) {
-        let card_content = card.querySelector('#championCard') as HTMLElement;
+    function Card3D(event: any) {
+        // adapted from https://codepen.io/nelsonr/pen/WNQaZPb
+        let card = myRef.current
+        let card_content = card.querySelector('span');
         if (card_content != null) {
             let imgRect = card.getBoundingClientRect();
+            
             let width = imgRect.width;
             let height = imgRect.height;
-            let mouseX = event.clientX - card.offsetLeft;
+            let mouseX = event.clientX - card!.offsetLeft;
             let mouseY = event.clientY - card.offsetTop;
             let rotateY = map(mouseX, 0, width, -25, 25);     //this dictates horizontal tilt           
             let rotateX = map(mouseY, 0, height, 25, -25);    //this dictates vertical tilt
-            let brightness = map(mouseY, 0, height, 1.5, 0.5);
+            let brightness = map(mouseY, 0, height, 1.5, 0.8);
             
             card_content!.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             card_content!.style.filter = `brightness(${brightness})`;
         }
       }
       
+      function handleExit() {
+        let card = myRef.current
+        let card_view = card.querySelector('span');
+        if (card_view != null){
+            (card_view as HTMLElement).style.transform = 'rotateX(0deg) rotateY(0deg)';
+            (card_view as HTMLElement).style.filter = 'brightness(1)';
+        }
+      }
+
 
     useEffect(() => {
-        const card = document.getElementById('3dchampChard');
-        card?.addEventListener('mousemove', (ev) => {
-            Card3D(card, ev);
-        });
-        card?.addEventListener('mouseleave', (ev) => {
-            let card_view = card.querySelector('#championCard') as HTMLElement;
-            if (card_view != null){
-                (card_view as HTMLElement).style.transform = 'rotateX(0deg) rotateY(0deg)';
-                (card_view as HTMLElement).style.filter = 'brightness(1)';
-            }
-          })
     }, [])
     return (
         <div 
-            className={styles.card3d}
-            id="3dchampChard"
+            ref={myRef}
+            className='card3d'
+            id="card3d"
+            onMouseMove={(event) => {Card3D(event)}}
+            onMouseLeave={() => {handleExit()}}
+
+            style={{
+                margin: '4px',
+                transform: 'scale(1)',
+                perspective: '600px',
+            }}
         >
-            <div style={{
+            <span style={{
                 backgroundImage: `url(${props.champ_data.splash_icon})`,
                 backgroundRepeat: 'noRepeat',
                 backgroundSize: '200px 400px',
@@ -53,7 +64,7 @@ const ChampionComponent = (props: any) => {
                 width: '200px',
                 height: '400px',
                 flexShrink: 0,
-                // transition: ' all 500ms ease-out',
+                // transition: ' all 100ms ease-out',
                 }}
                 id="championCard"
                 onClick={()=>props.set_selected_champion(props.champ_data)}
@@ -131,7 +142,7 @@ const ChampionComponent = (props: any) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </span>
         </div>
     );
 };
