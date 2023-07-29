@@ -21,7 +21,6 @@ const ChampionComponent = (props: any) => {
             let height = card_bounding.height;
             let mouseX = event.clientX - card_bounding.left;
             let mouseY = event.clientY - card_bounding.top;
-            // console.log(`x: ${mouseX}, y: ${mouseY}`)
             let rotateY = map(mouseX, 0, width, -25, 25);     //this dictates horizontal tilt           
             let rotateX = map(mouseY, 0, height, 25, -25);    //this dictates vertical tilt
             let brightness = map(mouseY, 0, height, 1.5, 0.8);
@@ -54,9 +53,11 @@ const ChampionComponent = (props: any) => {
                 margin: '4px',
                 transform: 'scale(1)',
                 perspective: '600px',
+                cursor: 'pointer'
+
             }}
         >
-            <span style={{
+            <motion.span style={{
                 backgroundImage: `url(${props.champ_data.splash_icon})`,
                 backgroundRepeat: 'noRepeat',
                 backgroundSize: '200px 400px',
@@ -65,10 +66,11 @@ const ChampionComponent = (props: any) => {
                 width: '200px',
                 height: '400px',
                 flexShrink: 0,
-                // transition: ' all 100ms ease-out',
+                transition: ' all 100ms ease-out',
                 }}
                 id="championCard"
                 onClick={()=>props.set_selected_champion(props.champ_data)}
+                whileTap={{ scale: 0.97 }}
             >
                 <p className={styles.card_text}>{props.champ_data.name}</p>
                 <div className={styles.card_footer}>
@@ -143,7 +145,7 @@ const ChampionComponent = (props: any) => {
                         </div>
                     </div>
                 </div>
-            </span>
+            </motion.span>
         </div>
     );
 };
