@@ -31,6 +31,7 @@ const ChampionSelectionModal = (props: any) => {
 
     const load_champion_cards = (query: string) => {
         console.log(query)
+
         let champ_cards: Array<any> = []
         for (const id in props.champ_data){
             const champion = props.champ_data[id]
@@ -111,7 +112,7 @@ const ChampionSelectionModal = (props: any) => {
 
     const handleInputChange = (event: any) => {
         event.preventDefault();
-        console.log(event.target.value)
+        setChampIndex(0)
         load_champion_cards(event.target.value)
     }
 
