@@ -65,12 +65,12 @@ const ChampionSelectionModal = (props: any) => {
     const render_champ_cards = () => {
         let champs1: Array<any> = [];
         let champs2: Array<any> = [];
-        let limit = Math.min(championCards.length, champIndex+10)
+        let limit = Math.min(championCards.length, champIndex+8)
 
-        for (let i=champIndex; i < champIndex+5; i++){
+        for (let i=champIndex; i < champIndex+4; i++){
             champs1.push(championCards[i])
         }
-        for (let i=champIndex+5; i < limit; i++){
+        for (let i=champIndex+4; i < limit; i++){
             champs2.push(championCards[i])
         }
 
@@ -112,7 +112,7 @@ const ChampionSelectionModal = (props: any) => {
             <div onClick={(e) => {e.stopPropagation();}} className={styles.content_container}>
 
                 <motion.button onClick={props.close_modal} className={styles.close_button}></motion.button>
-                <h2 className={styles.header_text}>Currently Selected:</h2>
+                <h2 className={styles.header_text}>Currently Champion:</h2>
                     {championSelected ? 
                         <div className={styles.selected_champion_container}>
                             <div className={styles.selected_champion}>
@@ -223,7 +223,7 @@ const ChampionSelectionModal = (props: any) => {
                             </div>
                         </div>
                         :
-                        <div className={styles.selected_champion}>
+                        <div className={styles.unselected_champion}>
                             <img 
                                 src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/-1.png' 
                                 className={styles.selected_champ_icon}

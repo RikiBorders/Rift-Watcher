@@ -15,7 +15,7 @@
     margin-top: 3vh;
     margin-left: 20vh;
     margin-right: 20vh;
-    max-height: 85vh;
+    max-height: 90vh;
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 20px;
@@ -49,6 +49,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.unselected_champion {
+    background-color: rgba(15, 15, 15, 0.404);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px; /*Add a little padding to make size similar to selected */
+    padding-top: 50px; /*Add a little padding to make size similar to selected */
+    margin-bottom: 40px;
 }
 
 .selected_champ_icon{

@@ -9,17 +9,19 @@ const ChampionComponent = (props: any) => {
         return minB + ((mouse_pos - minA) * (maxB - minB)) / (maxA - minA);
     }
 
+
     function Card3D(event: any) {
         // adapted from https://codepen.io/nelsonr/pen/WNQaZPb
         let card = myRef.current
         let card_content = card.querySelector('span');
         if (card_content != null) {
-            let imgRect = card.getBoundingClientRect();
+            let card_bounding = card.getBoundingClientRect();
             
-            let width = imgRect.width;
-            let height = imgRect.height;
-            let mouseX = event.clientX - card!.offsetLeft;
-            let mouseY = event.clientY - card.offsetTop;
+            let width = card_bounding.width;
+            let height = card_bounding.height;
+            let mouseX = event.clientX - card_bounding.left;
+            let mouseY = event.clientY - card_bounding.top;
+            // console.log(`x: ${mouseX}, y: ${mouseY}`)
             let rotateY = map(mouseX, 0, width, -25, 25);     //this dictates horizontal tilt           
             let rotateX = map(mouseY, 0, height, 25, -25);    //this dictates vertical tilt
             let brightness = map(mouseY, 0, height, 1.5, 0.8);
@@ -37,7 +39,6 @@ const ChampionComponent = (props: any) => {
             (card_view as HTMLElement).style.filter = 'brightness(1)';
         }
       }
-
 
     useEffect(() => {
     }, [])
