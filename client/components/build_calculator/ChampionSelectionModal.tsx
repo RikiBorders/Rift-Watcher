@@ -36,7 +36,7 @@ const ChampionSelectionModal = (props: any) => {
         for (const id in props.champ_data){
             const champion = props.champ_data[id]
             let champ_name = champion.name.toLowerCase()
-            if (query == '' || champ_name.includes(query.toLowerCase())){
+            if (query == '' || champ_name.substring(0, query.length) == query.toLowerCase()){
                 const champ_card = <ChampionComponent champ_data={champion} set_selected_champion={set_selected_champion}/>
                 champ_cards.push(champ_card)
             }
