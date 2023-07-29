@@ -56,7 +56,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 50px; /*Add a little padding to make size similar to selected */
+    padding-bottom: 115px; /*Add a little padding to make size similar to selected */
     padding-top: 50px; /*Add a little padding to make size similar to selected */
     margin-bottom: 40px;
 }
