@@ -5,6 +5,27 @@ import ChampionSelectionModal from './ChampionSelectionModal';
 export default function BuildCalculator(props: any) {
     const [showChampionSelectionModal, setChampionSelectionModal] = useState(false);
     const [scrollEnabled, setScrollEnabled] = useState(true);
+    const [targetChampionSelected, setTargetChampionSelected] = useState(false)
+    const [targetChampion, setTargetChampion] = useState({
+        'icon_path': '',
+        'name': '',
+        'roles': [],
+        'difficulty': 0,
+        'damage_style': '',
+        'health':{'flat': ''},
+        'attackDamage': {'flat': ''}, 
+        'attackSpeed': {'flat': ''}, 
+        'armor': {'flat': ''},
+        'magicResistance': {'flat': ''},
+        'movespeed': {'flat': ''},
+        'abilities': {
+            'P': [],
+            'Q': [{'name': '', 'icon': ''}],
+            'W': [{'name': '', 'icon': ''}],
+            'E': [{'name': '', 'icon': ''}],
+            'R': [{'name': '', 'icon': ''}],
+        }
+    })
     
     const open_modal = () => {
         setChampionSelectionModal(true);
@@ -26,7 +47,14 @@ export default function BuildCalculator(props: any) {
         let champ_data = props.calculator_data.champions
         if (showChampionSelectionModal) {
             return (
-                <ChampionSelectionModal close_modal={close_modal} champ_data={champ_data}/>
+                <ChampionSelectionModal 
+                    close_modal={close_modal} 
+                    set_target={setTargetChampion} 
+                    set_target_selected={setTargetChampionSelected}
+                    champ_data={champ_data}
+                    target={targetChampion}
+                    target_selected={targetChampionSelected}
+                />
             )
         } else {
             return(<></>)

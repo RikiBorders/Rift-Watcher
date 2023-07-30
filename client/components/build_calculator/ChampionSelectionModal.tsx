@@ -32,19 +32,23 @@ const ChampionSelectionModal = (props: any) => {
     const [filterRole, setFilterRole] = useState('')
     const [filterDifficulty, setFilterDifficulty] = useState('')
     const [filterDamageType, setFilterDamageType] = useState('')
-
+    const [searchQuery, setSearchQuery] = useState('')
 
 
     const load_champion_cards = (query: string) => {
         let champ_cards: Array<any> = []
+
         for (const id in props.champ_data){
             const champion = props.champ_data[id]
+            const champ_name = champion.name.toLowerCase()
+            const difficulty = champion.difficulty
+            const roles = champion.roles
+            const damage_style = champion.damage_style
 
-            let champ_name = champion.name.toLowerCase()
-            if ((query == '' || (champ_name.substring(0, query.length) == query.toLowerCase()) && // name filter
-                (filterRole == '' || champion.roles.includes(filterRole)) && // query matching for filters below
-                (filterDifficulty == '' || filterDifficulty == champion.difficulty) &&
-                (filterDamageType == '' || champion.damage_style) 
+            if (((searchQuery == '' || champ_name.substring(0, searchQuery.length) == searchQuery.toLowerCase()) && // name filter
+                (filterRole == '' || (roles.includes(filterRole) && filterRole != '')) && // query matching for filters below
+                (filterDifficulty == '' || filterDifficulty == difficulty) &&
+                (filterDamageType == '' || filterDamageType == damage_style)
             )){
                 const champ_card = <ChampionComponent champ_data={champion} set_selected_champion={set_selected_champion}/>
                 champ_cards.push(champ_card)
@@ -58,26 +62,27 @@ const ChampionSelectionModal = (props: any) => {
     const set_selected_champion = (champ: any) => {
         setChampionSelected(true)
         setSelectedChampion(champ)
+        props.set_target(champ)
+        props.set_target_selected(true)
     }
 
     const update_champ_index = (operation: number) => {
         let new_index = 0
-        
-        if (operation){
-            new_index = champIndex + 8
-            if (new_index >= visibleChampionCards.length){
-                new_index = new_index - visibleChampionCards.length
+        console.log(champIndex, visibleChampionCards.length)
+
+        if (visibleChampionCards.length <=8){} 
+        else if (operation){
+            if (champIndex+8 < visibleChampionCards.length){
+                new_index = champIndex+8
             }
         } else {
-            new_index = champIndex - 8
-            const card_count = visibleChampionCards.length
-            if (new_index < 0){
-                if (card_count+new_index < 0)
-                    new_index = 0
-                else 
-                    new_index = card_count+new_index
+            if (champIndex-8 >= 0){
+                new_index = champIndex-8
+            } else {
+                new_index = visibleChampionCards.length - (champIndex+8)
             }
         }
+
         setChampIndex(new_index)
     }
 
@@ -126,7 +131,7 @@ const ChampionSelectionModal = (props: any) => {
     const handleInputChange = (event: any) => {
         event.preventDefault();
         setChampIndex(0)
-        load_champion_cards(event.target.value)
+        setSearchQuery(event.target.value)
     }
 
     const show_filter = () => {
@@ -153,8 +158,13 @@ const ChampionSelectionModal = (props: any) => {
     }
 
     useEffect(() => {
-        load_champion_cards('')
+        setChampionSelected(props.target_selected)
+        setSelectedChampion(props.target)
     }, [])
+    useEffect(() => {
+        setChampIndex(0)
+        load_champion_cards('')
+    }, [filterRole, filterDifficulty, filterDamageType, searchQuery])
     return (
         <div onClick={props.close_modal} className={styles.container}>
             <div onClick={(e) => {e.stopPropagation();}} className={styles.content_container}>
@@ -339,6 +349,7 @@ const ChampionSelectionModal = (props: any) => {
                                 <div className={styles.filter_row}>
                                     <p className={styles.filter_text}>Role:</p>
                                     <select className={styles.filter_select} value={filterRole} onChange={update_filter_role}>
+                                        <option key='' value=''>None</option>
                                         <option key='Assassin' value='Assassin'>Assassin</option>
                                         <option key='Fighter' value='Fighter'>Fighter</option>
                                         <option key='Mage' value='Mage'>Mage</option>
@@ -350,6 +361,8 @@ const ChampionSelectionModal = (props: any) => {
                                 <div className={styles.filter_row}>
                                     <p className={styles.filter_text}>Difficulty:</p>
                                     <select className={styles.filter_select} value={filterDifficulty} onChange={update_filter_difficulty}>
+                                        <option key='' value=''>None</option>
+                                        
                                         <option key='1' value='1'>1</option>
                                         <option key='2' value='2'>2</option>
                                         <option key='3' value='3'>3</option>
@@ -359,8 +372,9 @@ const ChampionSelectionModal = (props: any) => {
                                 <div className={styles.filter_row}>
                                     <p className={styles.filter_text}>Damage Type:</p>
                                     <select className={styles.filter_select} value={filterDamageType} onChange={update_filter_damage_type}>
-                                        <option key='physical' value='physical'>Physical</option>
-                                        <option key='magic' value='magic'>Magic</option>
+                                        <option key='' value=''>None</option>
+                                        <option key='physical' value='Physical Damage'>Physical</option>
+                                        <option key='magic' value='Magic Damage'>Magic</option>
 
                                     </select>
                                 </div>
