@@ -28,6 +28,12 @@ const ChampionSelectionModal = (props: any) => {
     const [championCards, setChampionCards] = useState<any>([]);
     const [visibleChampionCards, setVisibleChampionCards] = useState<any>([]);
     const [champIndex, setChampIndex] = useState(0)
+    const [showFilter, setShowFilter] = useState(false)
+    const [filterRole, setFilterRole] = useState('')
+    const [filterDifficulty, setFilterDifficulty] = useState('')
+    const [filterDamageType, setFilterDamageType] = useState('')
+
+
 
     const load_champion_cards = (query: string) => {
         console.log(query)
@@ -56,13 +62,17 @@ const ChampionSelectionModal = (props: any) => {
         
         if (operation){
             new_index = champIndex + 8
-            if (new_index >= championCards.length){
-                new_index = new_index - championCards.length
+            if (new_index >= visibleChampionCards.length){
+                new_index = new_index - visibleChampionCards.length
             }
         } else {
             new_index = champIndex - 8
+            const card_count = visibleChampionCards.length
             if (new_index < 0){
-                new_index = championCards.length-8
+                if (card_count+new_index < 0)
+                    new_index = 0
+                else 
+                    new_index = card_count+new_index
             }
         }
         setChampIndex(new_index)
@@ -116,6 +126,29 @@ const ChampionSelectionModal = (props: any) => {
         load_champion_cards(event.target.value)
     }
 
+    const show_filter = () => {
+        if (showFilter){
+            setShowFilter(false)
+        } else {
+            setShowFilter(true)
+        }
+    }
+
+    const update_filter_role = (event: any) => {
+        const selectedOption = event.target.value;
+        setFilterRole(selectedOption)
+    }
+
+    const update_filter_difficulty = (event: any) => {
+        const selectedOption = event.target.value;
+        setFilterDifficulty(selectedOption)
+    }
+
+    const update_filter_damage_type = (event: any) => {
+        const selectedOption = event.target.value;
+        setFilterDamageType(selectedOption)
+    }
+
     useEffect(() => {
         load_champion_cards('')
     }, [])
@@ -124,7 +157,7 @@ const ChampionSelectionModal = (props: any) => {
             <div onClick={(e) => {e.stopPropagation();}} className={styles.content_container}>
 
                 <motion.button onClick={props.close_modal} className={styles.close_button}></motion.button>
-                <h2 className={styles.header_text}>Currently Champion:</h2>
+                <h2 className={styles.header_text}>Current Champion:</h2>
                     {championSelected ? 
                         <div className={styles.selected_champion_container}>
                             <div className={styles.selected_champion}>
@@ -273,15 +306,65 @@ const ChampionSelectionModal = (props: any) => {
                     }
 
                     <div className={styles.champion_search_container}>
-                        <form className={styles.search_form}>
-                            <input
-                                className={styles.search_input}
-                                type="text"
-                                placeholder='Champion Search'
-                                defaultValue=''
-                                onChange={handleInputChange}
-                            />
-                        </form>
+                        <div className={styles.search_bar_container}>
+                            <div
+                                style={{
+                                    backgroundColor: '#131313',
+                                    width: '52px',
+                                    height: '52px',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <motion.button onClick={show_filter} className={styles.filter_button}/>
+                            </div>
+                            <form className={styles.search_form}>
+                                <input
+                                    className={styles.search_input}
+                                    type="text"
+                                    placeholder='Champion Search'
+                                    defaultValue=''
+                                    onChange={handleInputChange}
+                                />
+                            </form>
+
+                        </div>
+                        {
+                            showFilter ?
+                            <div className={styles.filter_container}>
+                                <div className={styles.filter_row}>
+                                    <p className={styles.filter_text}>Role:</p>
+                                    <select className={styles.filter_select} value={filterRole} onChange={update_filter_role}>
+                                        <option key='Assasin' value='Assasin'>Assasin</option>
+                                        <option key='Fighter' value='Fighter'>Fighter</option>
+                                        <option key='Mage' value='Mage'>Mage</option>
+                                        <option key='Marksman' value='Marksman'>Marksman</option>
+                                        <option key='Tank' value='Tank'>Tank</option>
+                                        <option key='Vanguard' value='Vanguard'>Vanguard</option>
+                                    </select>
+                                </div>
+                                <div className={styles.filter_row}>
+                                    <p className={styles.filter_text}>Difficulty:</p>
+                                    <select className={styles.filter_select} value={filterDifficulty} onChange={update_filter_difficulty}>
+                                        <option key='1' value='1'>1</option>
+                                        <option key='2' value='2'>2</option>
+                                        <option key='3' value='3'>3</option>
+
+                                    </select>
+                                </div>
+                                <div className={styles.filter_row}>
+                                    <p className={styles.filter_text}>Damage Type:</p>
+                                    <select className={styles.filter_select} value={filterDamageType} onChange={update_filter_damage_type}>
+                                        <option key='physical' value='physical'>Physical</option>
+                                        <option key='magic' value='magic'>Magic</option>
+
+                                    </select>
+                                </div>
+
+                            </div> :
+                            <div className={styles.filter_margin}/>
+                        }
                     </div>
 
                     {championCards.length == 0 ? 

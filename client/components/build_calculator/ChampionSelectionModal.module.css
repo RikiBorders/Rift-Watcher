@@ -33,6 +33,17 @@
     float: right;
 }
 
+.filter_button{
+    background-image: url("/filter.png");
+    background-size: cover;
+    background-color: transparent;
+    height: 65%;
+    width: 65%;
+    cursor: pointer;
+    align-self: center;
+    border: 0;
+}
+
 .header_text{
     color: #F0F4F8;
     font-family: 'Libre Baskerville', serif;
@@ -219,9 +230,43 @@
 }
 
 .champion_search_container{
+    position: relative;
+    justify-content: center;
+}
+
+.search_bar_container{
+    position: relative;
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
+}
+
+.filter_container{
+    position: relative;
+    left: 50%;
+    transform: translateX(-64%);
+    width: 200px;
+    background: #131313;
+    margin-bottom: 30px;
+}
+
+.filter_row{
+    display: flex;
+    align-items: center;
+}
+
+.filter_text{
+    color: #F0F4F8;
+}
+
+.filter_select{
+    margin-left: auto;
+    height: 20px;
+    width: 100px;
+    text-align: center;
+    background-color: #131313;
+    color: #F0F4F8;
+    border: none;
+    outline: none;
 }
 
 .search_input{
@@ -253,4 +298,8 @@
     margin-left: auto;
     margin-right: auto;
     width: 300px;
+}
+
+.filter_margin{
+    margin-bottom: 30px;
 }
