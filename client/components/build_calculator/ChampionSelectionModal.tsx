@@ -36,13 +36,16 @@ const ChampionSelectionModal = (props: any) => {
 
 
     const load_champion_cards = (query: string) => {
-        console.log(query)
-
         let champ_cards: Array<any> = []
         for (const id in props.champ_data){
             const champion = props.champ_data[id]
+
             let champ_name = champion.name.toLowerCase()
-            if (query == '' || champ_name.substring(0, query.length) == query.toLowerCase()){
+            if ((query == '' || (champ_name.substring(0, query.length) == query.toLowerCase()) && // name filter
+                (filterRole == '' || champion.roles.includes(filterRole)) && // query matching for filters below
+                (filterDifficulty == '' || filterDifficulty == champion.difficulty) &&
+                (filterDamageType == '' || champion.damage_style) 
+            )){
                 const champ_card = <ChampionComponent champ_data={champion} set_selected_champion={set_selected_champion}/>
                 champ_cards.push(champ_card)
             }
@@ -336,7 +339,7 @@ const ChampionSelectionModal = (props: any) => {
                                 <div className={styles.filter_row}>
                                     <p className={styles.filter_text}>Role:</p>
                                     <select className={styles.filter_select} value={filterRole} onChange={update_filter_role}>
-                                        <option key='Assasin' value='Assasin'>Assasin</option>
+                                        <option key='Assassin' value='Assassin'>Assassin</option>
                                         <option key='Fighter' value='Fighter'>Fighter</option>
                                         <option key='Mage' value='Mage'>Mage</option>
                                         <option key='Marksman' value='Marksman'>Marksman</option>
