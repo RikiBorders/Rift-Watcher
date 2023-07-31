@@ -1,7 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+
 .container{
     background-color: #212A3E;
 }
 
-.info_section_text {
+
+
+/* meta styles */
+
+.calculator_row{
+    display: flex;
+}
+
+/* champ select styles */
+
+.selected_champion_portrait{
+    display: block;
+    height: 300px;
+    margin: 0;
+}
+
+.selected_champion_container{
+    display: block;
+}
+
+.champion_selection_button{
+    width: 165px;
+    height: 30px;
+    background-color: #000000;
+    text-align: center;
     color: white;
+    border: none;
+}
+
+/* champion base stats styles */
+
+.base_stats_header{
+    color: #F0F4F8;
+    text-align: center;
+    margin: 0;
+}
+
+.build_stats_section_container{
+
+}
+
+.base_stats_container {
+}
+
+.base_stats {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.base_stats_2 {
+    display: flex;
+}
+
+.health_row{
+    display: flex;
+    margin-bottom: -10px;
+    padding: 0;
+    justify-content: center;
+}
+
+.stat_element{
+    display: flex;
+}
+
+.stat_icon{
+    height: 40px;
+    width: 40px;
+}
+
+.stat_text{
+    color: #F0F4F8;
+}
+
+/* build stats */
+
+.build_stats_header{
+    color: #F0F4F8;
+    text-align: center;
+    margin: 0;
+}
+
+.build_stats_subheader{
+    color: #F0F4F8;
+    text-align: center;
+    margin: 0;
+}
+
+
+/* item styles */
+
+.item_section_icon{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+    width: 40px;
+}
+
+.item_section_title{
+    align-items: center;
+    justify-content: center;
+}
+
+.item_container{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.item_img{
+    margin: 0;
+    width: 50px;
+    height: 50px;
+}
+
+.item_text{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: #F0F4F8;
+    max-width: 90px;
+    white-space: initial;
+}
+
+
+
+/* spacers */
+
+.horizontal_spacer_large {
+    border-bottom: 1px solid rgba(235, 235, 235, 0.788);
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
 }
