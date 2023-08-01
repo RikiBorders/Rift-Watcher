@@ -18,6 +18,8 @@ def fetch_items():
 
     for raw_item_data in item_list:
         id = raw_item_data['id']
+        item_url = base_item_url+str(id)+'.json'
+
         if id >= 222000 or id == 1104: # for some reason 1104 returns error 404
             break
 
@@ -26,7 +28,7 @@ def fetch_items():
         thread.start()
         item_fetching_threads.append(thread)
 
-    monitor_thread_pool(item_fetching_threads)
+    # monitor_thread_pool(item_fetching_threads)
 
     return item_response
 
@@ -35,15 +37,35 @@ def fetch_item(item_response: list, url: str):
     fetch item data from cdn
     '''
     raw_item_data = requests.get(url).json()
+    # print(raw_item_data)
     item_data = {
         'name': raw_item_data['name'],
-        'stats': raw_item_data['stats'],
+        'abilityPower': raw_item_data['stats']['abilityPower'],
+        'attackDamage': raw_item_data['stats']['attackDamage'],
+        'attackSpeed': raw_item_data['stats']['attackSpeed'],
+        'criticalStrikeChance': raw_item_data['stats']['criticalStrikeChance'],
+        'lethality': raw_item_data['stats']['lethality'],
+        'lifesteal': raw_item_data['stats']['lifesteal'],
+        'armor': raw_item_data['stats']['armor'],
+        'magicResistance': raw_item_data['stats']['magicResistance'],
+        'health': raw_item_data['stats']['health'],
+        'healthRegen': raw_item_data['stats']['healthRegen'],
+        'armorPenetration': raw_item_data['stats']['armorPenetration'],
+        'magicPenetration': raw_item_data['stats']['magicPenetration'],
+        'mana': raw_item_data['stats']['mana'],
+        'manaRegen': raw_item_data['stats']['manaRegen'],
+        'movespeed': raw_item_data['stats']['movespeed'],
+        'abilityHaste': raw_item_data['stats']['abilityHaste'],
+        'omnivamp': raw_item_data['stats']['omnivamp'],
+        'tenacity': raw_item_data['stats']['tenacity'],
+        'health': raw_item_data['stats']['health'],
+        'health': raw_item_data['stats']['health'],
+
         'passives': raw_item_data['passives'],
         'active': raw_item_data['active'],
         'icon': raw_item_data['icon'],
         'shop_info': raw_item_data['shop']
     }
-
     item_response.append(item_data)
 
 
