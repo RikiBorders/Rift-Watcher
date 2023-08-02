@@ -9,30 +9,39 @@ from SummonerStats import get_champion_icon, parse_champ_name
 def fetch_items():
     '''
     Fetch relevant item data such as price, stats, etc.
+    Will return none if json urls are unavailable
 
     item.bin.json contains item stats we need
     items.json contains things like names, icons, etc
     '''
-    item_bin_url = 'https://raw.communitydragon.org/latest/game/global/items/items.bin.json'
+    item_bin_url = 'https://raw.communitydragon.org/latest/game/items.cdtb.bin.json'
     items_json_url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
     base_item_path = 'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/'
-    items_json = requests.get(items_json_url).json()
-    item_bin = requests.get(item_bin_url).json()
+    try:
+        items_json = requests.get(items_json_url).json()
+        item_bin = requests.get(item_bin_url).json()
+    except ValueError:
+        return None
+
     item_response = []
     item_fetching_threads = []
 
     for item in items_json:
         item_subpath = (item['iconPath'].split('/')[-1]).lower()
+        item_bin_key = f"Items/{item['id']}"
+        bin_data = item_bin[item_bin_key]
         item_object = {
             'name': item['name'],
             'id': item['id'],
             'icon_path': base_item_path+item_subpath,
-            'stats': format_item_stats(item['mDataValues'])
+            'epicness': bin_data['epicness'] if 'epicness' in bin_data else None,
+            'price': bin_data['price'] if 'price' in bin_data else None,
+            'categories': bin_data['mCategories'] if 'mCategories' in bin_data else None,
+            'epicness': bin_data['epicness'] if 'epicness' in bin_data else None,
+
+            'stats': format_item_stats(bin_data)
         }
-        item_bin_data = item_bin[f"Items/{item['id']}"]
-        item_object['price'] = item_bin_data['price'] if 'price' in item_bin_data else ''
-        item_object['categories'] = item_bin_data['mCategories']  if 'mCategories' in item_bin_data else ''
-        print(item_bin_data)
+        # break
 
         item_response.append(item_object)
 
@@ -101,6 +110,44 @@ def format_item_stats(raw_item_stats: dict):
         'health_regen': 0,
         'mana_regen': 0,
     }
+
+    if 'mFlatHPPoolMod' in raw_item_stats:
+        item_stats['health'] = raw_item_stats['mFlatHPPoolMod']
+    if 'mFlatArmorMod' in raw_item_stats:
+        item_stats['armor'] = raw_item_stats['mFlatArmorMod']
+    if 'mFlatSpellBlockMod' in raw_item_stats:
+        item_stats['magic_resist'] = raw_item_stats['mFlatSpellBlockMod']
+    if 'mFlatPhysicalDamageMod' in raw_item_stats:
+        item_stats['attack_damage'] = raw_item_stats['mFlatPhysicalDamageMod']
+    if 'mPercentAttackSpeedMod' in raw_item_stats:
+        item_stats['attack_speed'] = raw_item_stats['mPercentAttackSpeedMod']
+    if 'mFlatMagicDamageMod' in raw_item_stats:
+        item_stats['ability_power'] = raw_item_stats['mFlatMagicDamageMod']
+    if 'mFlatCritChanceMod' in raw_item_stats:
+        item_stats['critical_chance'] = raw_item_stats['mFlatCritChanceMod']
+    if 'PercentOmnivampMod' in raw_item_stats:
+        item_stats['omnivamp'] = raw_item_stats['PercentOmnivampMod']
+    if 'mPercentLifeStealMod' in raw_item_stats:
+        item_stats['lifesteal'] = raw_item_stats['mPercentLifeStealMod']
+    if 'mAbilityHasteMod' in raw_item_stats:
+        item_stats['ability_haste'] = raw_item_stats['mAbilityHasteMod']
+    if 'mPercentArmorPenetrationMod' in raw_item_stats:
+        item_stats['armor_pen'] = raw_item_stats['mPercentArmorPenetrationMod']
+    if 'mFlatMagicPenetrationMod' in raw_item_stats:
+        item_stats['magic_pen'] = raw_item_stats['mFlatMagicPenetrationMod']
+    if 'mFlatMovementSpeedMod' in raw_item_stats:
+        item_stats['movement_speed'] = raw_item_stats['mFlatMovementSpeedMod']
+    if 'flatMPPoolMod' in raw_item_stats:
+        item_stats['mana'] = raw_item_stats['flatMPPoolMod']
+    if 'mPercentBaseHPRegenMod' in raw_item_stats:
+        item_stats['health_regen'] = raw_item_stats['mPercentBaseHPRegenMod']
+    if 'percentBaseMPRegenMod' in raw_item_stats:
+        item_stats['mana_regen'] = raw_item_stats['percentBaseMPRegenMod']
+
+    if 'mDataValues' in raw_item_stats:
+        for value in raw_item_stats['mDataValues']:
+            if value['mName'] == 'LethalityAmount':
+                item_stats['lethality'] = value['mValue']
 
     return item_stats
 
