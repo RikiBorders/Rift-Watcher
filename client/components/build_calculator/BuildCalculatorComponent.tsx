@@ -8,7 +8,7 @@ export default function BuildCalculator(props: any) {
     const [targetChampionSelected, setTargetChampionSelected] = useState(false)
     const [targetChampion, setTargetChampion] = useState({
         'icon_path': '',
-        'splash_icon': '',
+        'splash_icon': '/default_champ_splash.png',
         'name': '',
         'roles': [],
         'difficulty': 0,

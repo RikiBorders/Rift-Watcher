@@ -23,12 +23,16 @@ def fetch_items():
 
     for item in items_json:
         item_subpath = (item['iconPath'].split('/')[-1]).lower()
-        item_bin_data = item_bin[f"Items/{item['id']}"]
         item_object = {
             'name': item['name'],
             'id': item['id'],
-            'icon_path': base_item_path+item_subpath
+            'icon_path': base_item_path+item_subpath,
+            'stats': format_item_stats(item['mDataValues'])
         }
+        item_bin_data = item_bin[f"Items/{item['id']}"]
+        item_object['price'] = item_bin_data['price'] if 'price' in item_bin_data else ''
+        item_object['categories'] = item_bin_data['mCategories']  if 'mCategories' in item_bin_data else ''
+        print(item_bin_data)
 
         item_response.append(item_object)
 
@@ -72,6 +76,33 @@ def fetch_item(item_response: list, url: str):
         'shop_info': raw_item_data['shop']
     }
     item_response.append(item_data)
+
+
+def format_item_stats(raw_item_stats: dict):
+    '''
+    return a standardized list of stats gained from a particular item.
+    '''
+    item_stats = {
+        'health': 0,
+        'armor': 0,
+        'magic_resist': 0,
+        'attack_damage': 0,
+        'attack_speed': 0,
+        'ability_power': 0,
+        'critical_chance': 0,
+        'omnivamp': 0,
+        'lifesteal': 0,
+        'ability_haste': 0,
+        'lethality': 0,
+        'armor_pen': 0,
+        'magic_pen': 0,
+        'movement_speed': 0,
+        'mana': 0,
+        'health_regen': 0,
+        'mana_regen': 0,
+    }
+
+    return item_stats
 
 
 def fetch_champions():
