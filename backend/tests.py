@@ -106,7 +106,7 @@ def TEST_fetch_items():
     '''
     start_time = time.time()
     item_info = fetch_items()
-    # print(item_info)
+    print(len(item_info))
     # print(f'champ info fetched in {time.time()-start_time} seconds')
 
 def TEST_get_build_calculator_data():

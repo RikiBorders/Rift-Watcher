@@ -9,27 +9,30 @@ from SummonerStats import get_champion_icon, parse_champ_name
 def fetch_items():
     '''
     Fetch relevant item data such as price, stats, etc.
+
+    item.bin.json contains item stats we need
+    items.json contains things like names, icons, etc
     '''
-    base_item_url = 'https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/items/'
-    item_list_url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
-    item_list = requests.get(item_list_url).json()
+    item_bin_url = 'https://raw.communitydragon.org/latest/game/global/items/items.bin.json'
+    items_json_url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json'
+    base_item_path = 'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/'
+    items_json = requests.get(items_json_url).json()
+    item_bin = requests.get(item_bin_url).json()
     item_response = []
     item_fetching_threads = []
 
-    for raw_item_data in item_list:
-        id = raw_item_data['id']
-        item_url = base_item_url+str(id)+'.json'
+    for item in items_json:
+        item_subpath = (item['iconPath'].split('/')[-1]).lower()
+        item_bin_data = item_bin[f"Items/{item['id']}"]
+        item_object = {
+            'name': item['name'],
+            'id': item['id'],
+            'icon_path': base_item_path+item_subpath
+        }
 
-        if id >= 222000 or id == 1104: # for some reason 1104 returns error 404
-            break
-
-        item_url = base_item_url+str(id)+'.json'
-        thread = threading.Thread(target=fetch_item, args=[item_response, item_url])
-        thread.start()
-        item_fetching_threads.append(thread)
+        item_response.append(item_object)
 
     # monitor_thread_pool(item_fetching_threads)
-
     return item_response
 
 def fetch_item(item_response: list, url: str):
@@ -37,7 +40,9 @@ def fetch_item(item_response: list, url: str):
     fetch item data from cdn
     '''
     raw_item_data = requests.get(url).json()
-    # print(raw_item_data)
+    # print(raw_item_data['name'])
+    # print('-----------------')
+    # print(raw_item_data['stats'].keys())
     item_data = {
         'name': raw_item_data['name'],
         'abilityPower': raw_item_data['stats']['abilityPower'],
