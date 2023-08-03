@@ -247,35 +247,105 @@ export default function BuildCalculator(props: any) {
 
         let row: Array<any> = [];        
         props.calculator_data.items.forEach((item: any) => {
-            console.log(item)
+            const stats = item.stats
+            if (stats.health > 0){
+                health_items.push(item)
+            }
+            if (stats.magic_resist > 0) {
+                magicResist_items.push(item)
+            }
+            if (stats.attack_damage > 0) {
+                attackDamage_items.push(item)
+            }
+            if (stats.ability_power > 0) {
+                abilityPower_items.push(item)
+            }
+            if (stats.attack_speed > 0) {
+                attackSpeed_items.push(item)
+            }
+            if (stats.armor > 0) {
+                armor_items.push(item)
+            }
+            if (stats.critical_chance > 0) {
+                criticalChance_items.push(item)
+            }
+            if (stats.ability_haste > 0) {
+                abilityHaste_items.push(item)
+            }
         })
 
         return(
             <div className={styles.item_list_container}>
                 <h2 className={styles.build_stats_subheader}>Items</h2>
+                <div className={styles.item_lists}>
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(health_items)}
+                    </div>
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsarmoricon.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(armor_items)}
+                    </div>
 
-                <div className={styles.item_section}>
-                    <div className={styles.item_section_title}>
-                        <img 
-                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png' 
-                            className={styles.item_section_icon}
-                        />
-                        <div className={styles.horizontal_spacer_large} />
-                    </div>
-                    <div className={styles.item_list}>
-                        {health_items.map((item: any) => (
-                            <div className={styles.item_container}>
-                                <img src={item.icon} className={styles.item_img} />
-                                <p className={styles.item_text}>{item.name}</p>
-                            </div>
-                        ))}
-                    </div>
+
+
+
                 </div>
-
-
-
-
             </div>
+        )
+    }
+
+    const render_item_table = (item_list: Array<any>[any]) => {
+        const row_size = 8;
+        let count = 0;
+        let list_rows: Array<any> = [[]]
+
+        item_list.forEach((item: any) => {
+            if (count == row_size ){
+                count = 0
+                list_rows.push([])
+            }
+            list_rows[list_rows.length-1].push(item)
+            count += 1
+        })
+        console.log(list_rows)
+
+        return(
+        <div className={styles.item_list}>
+            {list_rows.map((row: any) => {
+                return(
+                    <div className={styles.item_row}>
+                        {row.map((item: any) => {
+                            return(
+                                <div className={styles.item_container}>
+                                    <img src={item.icon_path} className={styles.item_img} />
+                                    <p className={styles.item_text}>{item.name}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                )
+            })}
+
+            {/* {list_rows.map((item: any) => (
+                <div className={styles.item_container}>
+                    <img src={item.icon_path} className={styles.item_img} />
+                    <p className={styles.item_text}>{item.name}</p>
+                </div>
+            ))} */}
+        </div>
         )
     }
 

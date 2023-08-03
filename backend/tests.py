@@ -106,6 +106,7 @@ def TEST_fetch_items():
     '''
     start_time = time.time()
     item_info = fetch_items()
+    # print(item_info)
     print(len(item_info))
     # print(f'champ info fetched in {time.time()-start_time} seconds')
 
@@ -123,8 +124,8 @@ if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()
     # TEST_get_matchup_info()
-    # TEST_fetch_champions()
-    TEST_fetch_items()
+    TEST_fetch_champions()
+    # TEST_fetch_items()
     # TEST_get_build_calculator_data()
     # TEST_get_match_statistics()
     # TEST_build_item_dict()

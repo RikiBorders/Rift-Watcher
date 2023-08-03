@@ -24,7 +24,6 @@ def fetch_items():
         return None
 
     item_response = []
-    item_fetching_threads = []
 
     for item in items_json:
         item_subpath = (item['iconPath'].split('/')[-1]).lower()
@@ -38,53 +37,13 @@ def fetch_items():
             'price': bin_data['price'] if 'price' in bin_data else None,
             'categories': bin_data['mCategories'] if 'mCategories' in bin_data else None,
             'epicness': bin_data['epicness'] if 'epicness' in bin_data else None,
-
+            'subitems': [name[name.find('/')+1:] for name in bin_data['recipeItemLinks']] if 'recipeItemLinks' in bin_data else None,
             'stats': format_item_stats(bin_data)
         }
-        # break
 
         item_response.append(item_object)
 
-    # monitor_thread_pool(item_fetching_threads)
     return item_response
-
-def fetch_item(item_response: list, url: str):
-    '''
-    fetch item data from cdn
-    '''
-    raw_item_data = requests.get(url).json()
-    # print(raw_item_data['name'])
-    # print('-----------------')
-    # print(raw_item_data['stats'].keys())
-    item_data = {
-        'name': raw_item_data['name'],
-        'abilityPower': raw_item_data['stats']['abilityPower'],
-        'attackDamage': raw_item_data['stats']['attackDamage'],
-        'attackSpeed': raw_item_data['stats']['attackSpeed'],
-        'criticalStrikeChance': raw_item_data['stats']['criticalStrikeChance'],
-        'lethality': raw_item_data['stats']['lethality'],
-        'lifesteal': raw_item_data['stats']['lifesteal'],
-        'armor': raw_item_data['stats']['armor'],
-        'magicResistance': raw_item_data['stats']['magicResistance'],
-        'health': raw_item_data['stats']['health'],
-        'healthRegen': raw_item_data['stats']['healthRegen'],
-        'armorPenetration': raw_item_data['stats']['armorPenetration'],
-        'magicPenetration': raw_item_data['stats']['magicPenetration'],
-        'mana': raw_item_data['stats']['mana'],
-        'manaRegen': raw_item_data['stats']['manaRegen'],
-        'movespeed': raw_item_data['stats']['movespeed'],
-        'abilityHaste': raw_item_data['stats']['abilityHaste'],
-        'omnivamp': raw_item_data['stats']['omnivamp'],
-        'tenacity': raw_item_data['stats']['tenacity'],
-        'health': raw_item_data['stats']['health'],
-        'health': raw_item_data['stats']['health'],
-
-        'passives': raw_item_data['passives'],
-        'active': raw_item_data['active'],
-        'icon': raw_item_data['icon'],
-        'shop_info': raw_item_data['shop']
-    }
-    item_response.append(item_data)
 
 
 def format_item_stats(raw_item_stats: dict):
