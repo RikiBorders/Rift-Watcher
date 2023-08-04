@@ -247,30 +247,34 @@ export default function BuildCalculator(props: any) {
 
         let row: Array<any> = [];        
         props.calculator_data.items.forEach((item: any) => {
-            const stats = item.stats
-            if (stats.health > 0){
+            const categories = item.categories
+            console.log(categories)
+            if (categories && categories.includes('Health')){
                 health_items.push(item)
             }
-            if (stats.magic_resist > 0) {
+            if (categories && categories.includes('SpellBlock')) {
                 magicResist_items.push(item)
             }
-            if (stats.attack_damage > 0) {
+            if (categories && categories.includes('Damage')) {
                 attackDamage_items.push(item)
             }
-            if (stats.ability_power > 0) {
+            if (categories && categories.includes('SpellDamage')) {
                 abilityPower_items.push(item)
             }
-            if (stats.attack_speed > 0) {
+            if (categories && categories.includes('AttackSpeed')) {
                 attackSpeed_items.push(item)
             }
-            if (stats.armor > 0) {
+            if (categories && categories.includes('Armor')) {
                 armor_items.push(item)
             }
-            if (stats.critical_chance > 0) {
+            if (categories && categories.includes('CriticalStrike')) {
                 criticalChance_items.push(item)
             }
-            if (stats.ability_haste > 0) {
+            if (categories && categories.includes('AbilityHaste')) {
                 abilityHaste_items.push(item)
+            }
+            if (categories && (categories.includes('NonbootsMovement') || categories.includes('Boots'))) {
+                movement_items.push(item)
             }
         })
 
@@ -298,9 +302,76 @@ export default function BuildCalculator(props: any) {
                         </div>
                         {render_item_table(armor_items)}
                     </div>
-
-
-
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(magicResist_items)}
+                    </div>
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(attackDamage_items)}
+                    </div>
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsabilitypowericon.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(abilityPower_items)}
+                    </div>
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(attackSpeed_items)}
+                    </div>
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodscdrscalingicon.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(abilityHaste_items)}
+                    </div>
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(movement_items)}
+                    </div>
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/pbe/game/assets/ux/floatingtext/criticon.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(criticalChance_items)}
+                    </div>
 
                 </div>
             </div>
@@ -308,7 +379,7 @@ export default function BuildCalculator(props: any) {
     }
 
     const render_item_table = (item_list: Array<any>[any]) => {
-        const row_size = 8;
+        const row_size = 6;
         let count = 0;
         let list_rows: Array<any> = [[]]
 
@@ -338,13 +409,6 @@ export default function BuildCalculator(props: any) {
                     </div>
                 )
             })}
-
-            {/* {list_rows.map((item: any) => (
-                <div className={styles.item_container}>
-                    <img src={item.icon_path} className={styles.item_img} />
-                    <p className={styles.item_text}>{item.name}</p>
-                </div>
-            ))} */}
         </div>
         )
     }
