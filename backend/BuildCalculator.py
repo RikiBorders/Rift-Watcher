@@ -24,11 +24,16 @@ def fetch_items():
         return None
 
     item_response = []
+    processed_items = {}
 
     for item in items_json:
         item_subpath = (item['iconPath'].split('/')[-1]).lower()
         item_bin_key = f"Items/{item['id']}"
         bin_data = item_bin[item_bin_key]
+
+        if 'mItemDataAvailability' not in bin_data: # discard unavailable items
+            continue
+
         item_object = {
             'name': item['name'],
             'id': item['id'],
@@ -38,11 +43,15 @@ def fetch_items():
             'categories': bin_data['mCategories'] if 'mCategories' in bin_data else None,
             'epicness': bin_data['epicness'] if 'epicness' in bin_data else None,
             'subitems': [name[name.find('/')+1:] for name in bin_data['recipeItemLinks']] if 'recipeItemLinks' in bin_data else None,
-            'stats': format_item_stats(bin_data)
+            'stats': format_item_stats(bin_data),
+            'availability':  bin_data['mItemDataAvailability']['mInStore'] if 
+                'mInStore' in bin_data['mItemDataAvailability'] else None,
         }
 
-        item_response.append(item_object)
-
+        processed_items[item['name']] = item_object
+        
+    for item_data in processed_items.values():
+        item_response.append(item_data)
     return item_response
 
 
