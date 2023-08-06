@@ -8,6 +8,7 @@ export default function BuildCalculator(props: any) {
     const [showChampionSelectionModal, setChampionSelectionModal] = useState(false);
     const [scrollEnabled, setScrollEnabled] = useState(true);
     const [targetChampionSelected, setTargetChampionSelected] = useState(false)
+    const [itemSearchQuery, setItemSearchQuery] = useState('')
     const [targetChampion, setTargetChampion] = useState({
         'icon_path': '',
         'splash_icon': '/default_champ_splash.png',
@@ -372,16 +373,6 @@ export default function BuildCalculator(props: any) {
                     <div className={styles.item_section}>
                         <div className={styles.item_section_title}>
                             <img 
-                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
-                                className={styles.item_section_icon}
-                            />
-                            <div className={styles.horizontal_spacer_large} />
-                        </div>
-                        {render_item_table(attackSpeed_items)}
-                    </div>
-                    <div className={styles.item_section}>
-                        <div className={styles.item_section_title}>
-                            <img 
                                 src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodscdrscalingicon.png' 
                                 className={styles.item_section_icon}
                             />
@@ -392,12 +383,12 @@ export default function BuildCalculator(props: any) {
                     <div className={styles.item_section}>
                         <div className={styles.item_section_title}>
                             <img 
-                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
                                 className={styles.item_section_icon}
                             />
                             <div className={styles.horizontal_spacer_large} />
                         </div>
-                        {render_item_table(movement_items)}
+                        {render_item_table(attackSpeed_items)}
                     </div>
                     <div className={styles.item_section}>
                         <div className={styles.item_section_title}>
@@ -409,19 +400,57 @@ export default function BuildCalculator(props: any) {
                         </div>
                         {render_item_table(criticalChance_items)}
                     </div>
+                    <div className={styles.item_section}>
+                        <div className={styles.item_section_title}>
+                            <img 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
+                                className={styles.item_section_icon}
+                            />
+                            <div className={styles.horizontal_spacer_large} />
+                        </div>
+                        {render_item_table(movement_items)}
+                    </div>
 
                 </div>
             </div>
         )
     }
 
+
     const handleItemInputChange = (event: any) => {
         event.preventDefault();
-        console.log('changed')
+        setItemSearchQuery(event.target.value)
+    }
+
+    const render_search_results = () => {
+        let matched_items: Array<any> = []
+        if (itemSearchQuery != ''){
+            props.calculator_data.items.forEach((item: any) => {
+                if (item.name.toLowerCase().substring(0, itemSearchQuery.length) == itemSearchQuery.toLowerCase()){
+                    matched_items.push(item)
+
+                }
+            })
+        }
+
+        return(
+            <div className={styles.item_search_results}>
+                {matched_items.map((item) => (
+                    <motion.div className={styles.item_container}>
+                        <motion.img 
+                            src={item.icon_path} 
+                            className={styles.item_img} 
+                            whileTap={{ scale: 0.97 }}
+                            whileHover={{ scale: 1.15 }}
+                        />
+                        <p className={styles.item_text}>{item.name}</p>
+                    </motion.div>
+                ))}
+            </div>
+        )
     }
 
     const render_item_searchbar = () => {
-
         return (
             <div className={styles.item_searchbar_container}>
                 <h2 className={styles.build_stats_subheader}>Item Search</h2>
@@ -434,10 +463,7 @@ export default function BuildCalculator(props: any) {
                         onChange={handleItemInputChange}
                     />
                 </form>
-
-                <div className={styles.item_search_results}>
-
-                </div>
+                {render_search_results()}
             </div>
         )
     }
@@ -468,7 +494,7 @@ export default function BuildCalculator(props: any) {
                                         src={item.icon_path} 
                                         className={styles.item_img} 
                                         whileTap={{ scale: 0.97 }}
-                                        whileHover={{ scale: 1.1 }}
+                                        whileHover={{ scale: 1.15 }}
                                     />
                                     <p className={styles.item_text}>{item.name}</p>
                                 </motion.div>

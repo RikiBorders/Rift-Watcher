@@ -222,9 +222,37 @@ div.item_list::-webkit-scrollbar-track{
 }
 
 .item_search_results{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 20px;
     height: 150px;
     width: 600px;
     background: #131313;
+    padding: 10px;
+    overflow-y: auto;
+
+}
+
+div.item_search_results::-webkit-scrollbar{
+    width: 0.5vw;
+}
+
+div.item_search_results::-webkit-scrollbar-thumb{
+    background-color: #959799;
+    border: 3px solid transparent;
+    border-radius: 9px;
+    background-clip: content-box;
+}
+
+div.item_search_results::-webkit-scrollbar-thumb:hover{
+    background-color: #dde0e4;
+    border-radius: 20px;
+}
+
+div.item_search_results::-webkit-scrollbar-track{
+    background-color: #131313;
+
 }
 
 
