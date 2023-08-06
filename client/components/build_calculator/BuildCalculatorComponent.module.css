@@ -43,10 +43,11 @@
 }
 
 .build_stats_section_container{
-
+    min-width: 300px;
 }
 
 .base_stats_container {
+    min-width: 150px;
 }
 
 .base_stats {
@@ -57,6 +58,16 @@
 
 .base_stats_2 {
     display: flex;
+    padding: 0;
+    column-gap: 5px;
+    justify-content: center;
+}
+
+.build_stats_2 {
+    display: flex;
+    column-gap: 40px;
+    padding: 0;
+    justify-content: center;
 }
 
 .health_row{
@@ -98,6 +109,7 @@
 
 .item_list_container{
     max-width: 100%;
+    margin-top: 30px;
 }
 
 .item_lists{
@@ -128,7 +140,7 @@
 
 .item_container{
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .item_list{
@@ -164,17 +176,7 @@ div.item_list::-webkit-scrollbar-track{
 .item_row{
     display: flex;
     column-gap: 20px;
-
-}
-
-.item_img{
-    margin: 0;
-    width: 40px;
-    height: 40px;
-}
-
-.item_img:hover{
-    cursor: pointer;
+    padding-top: 5px;
 }
 
 .item_text{
@@ -191,7 +193,6 @@ div.item_list::-webkit-scrollbar-track{
     overflow: hidden;
 
 }
-
 
 /* item search styles */
 
@@ -227,7 +228,7 @@ div.item_list::-webkit-scrollbar-track{
     justify-content: center;
     column-gap: 20px;
     height: 150px;
-    width: 600px;
+    width: 500px;
     background: #131313;
     padding: 10px;
     overflow-y: auto;
@@ -265,4 +266,9 @@ div.item_search_results::-webkit-scrollbar-track{
     margin-left: auto;
     margin-right: auto;
     width: 300px;
+}
+
+.invisible_spacer{
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

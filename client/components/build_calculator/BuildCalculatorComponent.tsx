@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./BuildCalculatorComponent.module.css";
 import ChampionSelectionModal from './ChampionSelectionModal';
+import ItemComponent from './ItemComponent'
 import { motion } from "framer-motion";
 
 
@@ -31,13 +32,13 @@ export default function BuildCalculator(props: any) {
         }
     })
     const [buildStats, setBuildStats] = useState({
-        'health': '0',
-        'attackDamage': '0',
-        'attackSpeed': '0',
-        'armor': '0',
-        'magicResistance': '0',
-        'movespeed': '0',
-        'criticalChance': ''
+        'health': 0,
+        'attackDamage': 0,
+        'attackSpeed': 0,
+        'armor': 0,
+        'magicResistance': 0,
+        'movespeed': 0,
+        'criticalChance': 0
     });
     
     
@@ -57,6 +58,11 @@ export default function BuildCalculator(props: any) {
 
     const process_base_stats_name = () => {
         let name = targetChampion.name
+
+        if (!targetChampion.name){
+            return 'Default'
+        }
+
         if (name[name.length-1] == 's'){
             return name+"'"
         } else if (name != '') {
@@ -155,7 +161,7 @@ export default function BuildCalculator(props: any) {
                             />
                             <p className={styles.stat_text}></p>
                     </div>  
-                    <div className={styles.base_stats_2}>
+                    <div className={styles.build_stats_2}>
                         <div className={styles.stat_column}>                    
                             <div className={styles.stat_element}>
                                 <img 
@@ -319,6 +325,7 @@ export default function BuildCalculator(props: any) {
         return(
             <div className={styles.item_list_container}>
                 <h2 className={styles.build_stats_subheader}>Items</h2>
+                <div className={styles.invisible_spacer} />
                 <div className={styles.item_lists}>
                     <div className={styles.item_section}>
                         <div className={styles.item_section_title}>
@@ -422,29 +429,35 @@ export default function BuildCalculator(props: any) {
         setItemSearchQuery(event.target.value)
     }
 
+
+
     const render_search_results = () => {
         let matched_items: Array<any> = []
         if (itemSearchQuery != ''){
             props.calculator_data.items.forEach((item: any) => {
-                if (item.name.toLowerCase().substring(0, itemSearchQuery.length) == itemSearchQuery.toLowerCase()){
+                if (item.name.toLowerCase().substring(0, itemSearchQuery.length) == itemSearchQuery.toLowerCase() ||
+                    (item.name.toLowerCase().includes(itemSearchQuery.toLowerCase()) && itemSearchQuery.length > 3)
+                ){
                     matched_items.push(item)
-
                 }
             })
         }
+        matched_items.sort(function (a, b) {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            return 0;
+          });
+        matched_items = matched_items.sort()
+        console.log(matched_items)
 
         return(
             <div className={styles.item_search_results}>
                 {matched_items.map((item) => (
-                    <motion.div className={styles.item_container}>
-                        <motion.img 
-                            src={item.icon_path} 
-                            className={styles.item_img} 
-                            whileTap={{ scale: 0.97 }}
-                            whileHover={{ scale: 1.15 }}
-                        />
-                        <p className={styles.item_text}>{item.name}</p>
-                    </motion.div>
+                    <ItemComponent item={item} />
                 ))}
             </div>
         )
@@ -489,15 +502,7 @@ export default function BuildCalculator(props: any) {
                     <div className={styles.item_row}>
                         {row.map((item: any) => {
                             return(
-                                <motion.div className={styles.item_container}>
-                                    <motion.img 
-                                        src={item.icon_path} 
-                                        className={styles.item_img} 
-                                        whileTap={{ scale: 0.97 }}
-                                        whileHover={{ scale: 1.15 }}
-                                    />
-                                    <p className={styles.item_text}>{item.name}</p>
-                                </motion.div>
+                                <ItemComponent item={item}/>
                             )
                         })}
                     </div>
@@ -548,12 +553,12 @@ export default function BuildCalculator(props: any) {
             {render_champion_select_modal()}
 
             <div className={styles.calculator_row}>
+                {render_item_searchbar()}
+            </div>
+            <div className={styles.calculator_row}>
                 {render_champion_base_stats()}
                 {render_selected_champion()}
                 {render_build_stats()}
-            </div>
-            <div className={styles.calculator_row}>
-                {render_item_searchbar()}
             </div>
             <div className={styles.calculator_row}>
                 {render_item_list()}
