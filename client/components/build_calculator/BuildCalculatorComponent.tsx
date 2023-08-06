@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./BuildCalculatorComponent.module.css";
 import ChampionSelectionModal from './ChampionSelectionModal';
+import { motion } from "framer-motion";
+
 
 export default function BuildCalculator(props: any) {
     const [showChampionSelectionModal, setChampionSelectionModal] = useState(false);
@@ -234,7 +236,6 @@ export default function BuildCalculator(props: any) {
     }
 
     const render_item_list = () => {
-        // Add each
         let health_items: Array<any> = [];
         let attackDamage_items: Array<any> = [];
         let abilityPower_items: Array<any> = [];
@@ -245,35 +246,71 @@ export default function BuildCalculator(props: any) {
         let abilityHaste_items: Array<any> = [];
         let movement_items: Array<any> = [];
 
-        let row: Array<any> = [];        
         props.calculator_data.items.forEach((item: any) => {
             const categories = item.categories
-            console.log(categories)
-            if (categories && categories.includes('Health')){
+            const available = item.availability
+            
+            if (categories 
+                && categories.includes('Health') 
+                && available == true
+                && !health_items.includes(item.name)
+            ){
                 health_items.push(item)
             }
-            if (categories && categories.includes('SpellBlock')) {
+            if (categories 
+                && categories.includes('SpellBlock') 
+                && available == true
+                && !magicResist_items.includes(item.name)
+            ){
                 magicResist_items.push(item)
             }
-            if (categories && categories.includes('Damage')) {
+            if (categories 
+                && categories.includes('Damage') 
+                && available == true
+                && !attackDamage_items.includes(item.name)
+            ){
                 attackDamage_items.push(item)
             }
-            if (categories && categories.includes('SpellDamage')) {
+            if (categories 
+                && categories.includes('SpellDamage') 
+                && available == true
+                && !abilityPower_items.includes(item.name)
+            ){
                 abilityPower_items.push(item)
             }
-            if (categories && categories.includes('AttackSpeed')) {
+            if (categories 
+                && categories.includes('AttackSpeed') 
+                && available == true
+                && !attackSpeed_items.includes(item.name)
+            ){
                 attackSpeed_items.push(item)
             }
-            if (categories && categories.includes('Armor')) {
+            if (categories 
+                && categories.includes('Armor') 
+                && available == true
+                && !armor_items.includes(item.name)
+            ){
                 armor_items.push(item)
             }
-            if (categories && categories.includes('CriticalStrike')) {
+            if (categories 
+                && categories.includes('CriticalStrike') 
+                && available == true
+                && !criticalChance_items.includes(item.name)
+            ){
                 criticalChance_items.push(item)
             }
-            if (categories && categories.includes('AbilityHaste')) {
+            if (categories 
+                && categories.includes('AbilityHaste') 
+                && available == true
+                && !abilityHaste_items.includes(item.name)
+            ){
                 abilityHaste_items.push(item)
             }
-            if (categories && (categories.includes('NonbootsMovement') || categories.includes('Boots'))) {
+            if (categories 
+                && (categories.includes('NonbootsMovement') 
+                || categories.includes('Boots')) && available == true
+                && !movement_items.includes(item.name)
+            ){
                 movement_items.push(item)
             }
         })
@@ -378,6 +415,33 @@ export default function BuildCalculator(props: any) {
         )
     }
 
+    const handleItemInputChange = (event: any) => {
+        event.preventDefault();
+        console.log('changed')
+    }
+
+    const render_item_searchbar = () => {
+
+        return (
+            <div className={styles.item_searchbar_container}>
+                <h2 className={styles.build_stats_subheader}>Item Search</h2>
+                <form className={styles.search_form}>
+                    <input
+                        className={styles.search_input}
+                        type="text"
+                        placeholder='Enter item here'
+                        defaultValue=''
+                        onChange={handleItemInputChange}
+                    />
+                </form>
+
+                <div className={styles.item_search_results}>
+
+                </div>
+            </div>
+        )
+    }
+
     const render_item_table = (item_list: Array<any>[any]) => {
         const row_size = 6;
         let count = 0;
@@ -391,7 +455,6 @@ export default function BuildCalculator(props: any) {
             list_rows[list_rows.length-1].push(item)
             count += 1
         })
-        console.log(list_rows)
 
         return(
         <div className={styles.item_list}>
@@ -400,10 +463,15 @@ export default function BuildCalculator(props: any) {
                     <div className={styles.item_row}>
                         {row.map((item: any) => {
                             return(
-                                <div className={styles.item_container}>
-                                    <img src={item.icon_path} className={styles.item_img} />
+                                <motion.div className={styles.item_container}>
+                                    <motion.img 
+                                        src={item.icon_path} 
+                                        className={styles.item_img} 
+                                        whileTap={{ scale: 0.97 }}
+                                        whileHover={{ scale: 1.1 }}
+                                    />
                                     <p className={styles.item_text}>{item.name}</p>
-                                </div>
+                                </motion.div>
                             )
                         })}
                     </div>
@@ -457,6 +525,9 @@ export default function BuildCalculator(props: any) {
                 {render_champion_base_stats()}
                 {render_selected_champion()}
                 {render_build_stats()}
+            </div>
+            <div className={styles.calculator_row}>
+                {render_item_searchbar()}
             </div>
             <div className={styles.calculator_row}>
                 {render_item_list()}
