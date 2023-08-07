@@ -210,7 +210,6 @@ div.item_list::-webkit-scrollbar-track{
     margin: auto;
     margin-top: 15px;
     margin-bottom: 20px;
-    width: 50%;
     display: flex;
     line-height: 50px;
     width: 300px;

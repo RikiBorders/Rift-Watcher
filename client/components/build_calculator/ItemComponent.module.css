@@ -29,3 +29,38 @@
     border: 1.5px solid;
     border-color: #e0b847;
 }
+
+/* tooltip styles */
+
+.tooltip_item_img{
+    border-radius: 10px;
+    margin: 0;
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.tootlip_header{
+    display: flex;
+    
+}
+
+.tooltip_header_text{
+    display: inline;
+    margin-left: 10px;
+    margin-right: auto;
+    text-align: center;
+    color: #F0F4F8;
+    font-size: 17px;
+    max-width: 140px;
+    margin-top: 10px;
+}
+
+.tooltip_stat_text{
+    text-align: center;
+    color: #F0F4F8;
+    font-size: 17px;
+    max-width: 140px;
+    margin-top: 10px;
+}
