@@ -60,6 +60,14 @@
     margin-right: 5px;
 }
 
+.lethality_tooltip_stat_text{
+    color: rgb(179, 0, 0);
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0;
+    margin-right: 5px;
+}
+
 .tooltip_stat_text_label{
     color: #d7dbdf;
     font-size: 15px;
