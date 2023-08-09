@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from "framer-motion";
-import styles from "./ItemComponent.module.css";
+import styles from "./SelectedItemComponent.module.css";
 
-export default function ItemComponent(props: any) {
+export default function SelectedItemComponent(props: any) {
     const myRef = useRef<any>(null);
     const [showTooltip, setShowTooltip] = useState(false)
     const [tooltipCords, setTooltipCords] = useState([0,0])
@@ -230,6 +230,14 @@ export default function ItemComponent(props: any) {
         setTooltipCords([mouseX, mouseY])
     }
 
+    const render_action_menu = () => {
+        return(
+            <div>
+
+            </div>
+        )
+    }
+
     return (
         <motion.div className={styles.item_container} ref={myRef}>
             <div className={styles.item_content}>
@@ -240,7 +248,7 @@ export default function ItemComponent(props: any) {
                     whileHover={{ scale: 1.15 }}
                     onMouseEnter={(event) => handleHover(event, true)}
                     onMouseLeave={(event) => handleHover(event, false)}
-                    onClick={() => props.add_item(props.item)}
+                    onClick={() => render_action_menu()}
                 />
                 <p className={styles.item_text}>{props.item.name}</p>
             </div>

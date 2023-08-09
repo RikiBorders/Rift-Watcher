@@ -1,0 +1,102 @@
+.item_img{
+    width: 40px;
+    height: 40px;
+}
+
+.item_text{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: #F0F4F8;
+    font-size: 15px;
+    max-width: 50px;
+    max-height: 30px;
+    margin-top: 0;
+    white-space: initial;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+}
+
+.item_container{
+    text-align: center;
+}
+
+.item_img:hover{
+    cursor: pointer;
+    border: 1.5px solid;
+    border-color: #e0b847;
+}
+
+/* tooltip styles */
+
+.tooltip_item_img{
+    border-radius: 10px;
+    margin: 0;
+    margin-left: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.tootlip_header{
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.tooltip_header_text{
+    display: inline;
+    margin-left: 10px;
+    text-align: center;
+    color: #F0F4F8;
+    font-size: 17px;
+}
+
+.tooltip_stat_text{
+    color: #F0F4F8;
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0;
+    margin-right: 5px;
+}
+
+.lethality_tooltip_stat_text{
+    color: rgb(179, 0, 0);
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0;
+    margin-right: 5px;
+}
+
+.tooltip_stat_text_label{
+    color: #d7dbdf;
+    font-size: 15px;
+    margin: 0;
+}
+
+.tooltip_stat_icon{
+    width: 30px;
+    height: 30px;
+    margin: 0;
+}
+
+.tooltip_item_stats{
+    
+}
+
+.stat_row{
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+/* spacers */
+
+.horizontal_spacer {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.158);
+    margin-top: 5px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+}

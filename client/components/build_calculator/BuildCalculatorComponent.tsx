@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styles from "./BuildCalculatorComponent.module.css";
 import ChampionSelectionModal from './ChampionSelectionModal';
 import ItemComponent from './ItemComponent'
+import SelectedItemComponent from './SelectedItemComponent'
+
 import { motion } from "framer-motion";
 
 
@@ -31,16 +33,7 @@ export default function BuildCalculator(props: any) {
             'R': [{'name': '', 'icon': ''}],
         }
     })
-    const [buildStats, setBuildStats] = useState({
-        'health': 0,
-        'attackDamage': 0,
-        'attackSpeed': 0,
-        'armor': 0,
-        'magicResistance': 0,
-        'movespeed': 0,
-        'criticalChance': 0
-    });
-    
+    const [build, setBuild] = useState<any>([]) 
     
     const open_modal = () => {
         setChampionSelectionModal(true);
@@ -457,10 +450,20 @@ export default function BuildCalculator(props: any) {
         return(
             <div className={styles.item_search_results}>
                 {matched_items.map((item) => (
-                    <ItemComponent item={item} />
+                    <ItemComponent item={item} add_item={add_item} />
                 ))}
             </div>
         )
+    }
+
+    const add_item = (item: any) => {
+        if (build.length == 6){
+            console.log('All build slots occuppied')
+        } else {
+            let new_build = [...build]
+            new_build.push(item)
+            setBuild(new_build)
+        }
     }
 
     const render_item_searchbar = () => {
@@ -502,7 +505,7 @@ export default function BuildCalculator(props: any) {
                     <div className={styles.item_row}>
                         {row.map((item: any) => {
                             return(
-                                <ItemComponent item={item}/>
+                                <ItemComponent item={item} add_item={add_item}/>
                             )
                         })}
                     </div>
@@ -526,8 +529,48 @@ export default function BuildCalculator(props: any) {
         )
     }
 
-    useEffect(() => {
-    }, [])
+    const render_build = () => {
+        const row_1 = []
+        const row_2 = []
+        for(let i=0; i < build.length; i++){
+            if (i < 3){
+                row_1.push(build[i])
+            } else {
+                row_2.push(build[i])
+            }
+        }
+
+        return(
+            <div className={styles.build_container}>
+                <div className={styles.build_items}>
+                    <div className={styles.build_row}>
+                        {
+                            row_1.map((item: any) => (
+                                <SelectedItemComponent item={item}/>
+                            ))
+                        }
+                    </div>
+                    <div className={styles.small_invisible_spacer}/>
+                    <div className={styles.build_row}>
+                        {
+                            row_2.map((item: any) => (
+                                <SelectedItemComponent item={item}/>
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className={styles.build_buttons}>
+                    <button 
+                        className={styles.reset_button}
+                        onClick={() => setBuild([])}
+                    >
+                        Reset
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
     const render_champion_select_modal = () => {
         let champ_data = props.calculator_data.champions
         if (showChampionSelectionModal) {
@@ -556,9 +599,12 @@ export default function BuildCalculator(props: any) {
                 {render_item_searchbar()}
             </div>
             <div className={styles.calculator_row}>
-                {render_champion_base_stats()}
-                {render_selected_champion()}
-                {render_build_stats()}
+                <div className={styles.build_info}>
+                    {render_champion_base_stats()}
+                    {render_selected_champion()}
+                    {render_build_stats()}
+                    {render_build()}
+                </div>
             </div>
             <div className={styles.calculator_row}>
                 {render_item_list()}

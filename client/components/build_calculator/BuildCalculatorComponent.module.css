@@ -8,6 +8,12 @@
 
 /* meta styles */
 
+.build_info{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
 
 .calculator_row{
     display: flex;
@@ -256,6 +262,67 @@ div.item_search_results::-webkit-scrollbar-track{
 }
 
 
+/* build styles */
+
+.build_container{
+    position: relative;
+    background-color: rgba(19, 19, 19, 0.904);
+    width: 400px;
+}
+
+.build_items{
+    display: block;
+}
+
+.build_row{
+    display: flex;
+    width: 50%;
+    margin: 0 auto;
+    column-gap: 10px;
+}
+
+.build_buttons{
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    height: 35px;
+    width: 100%;
+    margin-top: auto;
+    align-items: center;
+    background-color: #181e2c;
+    align-self: flex-end;
+}
+
+.reset_button{
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+    height: 25px;
+    background-color: transparent;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    background-color: #af2828;
+    border: none;
+}
+
+.reset_button:hover{
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+    height: 25px;
+
+    background-color: transparent;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    background-color: #8d2020;
+    border: none;
+}
+
+
+
 
 /* spacers */
 
@@ -265,6 +332,11 @@ div.item_search_results::-webkit-scrollbar-track{
     margin-left: auto;
     margin-right: auto;
     width: 300px;
+}
+
+.small_invisible_spacer{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .invisible_spacer{
