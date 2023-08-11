@@ -32,6 +32,7 @@
 }
 
 .champion_selection_button{
+    cursor: pointer;
     width: 165px;
     height: 30px;
     background-color: #000000;
@@ -271,14 +272,17 @@ div.item_search_results::-webkit-scrollbar-track{
 }
 
 .build_items{
+    padding-top: 50px;
     display: block;
+    width: 100%;
+    justify-content: center;
 }
 
 .build_row{
     display: flex;
-    width: 50%;
-    margin: 0 auto;
     column-gap: 10px;
+    justify-content: center;
+    width: 100%;
 }
 
 .build_buttons{

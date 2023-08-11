@@ -4,14 +4,14 @@
 }
 
 .item_text{
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 0;
+    margin-right: 0;
     text-align: center;
     color: #F0F4F8;
     font-size: 15px;
-    max-width: 50px;
+    max-width: 40px;
     max-height: 30px;
-    margin-top: 0;
+    margin: 0;
     white-space: initial;
     text-overflow: ellipsis;
     overflow: hidden;

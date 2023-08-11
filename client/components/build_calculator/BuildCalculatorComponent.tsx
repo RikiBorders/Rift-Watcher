@@ -3,6 +3,7 @@ import styles from "./BuildCalculatorComponent.module.css";
 import ChampionSelectionModal from './ChampionSelectionModal';
 import ItemComponent from './ItemComponent'
 import SelectedItemComponent from './SelectedItemComponent'
+import UnselectedItemComponent from './UnselectedItemComponent'
 
 import { motion } from "framer-motion";
 
@@ -532,11 +533,16 @@ export default function BuildCalculator(props: any) {
     const render_build = () => {
         const row_1 = []
         const row_2 = []
-        for(let i=0; i < build.length; i++){
+
+        for(let i=0; i < 6; i++){
+            let item = <UnselectedItemComponent/>
+            if (i < build.length){
+                item = <SelectedItemComponent item={build[i]}/>
+            }
             if (i < 3){
-                row_1.push(build[i])
+                row_1.push(item)
             } else {
-                row_2.push(build[i])
+                row_2.push(item)
             }
         }
 
@@ -545,16 +551,16 @@ export default function BuildCalculator(props: any) {
                 <div className={styles.build_items}>
                     <div className={styles.build_row}>
                         {
-                            row_1.map((item: any) => (
-                                <SelectedItemComponent item={item}/>
+                            row_1.map((item_component: any) => (
+                                item_component
                             ))
                         }
                     </div>
                     <div className={styles.small_invisible_spacer}/>
                     <div className={styles.build_row}>
                         {
-                            row_2.map((item: any) => (
-                                <SelectedItemComponent item={item}/>
+                            row_2.map((item_component: any) => (
+                                item_component
                             ))
                         }
                     </div>

@@ -29,8 +29,6 @@ export default function SelectedItemComponent(props: any) {
             return (
                 <div style={{
                     position: 'absolute',
-                    left: `${tooltipCords[0]}px`,
-                    right: `${tooltipCords[1]}px`,
                     zIndex: 100,
                     backgroundColor: 'rgba(0, 0, 0, 0.85)',
                     width: '200px',

@@ -8,6 +8,7 @@
     background-color: #00000079;
     width: 100%;
     height: 100%;
+    z-index: 100;
 }
 
 .content_container{
