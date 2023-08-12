@@ -20,12 +20,12 @@ export default function BuildCalculator(props: any) {
         'roles': [],
         'difficulty': 0,
         'damage_style': '',
-        'health':{'flat': '0'},
-        'attackDamage': {'flat': '0'}, 
-        'attackSpeed': {'flat': '0'}, 
-        'armor': {'flat': '0'},
-        'magicResistance': {'flat': '0'},
-        'movespeed': {'flat': '0'},
+        'health':{'flat': 0},
+        'attackDamage': {'flat': 0}, 
+        'attackSpeed': {'flat': 0}, 
+        'armor': {'flat': 0},
+        'magicResistance': {'flat': 0},
+        'movespeed': {'flat': 0},
         'abilities': {
             'P': [],
             'Q': [{'name': '', 'icon': ''}],
@@ -145,6 +145,30 @@ export default function BuildCalculator(props: any) {
     }
 
     const render_champion_build_stats = () => {
+        let health = targetChampion.health.flat
+        let attack_damage = targetChampion.attackDamage.flat
+        let ability_power = 0
+        let armor = targetChampion.armor.flat
+        let magic_resist = targetChampion.magicResistance.flat
+        let attack_speed = targetChampion.attackSpeed.flat
+        let ability_haste = 0
+        let critical_chance = 0
+        let movement_speed = targetChampion.movespeed.flat
+
+        build.forEach((item: any) => {
+            console.log(item)
+            health += item.stats.health
+            attack_damage += item.stats.attack_damage
+            ability_power += item.stats.ability_power
+            armor += item.stats.armor
+            magic_resist += item.stats.magic_resist
+            attack_speed += item.stats.attack_speed
+            ability_haste += item.stats.ability_haste
+            critical_chance += item.stats.critical_chance
+            movement_speed += item.stats.movement_speed
+
+        })
+
         return (
             <div className={styles.base_stats_container}>
                 <div className={styles.base_stats}>
@@ -153,7 +177,7 @@ export default function BuildCalculator(props: any) {
                                 src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png' 
                                 className={styles.stat_icon}
                             />
-                            <p className={styles.stat_text}></p>
+                            <p className={styles.stat_text}>{health}</p>
                     </div>  
                     <div className={styles.build_stats_2}>
                         <div className={styles.stat_column}>                    
@@ -162,28 +186,28 @@ export default function BuildCalculator(props: any) {
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}></p>
+                                <p className={styles.stat_text}>{attack_damage}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsarmoricon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}></p>
+                                <p className={styles.stat_text}>{armor}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}></p>
+                                <p className={styles.stat_text}>{Math.round(attack_speed*100)/100} ({Math.round(attack_speed* 100)}%)</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
                                     src='https://raw.communitydragon.org/pbe/game/assets/ux/floatingtext/criticon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}></p>
+                                <p className={styles.stat_text}>{Math.round(critical_chance* 100)}%</p>
                             </div>
                         </div>
                         <div className={styles.stat_column}>
@@ -192,28 +216,28 @@ export default function BuildCalculator(props: any) {
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsabilitypowericon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}></p>
+                                <p className={styles.stat_text}>{ability_power}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}></p>
+                                <p className={styles.stat_text}>{magic_resist}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodscdrscalingicon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}></p>
+                                <p className={styles.stat_text}>{ability_haste}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}></p>
+                                <p className={styles.stat_text}>{movement_speed}</p>
                             </div>
                         </div>
                     </div>
@@ -446,7 +470,6 @@ export default function BuildCalculator(props: any) {
             return 0;
           });
         matched_items = matched_items.sort()
-        console.log(matched_items)
 
         return(
             <div className={styles.item_search_results}>
