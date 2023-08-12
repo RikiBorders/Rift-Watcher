@@ -22,6 +22,8 @@ export default function BuildCalculator(props: any) {
         'difficulty': 0,
         'damage_style': '',
         'health':{'flat': 0, 'perLevel': 0},
+        'healthRegen':{'flat': 0, 'perLevel': 0},
+        'manaRegen':{'flat': 0, 'perLevel': 0},
         'attackDamage': {'flat': 0, 'perLevel': 0}, 
         'attackSpeed': {'flat': 0, 'perLevel': 0}, 
         'armor': {'flat': 0, 'perLevel': 0},
@@ -77,86 +79,100 @@ export default function BuildCalculator(props: any) {
     const render_champion_base_stats = () => {
         let health = targetChampion.health.flat + (targetChampion.health.perLevel*(championLevel-1))
         let attack_damage = targetChampion.attackDamage.flat + (targetChampion.attackDamage.perLevel*(championLevel-1))
-        let ability_power = 0
         let armor = targetChampion.armor.flat
         let magic_resist = targetChampion.magicResistance.flat + (targetChampion.magicResistance.perLevel*(championLevel-1))
         let attack_speed = targetChampion.attackSpeed.flat + (targetChampion.attackSpeed.perLevel*(championLevel-1))
-        let ability_haste = 0
-        let critical_chance = 0
         let movement_speed = targetChampion.movespeed.flat + (targetChampion.movespeed.perLevel*(championLevel-1))
-
+        let health_regen = targetChampion.healthRegen.flat + (targetChampion.healthRegen.perLevel*(championLevel-1))
+        let mana_regen = targetChampion.manaRegen.flat + (targetChampion.manaRegen.perLevel*(championLevel-1))
 
         return (
-            <div className={styles.base_stats_container}>
-                <h2 className={styles.base_stats_header}>{process_base_stats_name()}</h2>
-                <h2 className={styles.base_stats_header}>Base Stats</h2>
-                <div className={styles.base_stats}>
-                    <div className={styles.health_row}>
-                            <img 
-                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png' 
-                                className={styles.stat_icon}
-                            />
-                            <p className={styles.stat_text}>{health}</p>
-                    </div>  
-                    <div className={styles.base_stats_2}>
-                        <div className={styles.stat_column}>                    
-                            <div className={styles.stat_element}>
+            <div className={styles.vertical_aligned_div}>
+                <div className={styles.base_stats_container}>
+                    <h2 className={styles.base_stats_header}>{process_base_stats_name()}</h2>
+                    <h2 className={styles.base_stats_header}>Base Stats</h2>
+                    <div className={styles.base_stats}>
+                        <div className={styles.health_row}>
                                 <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
+                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}>{attack_damage}</p>
+                                <p className={styles.stat_text}>{health}</p>
+                        </div>  
+                        <div className={styles.base_stats_2}>
+                            <div className={styles.stat_column}>                    
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>{attack_damage}</p>
+                                </div>
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsarmoricon.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>{armor}</p>
+                                </div>
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>{attack_speed}</p>
+                                </div>
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='https://raw.communitydragon.org/pbe/game/assets/ux/floatingtext/criticon.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>0</p>
+                                </div>
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='stat_icons/hp_regen.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>{Math.round(health_regen*10)/10}</p>
+                                </div>
                             </div>
-                            <div className={styles.stat_element}>
-                                <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsarmoricon.png' 
-                                    className={styles.stat_icon}
-                                />
-                                <p className={styles.stat_text}>{armor}</p>
-                            </div>
-                            <div className={styles.stat_element}>
-                                <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
-                                    className={styles.stat_icon}
-                                />
-                                <p className={styles.stat_text}>{attack_speed}</p>
-                            </div>
-                            <div className={styles.stat_element}>
-                                <img 
-                                    src='https://raw.communitydragon.org/pbe/game/assets/ux/floatingtext/criticon.png' 
-                                    className={styles.stat_icon}
-                                />
-                                <p className={styles.stat_text}>0</p>
-                            </div>
-                        </div>
-                        <div className={styles.stat_column}>
-                            <div className={styles.stat_element}>
-                                <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsabilitypowericon.png' 
-                                    className={styles.stat_icon}
-                                />
-                                <p className={styles.stat_text}>0</p>
-                            </div>
-                            <div className={styles.stat_element}>
-                                <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
-                                    className={styles.stat_icon}
-                                />
-                                <p className={styles.stat_text}>{Math.round(magic_resist)}</p>
-                            </div>
-                            <div className={styles.stat_element}>
-                                <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodscdrscalingicon.png' 
-                                    className={styles.stat_icon}
-                                />
-                                <p className={styles.stat_text}>0</p>
-                            </div>
-                            <div className={styles.stat_element}>
-                                <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
-                                    className={styles.stat_icon}
-                                />
-                                <p className={styles.stat_text}>{movement_speed}</p>
+                            <div className={styles.stat_column}>
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsabilitypowericon.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>0</p>
+                                </div>
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>{Math.round(magic_resist)}</p>
+                                </div>
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodscdrscalingicon.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>0</p>
+                                </div>
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>{movement_speed}</p>
+                                </div>
+                                <div className={styles.stat_element}>
+                                    <img 
+                                        src='stat_icons/mana_regen.png' 
+                                        className={styles.stat_icon}
+                                    />
+                                    <p className={styles.stat_text}>{Math.round(mana_regen*10)/10}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,8 +191,11 @@ export default function BuildCalculator(props: any) {
         let ability_haste = 0
         let critical_chance = 0
         let movement_speed = targetChampion.movespeed.flat + (targetChampion.movespeed.perLevel*(championLevel-1))
+        let health_regen = targetChampion.healthRegen.flat + (targetChampion.healthRegen.perLevel*(championLevel-1))
+        let mana_regen = targetChampion.manaRegen.flat + (targetChampion.manaRegen.perLevel*(championLevel-1))
 
         build.forEach((item: any) => {
+            console.log(item)
             health += item.stats.health
             attack_damage += item.stats.attack_damage
             ability_power += item.stats.ability_power
@@ -186,6 +205,8 @@ export default function BuildCalculator(props: any) {
             ability_haste += item.stats.ability_haste
             critical_chance += item.stats.critical_chance
             movement_speed += item.stats.movement_speed
+            health_regen += item.stats.health_regen
+            mana_regen += item.stats.mana_regen
 
         })
 
@@ -229,6 +250,13 @@ export default function BuildCalculator(props: any) {
                                 />
                                 <p className={styles.stat_text}>{Math.round(critical_chance* 100)}%</p>
                             </div>
+                            <div className={styles.stat_element}>
+                                <img 
+                                    src='stat_icons/hp_regen.png' 
+                                    className={styles.stat_icon}
+                                />
+                                <p className={styles.stat_text}>{Math.round(health_regen*10)/10}</p>
+                            </div>
                         </div>
                         <div className={styles.stat_column}>
                             <div className={styles.stat_element}>
@@ -259,6 +287,13 @@ export default function BuildCalculator(props: any) {
                                 />
                                 <p className={styles.stat_text}>{movement_speed}</p>
                             </div>
+                            <div className={styles.stat_element}>
+                                <img 
+                                    src='stat_icons/mana_regen.png' 
+                                    className={styles.stat_icon}
+                                />
+                                <p className={styles.stat_text}>{Math.round(mana_regen*10)/10}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -286,14 +321,17 @@ export default function BuildCalculator(props: any) {
 
     const render_selected_champion = () => {
         return(
-            <div className={styles.selected_champion_container}>
-                <img className={styles.selected_champion_portrait} src={targetChampion.splash_icon} />
-                <button 
-                    className={styles.champion_selection_button} 
-                    onClick={() => {open_modal()}}
-                >
-                    Select Champion
-                </button>
+            <div className={styles.vertical_aligned_div}>
+                <div className={styles.selected_champion_container}>
+                    <img className={styles.selected_champion_portrait} src={targetChampion.splash_icon} />
+                    <button 
+                        className={styles.champion_selection_button} 
+                        onClick={() => {open_modal()}}
+                    >
+                        Select Champion
+                    </button>
+                </div>
+
             </div>
         )
     }

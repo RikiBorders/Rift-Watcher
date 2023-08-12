@@ -20,6 +20,11 @@
 
 /* champ select styles */
 
+.vertical_aligned_div{
+    display: flex;
+    align-items: center;
+}
+
 .selected_champion_portrait{
     display: block;
     height: 300px;
@@ -28,6 +33,7 @@
 
 .selected_champion_container{
     display: block;
+    margin-left: 20px;
 }
 
 .champion_selection_button{
@@ -50,6 +56,8 @@
 
 .build_stats_section_container{
     min-width: 300px;
+    max-width: 300px;
+
 }
 
 .base_stats_container {
@@ -71,7 +79,7 @@
 
 .build_stats_2 {
     display: flex;
-    column-gap: 40px;
+    column-gap: 20px;
     padding: 0;
     justify-content: center;
 }
