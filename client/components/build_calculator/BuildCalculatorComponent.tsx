@@ -13,6 +13,7 @@ export default function BuildCalculator(props: any) {
     const [scrollEnabled, setScrollEnabled] = useState(true);
     const [targetChampionSelected, setTargetChampionSelected] = useState(false)
     const [itemSearchQuery, setItemSearchQuery] = useState('')
+    const [championLevel, setChampionLevel] = useState(1)
     const [targetChampion, setTargetChampion] = useState({
         'icon_path': '',
         'splash_icon': '/default_champ_splash.png',
@@ -20,12 +21,12 @@ export default function BuildCalculator(props: any) {
         'roles': [],
         'difficulty': 0,
         'damage_style': '',
-        'health':{'flat': 0},
-        'attackDamage': {'flat': 0}, 
-        'attackSpeed': {'flat': 0}, 
-        'armor': {'flat': 0},
-        'magicResistance': {'flat': 0},
-        'movespeed': {'flat': 0},
+        'health':{'flat': 0, 'perLevel': 0},
+        'attackDamage': {'flat': 0, 'perLevel': 0}, 
+        'attackSpeed': {'flat': 0, 'perLevel': 0}, 
+        'armor': {'flat': 0, 'perLevel': 0},
+        'magicResistance': {'flat': 0, 'perLevel': 0},
+        'movespeed': {'flat': 0, 'perLevel': 0},
         'abilities': {
             'P': [],
             'Q': [{'name': '', 'icon': ''}],
@@ -64,7 +65,27 @@ export default function BuildCalculator(props: any) {
         }
     }
 
+    const update_level = (action: number) => {
+        if (action == 1 && championLevel < 18){
+            setChampionLevel(championLevel+1)
+        } else if (action == 0 && championLevel > 1){
+            setChampionLevel(championLevel-1)
+        }
+
+    }
+
     const render_champion_base_stats = () => {
+        let health = targetChampion.health.flat + (targetChampion.health.perLevel*(championLevel-1))
+        let attack_damage = targetChampion.attackDamage.flat + (targetChampion.attackDamage.perLevel*(championLevel-1))
+        let ability_power = 0
+        let armor = targetChampion.armor.flat
+        let magic_resist = targetChampion.magicResistance.flat + (targetChampion.magicResistance.perLevel*(championLevel-1))
+        let attack_speed = targetChampion.attackSpeed.flat + (targetChampion.attackSpeed.perLevel*(championLevel-1))
+        let ability_haste = 0
+        let critical_chance = 0
+        let movement_speed = targetChampion.movespeed.flat + (targetChampion.movespeed.perLevel*(championLevel-1))
+
+
         return (
             <div className={styles.base_stats_container}>
                 <h2 className={styles.base_stats_header}>{process_base_stats_name()}</h2>
@@ -75,7 +96,7 @@ export default function BuildCalculator(props: any) {
                                 src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png' 
                                 className={styles.stat_icon}
                             />
-                            <p className={styles.stat_text}>{targetChampion.health.flat}</p>
+                            <p className={styles.stat_text}>{health}</p>
                     </div>  
                     <div className={styles.base_stats_2}>
                         <div className={styles.stat_column}>                    
@@ -84,21 +105,21 @@ export default function BuildCalculator(props: any) {
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}>{targetChampion.attackDamage.flat}</p>
+                                <p className={styles.stat_text}>{attack_damage}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsarmoricon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}>{targetChampion.armor.flat}</p>
+                                <p className={styles.stat_text}>{armor}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}>{targetChampion.attackSpeed.flat}</p>
+                                <p className={styles.stat_text}>{attack_speed}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
@@ -121,7 +142,7 @@ export default function BuildCalculator(props: any) {
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}>{targetChampion.magicResistance.flat}</p>
+                                <p className={styles.stat_text}>{Math.round(magic_resist)}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
@@ -135,7 +156,7 @@ export default function BuildCalculator(props: any) {
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}>{targetChampion.movespeed.flat}</p>
+                                <p className={styles.stat_text}>{movement_speed}</p>
                             </div>
                         </div>
                     </div>
@@ -145,18 +166,17 @@ export default function BuildCalculator(props: any) {
     }
 
     const render_champion_build_stats = () => {
-        let health = targetChampion.health.flat
-        let attack_damage = targetChampion.attackDamage.flat
+        let health = targetChampion.health.flat + (targetChampion.health.perLevel*(championLevel-1))
+        let attack_damage = targetChampion.attackDamage.flat + (targetChampion.attackDamage.perLevel*(championLevel-1))
         let ability_power = 0
         let armor = targetChampion.armor.flat
-        let magic_resist = targetChampion.magicResistance.flat
-        let attack_speed = targetChampion.attackSpeed.flat
+        let magic_resist = targetChampion.magicResistance.flat + (targetChampion.magicResistance.perLevel*(championLevel-1))
+        let attack_speed = targetChampion.attackSpeed.flat + (targetChampion.attackSpeed.perLevel*(championLevel-1))
         let ability_haste = 0
         let critical_chance = 0
-        let movement_speed = targetChampion.movespeed.flat
+        let movement_speed = targetChampion.movespeed.flat + (targetChampion.movespeed.perLevel*(championLevel-1))
 
         build.forEach((item: any) => {
-            console.log(item)
             health += item.stats.health
             attack_damage += item.stats.attack_damage
             ability_power += item.stats.ability_power
@@ -223,7 +243,7 @@ export default function BuildCalculator(props: any) {
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}>{magic_resist}</p>
+                                <p className={styles.stat_text}>{Math.round(magic_resist)}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
@@ -240,6 +260,24 @@ export default function BuildCalculator(props: any) {
                                 <p className={styles.stat_text}>{movement_speed}</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className={styles.level_container}>
+                    <p className={styles.build_stats_subheader}>Level: </p>
+                    <p className={styles.champion_level_text}>{championLevel}</p>
+                    <div className={styles.level_buttons}>
+                        <motion.img 
+                            className={styles.level_button} 
+                            onClick={(() => update_level(1))}
+                            src="up_arrow_button.png"
+                            whileTap={{ scale: 0.8 }}
+                        />
+                        <motion.img 
+                            className={styles.level_button} 
+                            onClick={(() => update_level(0))}
+                            src="down_arrow_button.png"
+                            whileTap={{ scale: 0.8 }}
+                        />
                     </div>
                 </div>
             </div>

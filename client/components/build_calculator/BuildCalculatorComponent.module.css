@@ -14,7 +14,6 @@
     justify-content: center;
 }
 
-
 .calculator_row{
     display: flex;
 }
@@ -111,6 +110,38 @@
     margin: 0;
 }
 
+.level_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.level_buttons{
+    margin-left: 10px;
+    row-gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.level_button{
+    height: 15px;
+    width: 20px;
+    background-color: #181e2c;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.champion_level_text{
+    margin-left: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    color: #F0F4F8;
+    font-weight: 800;
+    text-align: center;
+    
+}
 
 /* item styles */
 
