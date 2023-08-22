@@ -127,7 +127,8 @@ def fetch_champions():
     champion_list_url = 'https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions.json'
     champion_list_response = requests.get(champion_list_url)
     champion_list_json = champion_list_response.json()
-    response = []
+    champ_threads = []
+    response_data = []
 
     # the .abilities key has keys that correspond to ability keys (i.e, the keys for each ability is P,Q,W,E,R (P for passive))
     # ['name', 'icon', 'effects', 'cost', 'cooldown', 'targeting', 'affects', 'spellshieldable', 'resource', 'damageType', 
@@ -136,7 +137,17 @@ def fetch_champions():
     # 'effectRadius', 'targetRange']
 
     for champion_data in champion_list_json.values():
-        champ_info = {
+        
+        champ_thread = threading.Thread(target=fetch_champion_data, args=[champion_data, response_data])
+        champ_threads.append(champ_thread)
+        champ_thread.start()
+
+    monitor_thread_pool(champ_threads)
+    return response_data
+
+
+def fetch_champion_data(champion_data: dict, response_data: list):
+    response_data.append({
             'name': champion_data['name'],
             'damage_style': parse_champ_damage(champion_data['adaptiveType']),
             'roles': parse_champ_roles(champion_data['roles']),
@@ -158,12 +169,7 @@ def fetch_champions():
             'attackSpeed': champion_data['stats']['attackSpeed'],
             'attackSpeedRatio': champion_data['stats']['attackSpeedRatio'],
             'attackRange': champion_data['stats']['attackRange'],
-        }
-
-        response.append(champ_info)
-
-    return response
-
+        })
 
 def parse_champ_roles(roles: list):
     '''

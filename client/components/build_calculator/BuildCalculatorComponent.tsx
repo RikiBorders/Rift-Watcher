@@ -106,7 +106,7 @@ export default function BuildCalculator(props: any) {
                                         src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
                                         className={styles.stat_icon}
                                     />
-                                    <p className={styles.stat_text}>{attack_damage}</p>
+                                    <p className={styles.stat_text}>{Math.round(attack_damage)}</p>
                                 </div>
                                 <div className={styles.stat_element}>
                                     <img 
@@ -120,7 +120,7 @@ export default function BuildCalculator(props: any) {
                                         src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
                                         className={styles.stat_icon}
                                     />
-                                    <p className={styles.stat_text}>{attack_speed}</p>
+                                    <p className={styles.stat_text}>{Math.round(attack_speed*100)/100}</p>
                                 </div>
                                 <div className={styles.stat_element}>
                                     <img 
@@ -227,7 +227,7 @@ export default function BuildCalculator(props: any) {
                                     src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
                                     className={styles.stat_icon}
                                 />
-                                <p className={styles.stat_text}>{attack_damage}</p>
+                                <p className={styles.stat_text}>{Math.round(attack_damage)}</p>
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
