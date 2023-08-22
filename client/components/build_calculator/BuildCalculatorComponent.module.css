@@ -249,9 +249,6 @@ div.item_list::-webkit-scrollbar-track{
     margin-bottom: 50px;
 }
 
-.search_form{
-}
-
 .search_input{
     margin: auto;
     margin-top: 15px;
@@ -341,7 +338,6 @@ div.item_search_results::-webkit-scrollbar-track{
     margin: 0 auto;
     width: fit-content;
     height: 25px;
-    background-color: transparent;
     text-align: center;
     color: white;
     border-radius: 5px;

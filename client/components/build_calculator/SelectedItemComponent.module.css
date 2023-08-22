@@ -80,15 +80,40 @@
     margin: 0;
 }
 
-.tooltip_item_stats{
-    
-}
-
 .stat_row{
     display: flex;
     align-items: center;
     margin: 0;
 }
+
+/* action menu styles */
+
+.action_menu{
+    row-gap: 11px;
+    position: absolute;
+    width: 80px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.action_button{
+    width: 80px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.85);
+    border: none;
+}
+
+.action_button:hover{
+    width: 80px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: rgba(70, 70, 70, 0.85);
+    border: none;
+}
+
 
 /* spacers */
 

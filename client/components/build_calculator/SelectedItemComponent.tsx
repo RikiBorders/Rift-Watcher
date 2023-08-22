@@ -6,6 +6,7 @@ export default function SelectedItemComponent(props: any) {
     const myRef = useRef<any>(null);
     const [showTooltip, setShowTooltip] = useState(false)
     const [tooltipCords, setTooltipCords] = useState([0,0])
+    const [showActionMenu, setShowActionMenu] = useState(false)
 
     const render_tooltip = () => {
         const has_ad = Boolean(props.item.stats.attack_damage)
@@ -220,20 +221,44 @@ export default function SelectedItemComponent(props: any) {
         }
     }
 
-    const handleHover = (event: any, visible: boolean) => {
-        setShowTooltip(visible)
-        let item_bounding = myRef.current.getBoundingClientRect()
-        let mouseX = item_bounding.left;
-        let mouseY = item_bounding.top;
-        setTooltipCords([mouseX, mouseY])
+
+
+    const handleHover = (event: any, mouse_entered: boolean) => {
+        
+        if (mouse_entered && !showActionMenu){
+            setShowTooltip(true)
+            let item_bounding = myRef.current.getBoundingClientRect()
+            let mouseX = item_bounding.left;
+            let mouseY = item_bounding.top;
+            setTooltipCords([mouseX, mouseY])
+        } else {
+            setShowTooltip(false)
+        }
+    }
+
+    const toggle_action_menu = () => {
+        if (showActionMenu){
+            setShowTooltip(true)
+            setShowActionMenu(false)
+        } else {
+            setShowTooltip(false)
+            setShowActionMenu(true)
+        }
     }
 
     const render_action_menu = () => {
-        return(
-            <div>
-
-            </div>
-        )
+        if (showActionMenu){
+            return(
+                <div className={styles.action_menu}>
+                    <button className={styles.action_button} onClick={() => {props.delete_item(props.build_index)}}>More info</button>
+                    <button className={styles.action_button}>Delete</button>
+                </div>
+            )
+        } else {
+            return (
+                <></>
+            )
+        }
     }
 
     return (
@@ -246,10 +271,11 @@ export default function SelectedItemComponent(props: any) {
                     whileHover={{ scale: 1.15 }}
                     onMouseEnter={(event) => handleHover(event, true)}
                     onMouseLeave={(event) => handleHover(event, false)}
-                    onClick={() => render_action_menu()}
+                    onClick={() => toggle_action_menu()}
                 />
                 <p className={styles.item_text}>{props.item.name}</p>
             </div>
+            {render_action_menu()}
             {render_tooltip()}
         </motion.div>
     )

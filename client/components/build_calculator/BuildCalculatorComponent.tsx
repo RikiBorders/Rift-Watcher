@@ -566,6 +566,11 @@ export default function BuildCalculator(props: any) {
         }
     }
 
+    const delete_item = (item_index: any) => {
+        console.log('run')
+        build.splice(item_index, 1)
+    }
+
     const render_item_searchbar = () => {
         return (
             <div className={styles.item_searchbar_container}>
@@ -636,7 +641,7 @@ export default function BuildCalculator(props: any) {
         for(let i=0; i < 6; i++){
             let item = <UnselectedItemComponent/>
             if (i < build.length){
-                item = <SelectedItemComponent item={build[i]}/>
+                item = <SelectedItemComponent item={build[i]} delete_item={delete_item} build_index={i}/>
             }
             if (i < 3){
                 row_1.push(item)
