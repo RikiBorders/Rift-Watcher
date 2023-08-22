@@ -5,21 +5,25 @@
 
 .item_text{
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     color: #F0F4F8;
     font-size: 15px;
     max-width: 50px;
-    max-height: 35px;
+    max-height: 33px;
     white-space: initial;
     text-overflow: ellipsis;
     overflow: hidden;
-
+    cursor: default;
 }
 
 .item_container{
+    text-align: center;
+}
+
+.item_container:hover{
     text-align: center;
 }
 
@@ -79,10 +83,6 @@
     width: 30px;
     height: 30px;
     margin: 0;
-}
-
-.tooltip_item_stats{
-    
 }
 
 .stat_row{

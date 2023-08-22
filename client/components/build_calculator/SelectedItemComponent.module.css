@@ -15,7 +15,7 @@
     white-space: initial;
     text-overflow: ellipsis;
     overflow: hidden;
-
+    cursor: default;
 }
 
 .item_container{
@@ -114,6 +114,44 @@
     border: none;
 }
 
+/* show more modal styles */
+
+.close_modal_icon{
+    cursor: pointer;
+    margin: 10px;
+    width: 15px;
+    height: 15px;
+    border: 0;
+    float: right;
+}
+
+.show_more_modal{
+    background-color: rgba(0, 0, 0, 0.85);
+    position: absolute;
+}
+
+.modal_header{
+    color: white;
+}
+
+.show_more_item_img{
+    width: 50px;
+    height: 50px;
+    margin:10px
+}
+
+.show_more_section{
+
+}
+
+.section_header{
+    color: white;
+    margin-left: 10px;
+}
+
+.show_more_header{
+    display:flex
+}
 
 /* spacers */
 

@@ -7,6 +7,8 @@ export default function SelectedItemComponent(props: any) {
     const [showTooltip, setShowTooltip] = useState(false)
     const [tooltipCords, setTooltipCords] = useState([0,0])
     const [showActionMenu, setShowActionMenu] = useState(false)
+    const [showMoreMenu, setShowMoreMenu] = useState(false)
+
 
     const render_tooltip = () => {
         const has_ad = Boolean(props.item.stats.attack_damage)
@@ -221,8 +223,6 @@ export default function SelectedItemComponent(props: any) {
         }
     }
 
-
-
     const handleHover = (event: any, mouse_entered: boolean) => {
         
         if (mouse_entered && !showActionMenu){
@@ -243,6 +243,16 @@ export default function SelectedItemComponent(props: any) {
         props.delete_item(props.build_index)
     }
 
+    const toggle_show_more_menu = () => {
+        if (showMoreMenu){
+            setShowMoreMenu(false)
+        } else {
+            setShowMoreMenu(true)
+            setShowTooltip(false)
+            setShowActionMenu(false)
+        }
+    }
+
     const toggle_action_menu = () => {
         if (showActionMenu){
             setShowTooltip(true)
@@ -257,7 +267,7 @@ export default function SelectedItemComponent(props: any) {
         if (showActionMenu){
             return(
                 <div className={styles.action_menu}>
-                    <button className={styles.action_button}>More info</button>
+                    <button className={styles.action_button} onClick={() => {toggle_show_more_menu()}}>More info</button>
                     <button className={styles.action_button} onClick={() => {handle_delete()}}>Delete</button>
                 </div>
             )
@@ -268,26 +278,56 @@ export default function SelectedItemComponent(props: any) {
         }
     }
 
-    return (
-        <motion.div 
-            className={styles.item_container} 
-            ref={myRef}
-            onMouseEnter={(event) => handleHover(event, true)}
-            onMouseLeave={(event) => handleHover(event, false)}
-        >
-            <div className={styles.item_content}>
-                <motion.img 
-                    src={props.item.icon_path} 
-                    className={styles.item_img} 
-                    whileTap={{ scale: 0.97 }}
-                    whileHover={{ scale: 1.15 }}
-
-                    onClick={() => toggle_action_menu()}
+    const render_show_more_modal = () => {
+        if (!showMoreMenu){
+            return(<></>)
+        }
+        return (
+            <div className={styles.show_more_modal}>
+                <img 
+                    src="/close_icon.png" 
+                    onClick={() => {toggle_show_more_menu()}} 
+                    className={styles.close_modal_icon}
                 />
-                <p className={styles.item_text}>{props.item.name}</p>
+                <div className={styles.show_more_header}>
+                    <img src={props.item.icon_path} className={styles.show_more_item_img}/>
+                    <h2 className={styles.modal_header}>{props.item.name}</h2>
+                </div>
+
+                <div className={styles.show_more_section}>
+                    <h3 className={styles.section_header}>Passive Effects</h3>
+                </div>
+
+                <div className={styles.show_more_section}>
+                    <h3 className={styles.section_header}>Active Abilities</h3>
+                </div>
             </div>
-            {render_action_menu()}
-            {render_tooltip()}
-        </motion.div>
+        )
+    }
+
+    return (
+        <div>
+            <motion.div 
+                className={styles.item_container} 
+                ref={myRef}
+                onMouseEnter={(event) => handleHover(event, true)}
+                onMouseLeave={(event) => handleHover(event, false)}
+            >
+                <div className={styles.item_content}>
+                    <motion.img 
+                        src={props.item.icon_path} 
+                        className={styles.item_img} 
+                        whileTap={{ scale: 0.97 }}
+                        whileHover={{ scale: 1.15 }}
+    
+                        onClick={() => toggle_action_menu()}
+                    />
+                    <p className={styles.item_text}>{props.item.name}</p>
+                </div>
+                {render_action_menu()}
+                {render_tooltip()}
+            </motion.div>
+            {render_show_more_modal()}
+        </div>
     )
 }

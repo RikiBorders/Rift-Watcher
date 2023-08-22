@@ -237,7 +237,7 @@ export default function ItemComponent(props: any) {
                     src={props.item.icon_path} 
                     className={styles.item_img} 
                     whileTap={{ scale: 0.97 }}
-                    whileHover={{ scale: 1.15 }}
+                    whileHover={{ scale: 1.1 }}
                     onMouseEnter={(event) => handleHover(event, true)}
                     onMouseLeave={(event) => handleHover(event, false)}
                     onClick={() => props.add_item(props.item)}
