@@ -195,7 +195,6 @@ export default function BuildCalculator(props: any) {
         let mana_regen = targetChampion.manaRegen.flat + (targetChampion.manaRegen.perLevel*(championLevel-1))
 
         build.forEach((item: any) => {
-            console.log(item)
             health += item.stats.health
             attack_damage += item.stats.attack_damage
             ability_power += item.stats.ability_power
@@ -567,8 +566,9 @@ export default function BuildCalculator(props: any) {
     }
 
     const delete_item = (item_index: any) => {
-        console.log('run')
-        build.splice(item_index, 1)
+        let new_build = [...build]
+        new_build.splice(item_index, 1)
+        setBuild(new_build)
     }
 
     const render_item_searchbar = () => {

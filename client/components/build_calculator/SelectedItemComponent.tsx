@@ -236,6 +236,12 @@ export default function SelectedItemComponent(props: any) {
         }
     }
 
+    const handle_delete = () => {
+        setShowTooltip(false)
+        setShowActionMenu(false)
+        props.delete_item(props.build_index)
+    }
+
     const toggle_action_menu = () => {
         if (showActionMenu){
             setShowTooltip(true)
@@ -250,8 +256,8 @@ export default function SelectedItemComponent(props: any) {
         if (showActionMenu){
             return(
                 <div className={styles.action_menu}>
-                    <button className={styles.action_button} onClick={() => {props.delete_item(props.build_index)}}>More info</button>
-                    <button className={styles.action_button}>Delete</button>
+                    <button className={styles.action_button}>More info</button>
+                    <button className={styles.action_button} onClick={() => {handle_delete()}}>Delete</button>
                 </div>
             )
         } else {
