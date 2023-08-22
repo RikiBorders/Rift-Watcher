@@ -123,7 +123,7 @@ const ChampionComponent = (props: any) => {
                             </div>
                             <div className={styles.statistic_row}>
                                 <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
+                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png' 
                                     className={styles.stat_icon}
                                 />
                                 <p className={styles.stat_text}>{props.champ_data.magicResistance.flat}</p>

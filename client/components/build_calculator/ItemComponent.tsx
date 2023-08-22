@@ -194,7 +194,7 @@ export default function ItemComponent(props: any) {
                         {has_mr ?
                             <div className={styles.stat_row}>
                                 <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
+                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png' 
                                     className={styles.tooltip_stat_icon}
                                 />
                                 <p className={styles.tooltip_stat_text}>{props.item.stats.magic_resist} </p>

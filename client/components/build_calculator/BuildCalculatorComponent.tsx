@@ -147,7 +147,7 @@ export default function BuildCalculator(props: any) {
                                 </div>
                                 <div className={styles.stat_element}>
                                     <img 
-                                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
+                                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png' 
                                         className={styles.stat_icon}
                                     />
                                     <p className={styles.stat_text}>{Math.round(magic_resist)}</p>
@@ -268,7 +268,7 @@ export default function BuildCalculator(props: any) {
                             </div>
                             <div className={styles.stat_element}>
                                 <img 
-                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
+                                    src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png' 
                                     className={styles.stat_icon}
                                 />
                                 <p className={styles.stat_text}>{Math.round(magic_resist)}</p>
@@ -444,7 +444,7 @@ export default function BuildCalculator(props: any) {
                     <div className={styles.item_section}>
                         <div className={styles.item_section_title}>
                             <img 
-                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
+                                src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png' 
                                 className={styles.item_section_icon}
                             />
                             <div className={styles.horizontal_spacer_large} />

@@ -265,7 +265,7 @@ const ChampionSelectionModal = (props: any) => {
                                     </div>
                                     <div className={styles.stat_item}>
                                         <img 
-                                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.magicresist_fix.png' 
+                                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png' 
                                             className={styles.stat_icon}
                                         />
                                         <p className={styles.stat_text}>{selectedChampion.magicResistance.flat}</p>
