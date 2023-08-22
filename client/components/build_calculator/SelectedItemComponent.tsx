@@ -233,6 +233,7 @@ export default function SelectedItemComponent(props: any) {
             setTooltipCords([mouseX, mouseY])
         } else {
             setShowTooltip(false)
+            setShowActionMenu(false)
         }
     }
 
@@ -268,15 +269,19 @@ export default function SelectedItemComponent(props: any) {
     }
 
     return (
-        <motion.div className={styles.item_container} ref={myRef}>
+        <motion.div 
+            className={styles.item_container} 
+            ref={myRef}
+            onMouseEnter={(event) => handleHover(event, true)}
+            onMouseLeave={(event) => handleHover(event, false)}
+        >
             <div className={styles.item_content}>
                 <motion.img 
                     src={props.item.icon_path} 
                     className={styles.item_img} 
                     whileTap={{ scale: 0.97 }}
                     whileHover={{ scale: 1.15 }}
-                    onMouseEnter={(event) => handleHover(event, true)}
-                    onMouseLeave={(event) => handleHover(event, false)}
+
                     onClick={() => toggle_action_menu()}
                 />
                 <p className={styles.item_text}>{props.item.name}</p>
