@@ -3,6 +3,7 @@ This file contains all backend logic related to the build calculator.
 '''
 import requests
 import threading
+import re
 from ThreadManager import *
 from SummonerStats import get_champion_icon, parse_champ_name
 
@@ -46,6 +47,7 @@ def fetch_items():
             'stats': format_item_stats(bin_data),
             'availability':  bin_data['mItemDataAvailability']['mInStore'] if 
                 'mInStore' in bin_data['mItemDataAvailability'] else None,
+            'description': parse_description(item['description']),
         }
 
         processed_items[item['name']] = item_object
@@ -53,6 +55,22 @@ def fetch_items():
     for item_data in processed_items.values():
         item_response.append(item_data)
     return item_response
+
+
+def parse_description(raw_description: str):
+    '''
+    prase description to not include html tags.
+    '''
+    description = re.sub(r'<stats>.*?</stats>', '', raw_description)
+    description = re.sub(r'<[^>]*>', '', description)
+
+    if 'Mythic Passive':
+        index = description.find('Mythic Passive')
+        first_half = description[:index]
+        second_half = description[index:]
+        description = first_half+'\n'+second_half
+
+    return description
 
 
 def format_item_stats(raw_item_stats: dict):

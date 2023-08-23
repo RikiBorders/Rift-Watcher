@@ -120,11 +120,19 @@ def TEST_get_build_calculator_data():
     # print(response)
     print(response['champions'][0])
 
+def TEST_parse_description():
+    description = '<mainText><stats><attention> 40</attention> Attack Damage<br><attention> 30%</attention> Attack Speed<br><attention> 20%</attention> Critical Strike Chance</stats><br><li><passive>Bring It Down:</passive> Every third Attack deals additional physical damage. Repeated triggers on the same target increase the damage dealt.</mainText><br>'
+    description_2 = '<mainText><stats><ornnBonus> 500</ornnBonus> Health<br><ornnBonus> 40</ornnBonus> Armor<br><ornnBonus> 40</ornnBonus> Magic Resist<br><ornnBonus> 15</ornnBonus> Ability Haste</stats><br><li><passive>Guiding Light:</passive> Upon casting your Ultimate you Transcend, increasing your Max Health. While Transcended you and allies heal over time.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items Health.</mainText><br>'
+    description_3 = '<mainText><stats><nerfedStat> 300</nerfedStat> Health<br><attention> 30</attention> Armor<br><attention> 30</attention> Magic Resist<br><nerfedStat> 10</nerfedStat> Ability Haste</stats><br><li><passive>Voidborn Resilience:</passive> For each second in champion combat gain a stack granting <scaleArmor>Armor</scaleArmor> and <scaleMR>Magic Resist</scaleMR>, up to 8 stacks max. At max stacks become empowered, instantly draining enemies around you for magic damage, healing yourself, and increasing your bonus resist until end of combat.<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>  Armor and  Magic Resist</attention>.</mainText><br>'
+    response = parse_description(description_2)
+    print(response)
+
 if __name__ == "__main__":
     # TEST_calculate_average_ranks()
     # TEST_calculate_player_stats()
     # TEST_get_matchup_info()
-    TEST_fetch_champions()
+    # TEST_fetch_champions()
+    TEST_parse_description()
     # TEST_fetch_items()
     # TEST_get_build_calculator_data()
     # TEST_get_match_statistics()
