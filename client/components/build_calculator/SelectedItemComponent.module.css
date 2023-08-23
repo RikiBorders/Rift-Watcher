@@ -128,6 +128,7 @@
 .show_more_modal{
     background-color: rgba(0, 0, 0, 0.85);
     position: absolute;
+    z-index: 100;
 }
 
 .modal_header{
@@ -140,8 +141,9 @@
     margin:10px
 }
 
-.show_more_section{
-
+.description_text{
+    color: white;
+    margin-left: 10px;
 }
 
 .section_header{

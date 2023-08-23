@@ -268,7 +268,7 @@ export default function SelectedItemComponent(props: any) {
             return(
                 <div className={styles.action_menu}>
                     <button className={styles.action_button} onClick={() => {toggle_show_more_menu()}}>More info</button>
-                    <button className={styles.action_button} onClick={() => {handle_delete()}}>Delete</button>
+                    <button className={styles.action_button} onClick={() => {handle_delete()}}>Remove</button>
                 </div>
             )
         } else {
@@ -281,6 +281,18 @@ export default function SelectedItemComponent(props: any) {
     const render_show_more_modal = () => {
         if (!showMoreMenu){
             return(<></>)
+        }
+
+        let description = props.item.description
+        let first_half = props.item.description
+        let second_half = ''
+
+        let index = null
+        index = description.indexOf('Mythic Passive')
+        if (index){
+            first_half = description.substring(0, index)
+            second_half = description.substring(index, description.length)
+            description = first_half+'<br/>'+second_half
         }
         return (
             <div className={styles.show_more_modal}>
@@ -295,11 +307,12 @@ export default function SelectedItemComponent(props: any) {
                 </div>
 
                 <div className={styles.show_more_section}>
-                    <h3 className={styles.section_header}>Passive Effects</h3>
-                </div>
-
-                <div className={styles.show_more_section}>
-                    <h3 className={styles.section_header}>Active Abilities</h3>
+                    <h3 className={styles.section_header}>Passive & Active Effects</h3>
+                    <p className={styles.description_text}>{first_half}</p>
+                    {second_half ? 
+                        <p className={styles.description_text}>{second_half}</p> :
+                        <></>
+                    }
                 </div>
             </div>
         )
