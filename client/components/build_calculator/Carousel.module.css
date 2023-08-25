@@ -1,0 +1,10 @@
+.slider{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page_button{
+  width: 40px;
+  cursor: pointer;
+}

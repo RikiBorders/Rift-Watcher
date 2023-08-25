@@ -16,6 +16,7 @@
 
 .calculator_row{
     display: flex;
+    justify-content: center;
 }
 
 /* champ select styles */
