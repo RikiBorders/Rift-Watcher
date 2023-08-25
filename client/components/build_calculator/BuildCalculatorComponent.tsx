@@ -159,116 +159,108 @@ export default function BuildCalculator(props: any) {
         })
 
         item_list.push(
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
+            <div className={styles.carousel_list_view}>
+                <div className={styles.item_section}>
+                    <div className={styles.item_section_title}>
+                        <img 
+                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png' 
+                            className={styles.item_section_icon}
+                        />
+                        <div className={styles.horizontal_spacer_large} />
+                    </div>
+                    {render_item_table(health_items)}
                 </div>
-                {render_item_table(health_items)}
+                <div className={styles.item_section}>
+                    <div className={styles.item_section_title}>
+                        <img 
+                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsarmoricon.png' 
+                            className={styles.item_section_icon}
+                        />
+                        <div className={styles.horizontal_spacer_large} />
+                    </div>
+                    {render_item_table(armor_items)}
+                </div>
+                <div className={styles.item_section}>
+                    <div className={styles.item_section_title}>
+                        <img 
+                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png' 
+                            className={styles.item_section_icon}
+                        />
+                        <div className={styles.horizontal_spacer_large} />
+                    </div>
+                    {render_item_table(magicResist_items)}
+                </div>
             </div>
         )
         item_list.push(
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsarmoricon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
+            <div className={styles.carousel_list_view}>
+                <div className={styles.item_section}>
+                    <div className={styles.item_section_title}>
+                        <img 
+                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
+                            className={styles.item_section_icon}
+                        />
+                        <div className={styles.horizontal_spacer_large} />
+                    </div>
+                    {render_item_table(attackDamage_items)}
                 </div>
-                {render_item_table(armor_items)}
-            </div>
-        )
-        item_list.push(
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
+                <div className={styles.item_section}>
+                    <div className={styles.item_section_title}>
+                        <img 
+                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsabilitypowericon.png' 
+                            className={styles.item_section_icon}
+                        />
+                        <div className={styles.horizontal_spacer_large} />
+                    </div>
+                    {render_item_table(abilityPower_items)}
                 </div>
-                {render_item_table(magicResist_items)}
-            </div>
-        )
-        item_list.push(
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(attackDamage_items)}
-            </div>
-        )
-        item_list.push(
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsabilitypowericon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(abilityPower_items)}
-            </div>
-        )
-        item_list.push(
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodscdrscalingicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(abilityHaste_items)}
-            </div>  
-        )
-
-        item_list.push(
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(attackSpeed_items)}
-            </div>
-        )
-        item_list.push(
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/pbe/game/assets/ux/floatingtext/criticon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(criticalChance_items)}
-            </div>
-        )
-        item_list.push(
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(movement_items)}
+                <div className={styles.item_section}>
+                    <div className={styles.item_section_title}>
+                        <img 
+                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodscdrscalingicon.png' 
+                            className={styles.item_section_icon}
+                        />
+                        <div className={styles.horizontal_spacer_large} />
+                    </div>
+                    {render_item_table(abilityHaste_items)}
+                </div>  
             </div>
         )
 
-
+        item_list.push(
+            <div className={styles.carousel_list_view}>
+                <div className={styles.item_section}>
+                    <div className={styles.item_section_title}>
+                        <img 
+                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
+                            className={styles.item_section_icon}
+                        />
+                        <div className={styles.horizontal_spacer_large} />
+                    </div>
+                    {render_item_table(attackSpeed_items)}
+                </div>
+                <div className={styles.item_section}>
+                    <div className={styles.item_section_title}>
+                        <img 
+                            src='https://raw.communitydragon.org/pbe/game/assets/ux/floatingtext/criticon.png' 
+                            className={styles.item_section_icon}
+                        />
+                        <div className={styles.horizontal_spacer_large} />
+                    </div>
+                    {render_item_table(criticalChance_items)}
+                </div>
+                <div className={styles.item_section}>
+                    <div className={styles.item_section_title}>
+                        <img 
+                            src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
+                            className={styles.item_section_icon}
+                        />
+                        <div className={styles.horizontal_spacer_large} />
+                    </div>
+                    {render_item_table(movement_items)}
+                </div>
+            </div>
+        )
         setItemLists(item_list)
     }
 

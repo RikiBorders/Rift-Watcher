@@ -364,7 +364,10 @@ div.item_search_results::-webkit-scrollbar-track{
     border: none;
 }
 
-
+.carousel_list_view{
+    display: flex;
+    column-gap: 50px;
+}
 
 
 /* spacers */

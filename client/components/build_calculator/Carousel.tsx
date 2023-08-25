@@ -20,6 +20,13 @@ export default function Carousel(props: any) {
 
   return (
     <div className={styles.slider}>
+      <div className={styles.vertical_spacer} />
+      <h1 className={styles.carousel_header}>Items</h1>
+      <div className={styles.button_div}>
+        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.page_button} onClick={prevSlide} src='/arrow_left.png'/>
+        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.page_button} onClick={nextSlide} src='/arrow_right.png'/>
+      </div>
+      <div className={styles.vertical_spacer_small} />
       <div className={styles.content_div}>
         {props.itemLists.map((list: any, index: number) => {
           return (
@@ -31,10 +38,7 @@ export default function Carousel(props: any) {
           );
         })}
       </div>
-      <div className={styles.button_div}>
-        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.page_button} onClick={prevSlide} src='/arrow_left.png'/>
-        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.page_button} onClick={nextSlide} src='/arrow_right.png'/>
-      </div>
+
     </div>
   );
 };
