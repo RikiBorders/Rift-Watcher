@@ -23,10 +23,30 @@ export default function Carousel(props: any) {
       <h1 className={styles.carousel_header}>Item List</h1>
       <div className={styles.button_div}>
         <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.page_button} onClick={prevSlide} src='/arrow_left.png'/>
-        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.radio_button} onClick={() => {jump_to_index(0)}} src='/radio_button.png'/>
-        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.radio_button} onClick={() => {jump_to_index(1)}} src='/radio_button.png'/>
-        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.radio_button} onClick={() => {jump_to_index(2)}} src='/radio_button.png'/>
-        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.page_button} onClick={nextSlide} src='/arrow_right.png'/>
+        <motion.img 
+          whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} 
+          className={styles.radio_button} 
+          onClick={() => {jump_to_index(0)}} 
+          src={current == 0 ? '/radio_button_selected.png' : '/radio_button.png'}
+        />
+        <motion.img 
+          whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} 
+          className={styles.radio_button} 
+          onClick={() => {jump_to_index(1)}} 
+          src={current == 1 ? '/radio_button_selected.png' : '/radio_button.png'}
+        />
+        <motion.img 
+          whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} 
+          className={styles.radio_button} 
+          onClick={() => {jump_to_index(2)}} 
+          src={current == 2 ? '/radio_button_selected.png' : '/radio_button.png'}
+        />
+        <motion.img 
+          whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} 
+          className={styles.page_button} 
+          onClick={nextSlide} 
+          src='/arrow_right.png'
+        />
       </div>
       <div className={styles.vertical_spacer_small} />
       <div className={styles.content_div}>
