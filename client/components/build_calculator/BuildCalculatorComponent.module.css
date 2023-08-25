@@ -372,6 +372,7 @@ div.item_search_results::-webkit-scrollbar-track{
 /* cost breakdown styles */
 
 .cost_breakdown_container{
+    position: relative;
     width: 350px;
     height: 380px;
     margin-left: 30px;
@@ -466,7 +467,12 @@ div.cost_breakdown_item_container::-webkit-scrollbar-track{
 
 .total_cost_info{
     display: flex;
+    position: absolute;
+    bottom: 0;
+    left: auto;
+    right: auto;
     margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .total_cost_text{
