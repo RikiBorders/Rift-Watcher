@@ -15,9 +15,18 @@
   cursor: pointer;
 }
 
+.radio_button{
+  display: flex;
+  align-self: center;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
 .carousel_header{
   color: white;
 }
+
 
 /* spacers */
 

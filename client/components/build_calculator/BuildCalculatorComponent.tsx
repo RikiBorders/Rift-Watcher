@@ -560,7 +560,7 @@ export default function BuildCalculator(props: any) {
     }
 
     const add_item = (item: any) => {
-        if (build.length == 6){
+        if (build.length >= 6){
             console.log('All build slots occuppied')
         } else {
             let new_build = [...build]
@@ -685,6 +685,44 @@ export default function BuildCalculator(props: any) {
         )
     }
 
+    const render_cost_breakdown = () => {
+        return (
+            <div className={styles.cost_breakdown_container}>
+                <h1 className={styles.base_stats_header}>Build Cost Breakdown</h1>
+                <div className={styles.cost_breakdown_item_container}>
+                        
+                    <div className={styles.item_cost_container}>
+                        {build.map((item_data: any, index: number) => {
+                            return(
+                                <div className={(index+1)%2 == 0 ? styles.cost_item_row_1 : styles.cost_item_row_2}>
+                                    <motion.img className={styles.item_cost_img} src={item_data.icon_path} />
+                                    <h2 className={styles.item_cost_name}>{item_data.name}</h2>
+                                    <p className={styles.item_cost_text}>{item_data.price}</p>
+                                    <img src='/gold_icon.png' className={styles.gold_icon}/>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+                <div className={styles.total_cost_info}>
+                    <p className={styles.total_cost_text}>Total Build Cost: </p>
+                    <div style={{marginLeft: '10px'}}/>
+                    <img src='/gold_icon.png' className={styles.total_gold_icon}/>
+                    <p className={styles.total_cost_text}>{calculate_total_cost()}</p>
+                </div>
+            </div>
+
+        )
+    }
+
+    const calculate_total_cost = () => {
+        let total_cost = 0; 
+        build.forEach((item: any) => {
+            total_cost += item.price
+        })
+        return total_cost
+    }
+
     const render_champion_select_modal = () => {
         let champ_data = props.calculator_data.champions
         if (showChampionSelectionModal) {
@@ -720,10 +758,10 @@ export default function BuildCalculator(props: any) {
                     {render_selected_champion()}
                     {render_build_stats()}
                     {render_build()}
+                    {render_cost_breakdown()}
                 </div>
             </div>
             <div className={styles.calculator_row}>
-                {/* {render_item_list()} */}
                 <Carousel itemLists={itemLists} />
             </div>
 

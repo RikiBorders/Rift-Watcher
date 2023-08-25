@@ -13,17 +13,19 @@ export default function Carousel(props: any) {
     setCurrent(current === 0 ? props.itemLists.length - 1 : current - 1);
   };
 
-  if (!Array.isArray(props.itemLists) || props.itemLists.length <= 0) {
-    return null;
+  const jump_to_index = (index: number) => {
+    setCurrent(index)
   }
-
 
   return (
     <div className={styles.slider}>
       <div className={styles.vertical_spacer} />
-      <h1 className={styles.carousel_header}>Items</h1>
+      <h1 className={styles.carousel_header}>Item List</h1>
       <div className={styles.button_div}>
         <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.page_button} onClick={prevSlide} src='/arrow_left.png'/>
+        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.radio_button} onClick={() => {jump_to_index(0)}} src='/radio_button.png'/>
+        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.radio_button} onClick={() => {jump_to_index(1)}} src='/radio_button.png'/>
+        <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.radio_button} onClick={() => {jump_to_index(2)}} src='/radio_button.png'/>
         <motion.img whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className={styles.page_button} onClick={nextSlide} src='/arrow_right.png'/>
       </div>
       <div className={styles.vertical_spacer_small} />
@@ -38,7 +40,6 @@ export default function Carousel(props: any) {
           );
         })}
       </div>
-
     </div>
   );
 };
