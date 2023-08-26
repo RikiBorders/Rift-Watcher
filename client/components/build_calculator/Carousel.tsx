@@ -64,107 +64,68 @@ export default function Carousel(props: any) {
     let movement_items = category_to_list_map['NonbootsMovement'].concat(category_to_list_map['Boots'])
     item_list.push(
         <div className={styles.carousel_list_view}>
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(category_to_list_map['Health'])}
-            </div>
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsarmoricon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(category_to_list_map['Armor'])}
-            </div>
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(category_to_list_map['SpellBlock'])}
-            </div>
+          {render_item_section(
+            'https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodshealthscalingicon.png',
+            category_to_list_map['Health']
+          )}
+          {render_item_section(
+            'https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsarmoricon.png',
+            category_to_list_map['Armor']
+          )}
+          {render_item_section(
+            'https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmagicresicon.png',
+            category_to_list_map['SpellBlock']
+          )}
         </div>
     )
     item_list.push(
         <div className={styles.carousel_list_view}>
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(category_to_list_map['Damage'])}
-            </div>
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsabilitypowericon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(category_to_list_map['SpellDamage'])}
-            </div>
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodscdrscalingicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(category_to_list_map['AbilityHaste'])}
-            </div>  
+          {render_item_section(
+            'https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackdamageicon.png',
+            category_to_list_map['Damage']
+          )}
+          {render_item_section(
+            'https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsabilitypowericon.png',
+            category_to_list_map['SpellDamage']
+          )}
+          {render_item_section(
+            'https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodscdrscalingicon.png',
+            category_to_list_map['AbilityHaste']
+          )}
         </div>
     )
     item_list.push(
         <div className={styles.carousel_list_view}>
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(category_to_list_map['AttackSpeed'])}
-            </div>
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/pbe/game/assets/ux/floatingtext/criticon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(category_to_list_map['CriticalStrike'])}
-            </div>
-            <div className={styles.item_section}>
-                <div className={styles.item_section_title}>
-                    <img 
-                        src='https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png' 
-                        className={styles.item_section_icon}
-                    />
-                    <div className={styles.horizontal_spacer_large} />
-                </div>
-                {render_item_table(movement_items)}
-            </div>
+          {render_item_section(
+            'https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsattackspeedicon.png',
+            category_to_list_map['AttackSpeed']
+          )}
+          {render_item_section(
+            'https://raw.communitydragon.org/pbe/game/assets/ux/floatingtext/criticon.png',
+            category_to_list_map['CriticalStrike']
+          )}
+          {render_item_section(
+            'https://raw.communitydragon.org/latest/game/assets/perks/statmods/statmodsmovementspeedicon.png',
+            movement_items
+          )}
         </div>
     )
     setItemLists(item_list)
+  }
+
+  const render_item_section = (icon: string, item_list: any) => {
+    return(
+      <div className={styles.item_section}>
+        <div className={styles.item_section_title}>
+            <img 
+                src={icon} 
+                className={styles.item_section_icon}
+            />
+            <div className={styles.horizontal_spacer_large} />
+        </div>
+        {render_item_table(item_list)}
+    </div>
+    )
   }
 
   const render_item_table = (item_list: Array<any>[any]) => {
