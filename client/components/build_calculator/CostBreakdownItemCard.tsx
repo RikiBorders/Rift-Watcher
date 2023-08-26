@@ -42,10 +42,13 @@ export default function CostBreakdownItemCard(props: any) {
         if (components){
             const layer_indent = 20*layer
             return(
-                components.map((sub_item: any) => {
+                components.map((sub_item: any, index: number) => {
                     return(
                         <div className={styles.dropdown_layer_item}>
-                            <div className={styles.sub_item_container} style={{marginLeft: `${layer_indent}px`}}>
+                            <div 
+                                className={styles.sub_item_container} 
+                                style={{marginLeft: `${layer_indent}px`, backgroundColor: '#0e0e0e9d'}}
+                            >
                                 <motion.img className={styles.subitem_img} src={sub_item.icon_path} />
                                 <h4 className={styles.sub_item_header}>{sub_item.name}</h4>
                                 <div className={styles.content_right}>
