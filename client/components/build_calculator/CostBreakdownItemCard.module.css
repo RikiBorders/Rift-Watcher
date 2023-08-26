@@ -1,0 +1,60 @@
+.cost_item_content{
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.content_right{
+    display: flex;
+    margin: 0;
+    margin-left: auto;
+    margin-right: 5px;
+    float: right;
+}
+
+.cost_item_row_1{
+    align-items: center;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #0e0e0e9d;
+    width: 350px;
+}
+
+.cost_item_row_2{
+    align-items: center;
+    margin: 0;
+    background-color: #2e2e2eb4;
+    width: 350px;
+}
+
+.item_cost_img{
+    width: 40px;
+    height: 40px;
+}
+
+.item_cost_name{
+    margin: 0;
+    margin-left: 5px;
+    font-size: 21px;
+    color: white;
+}
+
+.item_cost_text{
+    margin: 0;
+    margin-right: 5px;
+    color: white;
+}
+
+.gold_icon{
+    width: 20px;
+    margin-right: 10px;
+}
+
+/* dropdown styles */
+
+.dropdown_arrow{
+    margin: 0;
+    width: 20px;
+    cursor: pointer;
+}

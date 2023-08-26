@@ -5,6 +5,7 @@ import ItemComponent from './ItemComponent'
 import SelectedItemComponent from './SelectedItemComponent'
 import UnselectedItemComponent from './UnselectedItemComponent'
 import Carousel from './Carousel'
+import CostBreakdownItemCard from './CostBreakdownItemCard'
 import { motion } from "framer-motion";
 
 export default function BuildCalculator(props: any) {
@@ -13,6 +14,7 @@ export default function BuildCalculator(props: any) {
     const [targetChampionSelected, setTargetChampionSelected] = useState(false)
     const [itemSearchQuery, setItemSearchQuery] = useState('')
     const [championLevel, setChampionLevel] = useState(1)
+
     const [targetChampion, setTargetChampion] = useState({
         'icon_path': '',
         'splash_icon': '/default_champ_splash.png',
@@ -405,8 +407,6 @@ export default function BuildCalculator(props: any) {
         )
     }
 
-
-
     const render_build_stats = () => {
         return(
             <div className={styles.build_stats_section_container}>
@@ -477,12 +477,7 @@ export default function BuildCalculator(props: any) {
                     <div className={styles.item_cost_container}>
                         {build.map((item_data: any, index: number) => {
                             return(
-                                <div className={(index+1)%2 == 0 ? styles.cost_item_row_1 : styles.cost_item_row_2}>
-                                    <motion.img className={styles.item_cost_img} src={item_data.icon_path} />
-                                    <h2 className={styles.item_cost_name}>{item_data.name}</h2>
-                                    <p className={styles.item_cost_text}>{item_data.price}</p>
-                                    <img src='/gold_icon.png' className={styles.gold_icon}/>
-                                </div>
+                                <CostBreakdownItemCard index={index} item_data={item_data} />
                             )
                         })}
                     </div>
