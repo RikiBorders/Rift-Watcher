@@ -372,11 +372,10 @@ export default function BuildCalculator(props: any) {
     }
 
     const add_item = (item: any) => {
-        console.log(build)
         if (build.length >= 6){
             console.log('All build slots occuppied')
         } else {
-            let new_build = stateRef.current
+            let new_build = [...stateRef.current]
             new_build.push(item)
             setBuild(new_build)
         }
