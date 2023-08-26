@@ -58,3 +58,12 @@
     width: 20px;
     cursor: pointer;
 }
+
+.dropdown_container{
+}
+
+.dropdown_header{
+    color: white;
+    text-align: center;
+    margin: 0;
+}

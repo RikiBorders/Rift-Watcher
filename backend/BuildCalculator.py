@@ -26,10 +26,13 @@ def fetch_items():
 
     item_response = []
     processed_items = {}
+    items_json_map = {}
+    for item in items_json:
+        items_json_map[item['id']] = item
 
     for item in items_json:
         item_bin_key = f"Items/{item['id']}"
-        item_object = build_item_object(item_bin, processed_items, base_item_path, item, item_bin_key)
+        item_object = build_item_object(items_json_map, item_bin, processed_items, base_item_path, item, item_bin_key)
 
         if item_object != None:
             processed_items[item['name']] = item_object
@@ -39,7 +42,7 @@ def fetch_items():
     return item_response
 
 
-def build_item_object(item_bin: dict, processed_items: dict, base_item_path: str, item: dict, item_bin_key):
+def build_item_object(items_json_map: dict, item_bin: dict, processed_items: dict, base_item_path: str, item: dict, item_bin_key):
     '''
     Construct the item object that will be sent to the frontend as a part of the fetch items endpoint
     '''
@@ -49,7 +52,12 @@ def build_item_object(item_bin: dict, processed_items: dict, base_item_path: str
         return None
     
     recipe_item_keys = [name for name in bin_data['recipeItemLinks']] if 'recipeItemLinks' in bin_data else []
-    recipe_items = recipe_item_keys
+    recipe_items = []
+
+    for key in recipe_item_keys:
+        formatted_item_key = int(key[key.find('/')+1:])
+        recipe_item = items_json_map[formatted_item_key]
+        recipe_items.append(build_item_object(items_json_map, item_bin, processed_items, base_item_path, recipe_item, key))
     
     item_object = {
         'name': item['name'],

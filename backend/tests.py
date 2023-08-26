@@ -107,7 +107,7 @@ def TEST_fetch_items():
     start_time = time.time()
     item_info = fetch_items()
     # print(item_info)
-    print(item_info[100])
+    # print(item_info[100]['subitems']) # this should be wits end
     print(len(item_info))
     # print(f'champ info fetched in {time.time()-start_time} seconds')
 

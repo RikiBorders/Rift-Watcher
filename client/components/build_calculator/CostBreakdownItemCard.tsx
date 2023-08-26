@@ -17,7 +17,9 @@ export default function CostBreakdownItemCard(props: any) {
     const render_dropdown = () => {
         if (showDropdown){
             return (
-                <></>
+                <div className={styles.dropdown_container}>
+                    <h3 className={styles.dropdown_header}>Item Components</h3>
+                </div>
             )
         } else {
             return (
