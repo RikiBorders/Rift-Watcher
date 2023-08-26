@@ -184,12 +184,13 @@ export default function BuildCalculator(props: any) {
     }
 
     const render_champion_build_stats = () => {
+        console.log(targetChampion)
         let health = targetChampion.health.flat + (targetChampion.health.perLevel*(championLevel-1))
         let attack_damage = targetChampion.attackDamage.flat + (targetChampion.attackDamage.perLevel*(championLevel-1))
         let ability_power = 0
         let armor = targetChampion.armor.flat
         let magic_resist = targetChampion.magicResistance.flat + (targetChampion.magicResistance.perLevel*(championLevel-1))
-        let attack_speed = targetChampion.attackSpeed.flat + (targetChampion.attackSpeed.perLevel*(championLevel-1))
+        let attack_speed = targetChampion.attackSpeed.flat + ((targetChampion.attackSpeed.perLevel*0.01)*(championLevel-1))
         let ability_haste = 0
         let critical_chance = 0
         let movement_speed = targetChampion.movespeed.flat + (targetChampion.movespeed.perLevel*(championLevel-1))
