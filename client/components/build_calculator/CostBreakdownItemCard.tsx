@@ -71,7 +71,10 @@ export default function CostBreakdownItemCard(props: any) {
                 <div className={styles.content_right}>
                     <p className={styles.item_cost_text}>{calculate_total_cost(props.item_data)}</p>
                     <img src='/gold_icon.png' className={styles.gold_icon}/>
-                    <img src='/arrow_down.png' onClick={() => {handleClick()}} className={styles.dropdown_arrow}/>
+                    {props.item_data.subitems.length > 0 ? 
+                        <img src='/arrow_down.png' onClick={() => {handleClick()}} className={styles.dropdown_arrow}/> :
+                        <div style={{marginRight: '20px'}}/>
+                    }
                 </div>
             </div>
             {render_dropdown()}
