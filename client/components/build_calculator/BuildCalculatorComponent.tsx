@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from "./BuildCalculatorComponent.module.css";
 import ChampionSelectionModal from './ChampionSelectionModal';
 import ItemComponent from './ItemComponent'
@@ -37,6 +37,8 @@ export default function BuildCalculator(props: any) {
         }
     })
     const [build, setBuild] = useState<any>([]) 
+    const stateRef  = useRef<any>();
+    stateRef.current = build;
     
     const open_modal = () => {
         setChampionSelectionModal(true);
@@ -374,7 +376,7 @@ export default function BuildCalculator(props: any) {
         if (build.length >= 6){
             console.log('All build slots occuppied')
         } else {
-            let new_build = [...build]
+            let new_build = stateRef.current
             new_build.push(item)
             setBuild(new_build)
         }

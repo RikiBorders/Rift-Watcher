@@ -62,6 +62,7 @@ export default function Carousel(props: any) {
         }
     })
     let movement_items = category_to_list_map['NonbootsMovement'].concat(category_to_list_map['Boots'])
+    
     item_list.push(
         <div className={styles.carousel_list_view}>
           {render_item_section(
