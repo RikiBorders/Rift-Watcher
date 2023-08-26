@@ -184,7 +184,6 @@ export default function BuildCalculator(props: any) {
     }
 
     const render_champion_build_stats = () => {
-        console.log(targetChampion)
         let health = targetChampion.health.flat + (targetChampion.health.perLevel*(championLevel-1))
         let attack_damage = targetChampion.attackDamage.flat + (targetChampion.attackDamage.perLevel*(championLevel-1))
         let ability_power = 0
@@ -375,7 +374,7 @@ export default function BuildCalculator(props: any) {
     }
 
     const add_item = (item: any) => {
-        if (build.length >= 6){
+        if (stateRef.current.length >= 6){
             console.log('All build slots occuppied')
         } else {
             let new_build = [...stateRef.current]
