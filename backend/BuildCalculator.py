@@ -28,34 +28,51 @@ def fetch_items():
     processed_items = {}
 
     for item in items_json:
-        item_subpath = (item['iconPath'].split('/')[-1]).lower()
         item_bin_key = f"Items/{item['id']}"
-        bin_data = item_bin[item_bin_key]
+        item_object = build_item_object(item_bin, processed_items, base_item_path, item, item_bin_key)
 
-        if 'mItemDataAvailability' not in bin_data: # discard unavailable items
-            continue
-
-        item_object = {
-            'name': item['name'],
-            'id': item['id'],
-            'icon_path': base_item_path+item_subpath,
-            'epicness': bin_data['epicness'] if 'epicness' in bin_data else None,
-            'price': bin_data['price'] if 'price' in bin_data else None,
-            'categories': bin_data['mCategories'] if 'mCategories' in bin_data else None,
-            'epicness': bin_data['epicness'] if 'epicness' in bin_data else None,
-            'subitems': [name[name.find('/')+1:] for name in bin_data['recipeItemLinks']] if 'recipeItemLinks' in bin_data else None,
-            'stats': format_item_stats(bin_data),
-            'availability':  bin_data['mItemDataAvailability']['mInStore'] if 
-                'mInStore' in bin_data['mItemDataAvailability'] else None,
-            'description': parse_description(item['description']),
-        }
-
-        processed_items[item['name']] = item_object
+        if item_object != None:
+            processed_items[item['name']] = item_object
         
     for item_data in processed_items.values():
         item_response.append(item_data)
     return item_response
 
+
+def build_item_object(item_bin: dict, processed_items: dict, base_item_path: str, item: dict, item_bin_key):
+    '''
+    Construct the item object that will be sent to the frontend as a part of the fetch items endpoint
+    '''
+    item_subpath = (item['iconPath'].split('/')[-1]).lower()
+    bin_data = item_bin[item_bin_key]
+    if 'mItemDataAvailability' not in bin_data: # discard unavailable items
+        return None
+    
+    recipe_item_keys = [name for name in bin_data['recipeItemLinks']] if 'recipeItemLinks' in bin_data else []
+    recipe_items = recipe_item_keys
+    
+    item_object = {
+        'name': item['name'],
+        'id': item['id'],
+        'icon_path': base_item_path+item_subpath,
+        'epicness': bin_data['epicness'] if 'epicness' in bin_data else None,
+        'price': bin_data['price'] if 'price' in bin_data else None,
+        'categories': bin_data['mCategories'] if 'mCategories' in bin_data else None,
+        'epicness': bin_data['epicness'] if 'epicness' in bin_data else None,
+        'subitems': recipe_items,
+        'stats': format_item_stats(bin_data),
+        'availability':  bin_data['mItemDataAvailability']['mInStore'] if 
+            'mInStore' in bin_data['mItemDataAvailability'] else None,
+        'description': parse_description(item['description']),
+    }
+
+    # Some items with in-game recipes have duplicates that don't include 
+    # the recipe - we'll discard the no-recipe counterpart
+    if item['name'] in processed_items:
+        if len(item_object['subitems']) < len(processed_items[item['name']]['subitems']):
+            return
+        
+    return item_object
 
 def parse_description(raw_description: str):
     '''
