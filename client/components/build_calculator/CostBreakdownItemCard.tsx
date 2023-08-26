@@ -14,17 +14,52 @@ export default function CostBreakdownItemCard(props: any) {
         }
     }
 
+    const calculate_total_cost = (item: any) => {
+        let cost = item.price
+        item.subitems.forEach((sub_item: any) => {
+            cost += calculate_total_cost(sub_item)
+        })
+
+        return cost
+    }
+
     const render_dropdown = () => {
         if (showDropdown){
             return (
                 <div className={styles.dropdown_container}>
                     <h3 className={styles.dropdown_header}>Item Components</h3>
+                    <div className={styles.component_container}>
+                        {render_dropdown_layer(props.item_data.subitems, 1)}
+                    </div>
                 </div>
             )
         } else {
-            return (
-                <></>
+            return (<></>)
+        }
+    }
+
+    const render_dropdown_layer = (components: any, layer: number) => {
+        if (components){
+            const layer_indent = 20*layer
+            return(
+                components.map((sub_item: any) => {
+                    return(
+                        <div className={styles.dropdown_layer_item}>
+                            <div className={styles.sub_item_container} style={{marginLeft: `${layer_indent}px`}}>
+                                <motion.img className={styles.subitem_img} src={sub_item.icon_path} />
+                                <h4 className={styles.sub_item_header}>{sub_item.name}</h4>
+                                <div className={styles.content_right}>
+                                    <p className={styles.item_cost_text}>{calculate_total_cost(sub_item)}</p>
+                                    <img src='/gold_icon.png' className={styles.gold_icon}/>
+                                </div>
+                            </div>
+                            {render_dropdown_layer(sub_item.subitems, layer+1)}
+                        </div>
+                    )
+                })
             )
+        } else {
+            return(<></>)
         }
     }
 
@@ -34,7 +69,7 @@ export default function CostBreakdownItemCard(props: any) {
                 <motion.img className={styles.item_cost_img} src={props.item_data.icon_path} />
                 <h2 className={styles.item_cost_name}>{props.item_data.name}</h2>
                 <div className={styles.content_right}>
-                    <p className={styles.item_cost_text}>{props.item_data.price}</p>
+                    <p className={styles.item_cost_text}>{calculate_total_cost(props.item_data)}</p>
                     <img src='/gold_icon.png' className={styles.gold_icon}/>
                     <img src='/arrow_down.png' onClick={() => {handleClick()}} className={styles.dropdown_arrow}/>
                 </div>
