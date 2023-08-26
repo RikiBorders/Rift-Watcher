@@ -116,7 +116,7 @@ export default function SelectedItemComponent(props: any) {
                                         src='/stat_icons/magic_pen.png' 
                                         className={styles.tooltip_stat_icon}
                                     />
-                                    <p className={styles.tooltip_stat_text}>{props.item.stats.magic_pen}% </p>
+                                    <p className={styles.tooltip_stat_text}>{props.item.stats.magic_pen} </p>
                                     <p className={styles.tooltip_stat_text_label}>Magic Penetration</p>
                                 </div> 
                             </div>: <></>
