@@ -1,15 +1,76 @@
 .Info{
-
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 15px;
+    margin: 0;
+    background-color: rgb(45, 128, 224);
+    border-radius: 10px;
+    color: white;
+    width:  fit-content;
+    max-width: 300px;
+    height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .Alert{
-
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 15px;
+    margin: 0;
+    background-color: rgb(224, 45, 45);
+    border-radius: 10px;
+    color: white;
+    width:  fit-content;
+    max-width: 300px;
+    height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .Warning{
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 15px;
+    margin: 0;
+    background-color: rgb(224, 146, 45);
+    border-radius: 10px;
+    color: white;
+    width:  fit-content;
+    max-width: 300px;
+    height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+.message_header_container{
+    display: flex;
+    
+    align-items: center;
+    text-align: center;
+}
+
+.message_header{
+    margin: 0;
+    font-size: 25px;
 }
 
 .message_text{
-    
+    margin: 0;
+    margin-left: 5px;
+}
+
+.message_icon{
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
 }

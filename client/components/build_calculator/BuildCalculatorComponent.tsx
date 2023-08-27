@@ -83,7 +83,7 @@ export default function BuildCalculator(props: any) {
         let attack_damage = targetChampion.attackDamage.flat + (targetChampion.attackDamage.perLevel*(championLevel-1))
         let armor = targetChampion.armor.flat
         let magic_resist = targetChampion.magicResistance.flat + (targetChampion.magicResistance.perLevel*(championLevel-1))
-        let attack_speed = targetChampion.attackSpeed.flat + (targetChampion.attackSpeed.perLevel*(championLevel-1))
+        let attack_speed = targetChampion.attackSpeed.flat + ((targetChampion.attackSpeed.perLevel*0.01)*(championLevel-1))
         let movement_speed = targetChampion.movespeed.flat + (targetChampion.movespeed.perLevel*(championLevel-1))
         let health_regen = targetChampion.healthRegen.flat + (targetChampion.healthRegen.perLevel*(championLevel-1))
         let mana_regen = targetChampion.manaRegen.flat + (targetChampion.manaRegen.perLevel*(championLevel-1))

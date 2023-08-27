@@ -1,10 +1,12 @@
-import React from 'react';
+import { React, useState} from 'react';
 import { useRouter } from 'next/router';
 import { motion } from "framer-motion";
 import RegionDropdown from "../components/RegionSelectDropdown"
+import MessageBox from "../components/MessageBox"
 import styles from "./SearchBar.module.css";
 
 export default function SearchBar(currentGame) {
+  const [showMessage, setShowMessage] = useState(false)
   let state = {
     searchTerm: '',
     selectedRegion: 'NA',
@@ -46,10 +48,10 @@ export default function SearchBar(currentGame) {
         router.push({
           pathname: path,
           query: {region: selectedRegion},
-          title: "halo reach"
+          title: "default title"
         });
       } else {
-        console.log('summoner not found or riot api key has expired')
+        setShowMessage(true)
       }
     })
   }
@@ -59,11 +61,13 @@ export default function SearchBar(currentGame) {
     state.selectedRegion = selectedRegion;
   }
 
+  const close_msg = () => {
+    setShowMessage(false)
+  }
+
   return (
     <div className={styles.search_bar_container}>
-      
       <div className={styles.search_bar}>
-
         <div className={styles.input_div}>
           <h3 className={styles.search_header}>Region</h3>
           <RegionDropdown getRegion={HandleGetRegion}/>
@@ -86,6 +90,13 @@ export default function SearchBar(currentGame) {
 
         </div>
       </div>
+      {showMessage ?
+        <div onClick={close_msg}>
+          <MessageBox type='Warning' message='Summoner could not be found'/>
+        </div>
+        :
+        <></>
+      }
 
     </div>
   );

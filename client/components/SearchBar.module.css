@@ -1,5 +1,9 @@
 .search_bar_container{
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
 }
 
 .search_bar{
