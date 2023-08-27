@@ -38,3 +38,15 @@
     height: 90px;
     width: 110px;
 }
+
+.disclaimer{
+    color: white;
+    background-color: #151b27;
+    font-size: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 3vh;
+    padding-left: 20vw;
+    padding-right: 20vw;
+    text-align: center;
+    margin: 0;
+}
