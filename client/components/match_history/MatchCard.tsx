@@ -18,10 +18,7 @@ export default function MatchCard(props: any) {
         barons_taken: 0,
     });
     const [team2Players, setTeam2Players] = useState<any>([]);
-    const [cardStyle, setCardStyle] = useState(styles.card_container)
-    const [matchInfoPane, setMatchInfoPane] = useState(styles.match_info_container_hidden)
-    const [arrowOpenStyle, setOpenArrowStyle] = useState(styles.arrow_visible)
-    const [arrowCloseStyle, setCloseArrowStyle] = useState(styles.arrow_hidden)
+    const [showMoreInfo, setShowMoreInfo] = useState(false)
 
 
     const num_to_string = (num: number) => {
@@ -254,12 +251,11 @@ export default function MatchCard(props: any) {
             }
         })
 
-        if (items.length != 6){
-            for (let i =0; i <= 6 - items.length; i++) {
+        if (items.length < 6){
+            while(items.length < 6) {
                 items.push(<img src='/item_frame.png' className={styles.team_stats_item}/>);
              }
         }
-
         return (
             <div className={styles.item_row}>
                 {
@@ -315,9 +311,8 @@ export default function MatchCard(props: any) {
     }
 
     const render_match_info = () => {
-
         return (
-            <div className={matchInfoPane}>
+            <div className={styles.match_info_container_visible}>
                 <div className={styles.team_1_section}>
                     <div className={styles.team_header}>
                         <h4 className={styles.blue_team_header_text}>Blue Team</h4>
@@ -381,7 +376,7 @@ export default function MatchCard(props: any) {
                     </div>
                 </div>
                 <div className={styles.small_vertical_spacer}/>
-                <img src='/arrow_up.png' className={arrowCloseStyle} onClick={show_match_info}/>
+                <img src='/arrow_up.png' className={styles.arrow_visible} onClick={toggle_show_more}/>
 
             </div>
         )
@@ -496,18 +491,11 @@ export default function MatchCard(props: any) {
         )
     }
 
-    const show_match_info = () => {
-        if (cardStyle == styles.card_container){
-            setCardStyle(styles.card_container_expanded)
-            setMatchInfoPane(styles.match_info_container_visible)
-            setOpenArrowStyle(styles.arrow_hidden)
-            setCloseArrowStyle(styles.arrow_visible)
-
+    const toggle_show_more = () => {
+        if (showMoreInfo) {
+            setShowMoreInfo(false)
         } else {
-            setCardStyle(styles.card_container)
-            setMatchInfoPane(styles.match_info_container_hidden)
-            setOpenArrowStyle(styles.arrow_visible)
-            setCloseArrowStyle(styles.arrow_hidden)
+            setShowMoreInfo(true)
         }
     }
 
@@ -515,15 +503,21 @@ export default function MatchCard(props: any) {
         get_team_data()
     }, []);
     return (
-        <div className={cardStyle}>
+        <div className={styles.card_container_expanded}>
             <div className={styles.card_info_container}>
                 {render_meta_info()}
                 <div className={styles.horizontal_spacer} />
                 {render_overview()}
                 {render_matchups()}
             </div>
-            <img src='/arrow_down.png' className={arrowOpenStyle} onClick={show_match_info}/>
-            {render_match_info()}
+            
+            {
+                showMoreInfo ? 
+                <div>
+                    {render_match_info()}
+                </div> :
+                <img src='/arrow_down.png' className={styles.arrow_visible} onClick={toggle_show_more}/>
+            }
         </div>
     )
 }

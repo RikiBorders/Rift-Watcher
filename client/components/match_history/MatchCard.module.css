@@ -121,6 +121,7 @@
 .match_info_container_visible{
     visibility: visible;
     padding-right: 2vw;
+    margin-top: 20px;
 }
 
 .match_info_container_hidden{
@@ -458,6 +459,7 @@
 }
 
 .arrow_visible{
+    cursor: pointer;
     visibility: visible;
     width: 20px;
 }
