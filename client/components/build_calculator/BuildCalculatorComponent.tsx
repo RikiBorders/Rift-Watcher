@@ -503,7 +503,6 @@ export default function BuildCalculator(props: any) {
             item.subitems.forEach((subitem: any) => {
                 total_cost += calculate_subitem_cost(subitem)
             })
-            
         })
         return total_cost
     }

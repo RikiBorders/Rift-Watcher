@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 import os
 import threading
 import requests
@@ -8,11 +9,12 @@ from ThreadManager import *
 
 class Riot(): 
     def __init__(self):
+        load_dotenv('.env')
         self.request_headers = {
             "Accept-Language": "en-US,en;q=0.5",
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
             "Origin": "https://developer.riotgames.com",                 # update the below 'riot token' key before launch
-            "X-Riot-Token": 'RGAPI-a68ae3c5-8d0d-461a-9777-167572c52388' # API KEY FROM .ENV SHOULD GO HERE
+            "X-Riot-Token": os.getenv('RIOT_API_KEY') # API KEY FROM .ENV SHOULD GO HERE
         }
         self.regions = {
             "NA" : "na1",
