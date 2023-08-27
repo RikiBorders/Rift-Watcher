@@ -38,6 +38,7 @@
     margin-left: 5px;
     font-size: 21px;
     color: white;
+    cursor: default;
 }
 
 .item_cost_text{
@@ -83,6 +84,7 @@
     font-size: 15px;
     margin: 0; 
     margin-left: 10px;
+    cursor: default;
 }
 
 .subitem_img{
