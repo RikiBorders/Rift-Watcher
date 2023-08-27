@@ -60,12 +60,11 @@ export default function About() {
               much more. We aim to provide the most accurate and relevant data possible so you can focus 
               less on making sense of the data, and more on climbing the ranked ladder.
               <br/><br/>
-              We have observed that many stat-tracking websites show players too much 
-              extraneous data that cannot necessarily be applied to improve gameplay. Moreover,
-              the algorithms & formulas used to calculate these statistics often times do not come with explanations. 
-              We tackle these challenges by providing only the statistics that matter, while offering explanations to go 
-              alongside them. This way you know exactly what you're looking at, and why you are looking at it. We believe
-              the more transparency our data has, the easier your climb  will be.
+              Rift Watcher also offers the Hextech Build Calculator, which provides players with an intuitive tool
+              that makes it easy to theory-craft builds while taking champion statistics into account. The Hextech 
+              Build Calculator allows users to add any item in League of Legends to their build, and see how these items 
+              would interact with a champion's base statistics. The Hextech Build Calculator also offers insights into
+              the cost of each build, saving players from the perils of mental math.
             </p>
           
           </motion.div>
@@ -120,16 +119,21 @@ export default function About() {
           </div>
 
           <motion.div className={styles.contributor_section}>
-            <h1 className={styles.info_section_header}>Our Team</h1>
+            <h1 className={styles.info_section_header}>Contributors</h1>
+            <p className={styles.info_section_text}>
+              The development of Rift Watcher would not be possible without the hard work of
+              many different groups of people. Special thanks to the folks over at Community Dragon
+              for creating such a useful and convenient CDN, while also fostering a friendly, knowledgable
+              community over on their Discord server. Below you will find a list of contributors who helped shape Rift
+              Watcher in a variety of ways, and to whom I'm grateful for (with the exception of myself lol).
+            </p>
 
               <div className={styles.contributors}>
                 <div className={styles.contributor_card}>
                   <h2 className={styles.contributor_header}>Riki</h2>
-                  <p className={styles.contributor_text}><b>Website Developer and Rift-Watcher founder</b></p>
+                  <p className={styles.contributor_text}><b>Rift-Watcher Developer</b></p>
                   <p className={styles.contributor_text}>
-                    Responsible for the technical development and direction of Rift-Watcher. 
-                    Software Engineer and avid Yasuo enjoyer -  when I'm not coding 
-                    I'm either playing a game or spending time with my cat.
+                    Responsible for the technical development and direction of Rift-Watcher.
                   </p>
                 </div>
 
@@ -137,11 +141,16 @@ export default function About() {
                   <h2 className={styles.contributor_header}>Marv</h2>
                   <p className={styles.contributor_text}><b>Statistical Consultant</b></p>
                   <p className={styles.contributor_text}>
-                  Responsible for identifying and representing useful LoL data. 22-year-old student of physics and geosciences from NYC. I am interested 
-                  in how games can be represented statistically and can be found playing 
-                  Jhin and/or Bard.
+                    Go-to person for deriving interesting statistics & figuring out ways to represent useful LoL data.
                   </p>
+                </div>
 
+                <div className={styles.contributor_card}>
+                  <h2 className={styles.contributor_header}>Derek</h2>
+                  <p className={styles.contributor_text}><b>Developer</b></p>
+                  <p className={styles.contributor_text}>
+                    Created the foundation for Rift-Watcher's TFT feature.
+                  </p>
                 </div>
               </div>
 

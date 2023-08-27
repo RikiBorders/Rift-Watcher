@@ -93,6 +93,8 @@ export default function MatchCard(props: any) {
           ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" />)
         } else if (rank.includes("platinum")){
           ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" />)
+        } else if (rank.includes("emerald")){
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-emerald.png" />)
         } else if (rank.includes("diamond")){
           ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" />)
         } else if (rank.includes("master")){

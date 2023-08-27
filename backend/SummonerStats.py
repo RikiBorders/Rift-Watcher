@@ -115,9 +115,11 @@ def lp_to_rank(lp_value):
         return "SILVER/GOLD"
     elif lp_value == 1600: # gold/plat
         return "GOLD/PLATINUM"
-    elif lp_value == 2000: # plat/diamond
+    elif lp_value == 2000: # plat/emerald
         return "PLATINUM/DIAMOND"
-    elif lp_value == 2400: # diamond/masters
+    elif lp_value == 2400: # emerald/diamond
+        return "PLATINUM/DIAMOND"
+    elif lp_value == 2800: # diamond/masters
         return "DIAMOND/MASTERS"
 
     # Get tier, then get division
@@ -141,7 +143,10 @@ def lp_to_rank(lp_value):
     elif 1600 < lp_value < 2000: # plat
         rank = 'PLATINUM' 
         division = get_division(lp_value, 1600, 1999, 1700, 1800, 1900)
-    elif 2000 < lp_value < 2400: # diamond
+    elif 2000 < lp_value < 2400: # emerald
+        rank = 'EMERALD'
+        division = get_division(lp_value, 2000, 2399, 2100, 2200, 2300)
+    elif 2400 < lp_value < 2800: # diamond
         rank = 'DIAMOND'
         division = get_division(lp_value, 2000, 2399, 2100, 2200, 2300)
 
@@ -288,8 +293,10 @@ def normalize_rank(full_rank, lp):
         rank_value += 1200
     elif 'platinum' in tier.lower():
         rank_value += 1600
-    elif 'diamond' in tier.lower():
+    elif 'emerald' in tier.lower():
         rank_value += 2000
+    elif 'diamond' in tier.lower():
+        rank_value += 2400
 
     # divisional calculations
     if division == 'IV':
