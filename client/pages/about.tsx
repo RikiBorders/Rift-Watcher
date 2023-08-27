@@ -79,19 +79,6 @@ export default function About() {
               user profiles that showcase a player's strengths and weaknesses. We only use your data to visualize League 
               of Legends statistics, and your data will never leave our domain. Furthermore, we do not share nor publicize 
               your data in any form without consent.
-              <br/><br/>
-              We create our graphs using a combined theoretical approach that considers both game statistics and game theory
-              concepts. League of Legends and mobile games in general are a part of a category of video games that can be 
-              explained through the academic field of game theory. As a result, there is no single right way to analyze 
-              League of Legends data. Rather, there are different ways of interpreting the data that can yield different 
-              insights about various aspects of the game. 
-              <br/><br/>
-              For example, game theory can be applied to a player's early game statistics (such as creep score per minute) 
-              to identify how individual outcomes lead to differenct long term decisions in the late-game. On the other hand, 
-              someone interested in how a team plays overall might apply game theory to the same data set in such a way that 
-              emphasizes how team compositions and team decisions lead to game success (or failure).
-              
-
             </p>
           
           </motion.div>
