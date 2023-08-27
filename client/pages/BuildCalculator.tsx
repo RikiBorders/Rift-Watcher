@@ -40,7 +40,9 @@ export default function BuildCalculator() {
       
       <div className={styles.background}>
         <NavBar/>
-        <h1 className={styles.header_text}>Build Calculator</h1>
+        <div className={styles.header_div}>
+          <h1 className={styles.header_text}>Hextech Build Calculator</h1>
+        </div>
         {isLoading ? 
           <img src="/teemo_loading_icon.gif" className={styles.loading_image}/> :
           <BuildCalculatorComponent calculator_data={calculatorData}/>

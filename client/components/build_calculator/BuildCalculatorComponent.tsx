@@ -531,7 +531,7 @@ export default function BuildCalculator(props: any) {
             </div>
             <div className={styles.calculator_row}>
                 <div className={styles.build_info}>
-                    <div style={{display: 'flex'}}>
+                    <div className={styles.stats_section}>
                         {render_champion_base_stats()}
                         {render_selected_champion()}
                         {render_build_stats()}

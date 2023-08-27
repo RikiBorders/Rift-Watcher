@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 
 .container{
+    margin-top: 30px;
     background-color: #212A3E;
 }
 
@@ -28,7 +29,7 @@
 
 .selected_champion_portrait{
     display: block;
-    height: 300px;
+    height: 350px;
     margin: 0;
 }
 
@@ -39,7 +40,7 @@
 
 .champion_selection_button{
     cursor: pointer;
-    width: 165px;
+    width: 193px;
     height: 30px;
     background-color: #000000;
     text-align: center;
@@ -150,6 +151,12 @@
     font-weight: 800;
     text-align: center;
     
+}
+
+.stats_section{
+    display: flex;
+    background-color: rgba(19, 19, 19, 0.904);
+    margin-right: 30px;
 }
 
 /* item styles */
