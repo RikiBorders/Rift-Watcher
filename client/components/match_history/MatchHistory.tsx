@@ -1,18 +1,31 @@
 import React, { use, useState, useEffect } from 'react';
 import styles from "./MatchHistory.module.css";
+import MessageBox from "../MessageBox"
 import MatchCard from "@/components/match_history/MatchCard";
 
 export default function MatchHistory(props: any) {
     const [isLoading, setIsLoading] = useState(true);
     const [matchData, setMatchData] = useState<any>({});
+    const [showWarningMessage, setShowWarningMessage] = useState(false)
+
+    const close_msg = () => {
+      setShowWarningMessage(false)
+    }
 
     const render_matches = () => {
-      console.log(matchData)
-      
       return (
-        matchData.map((match: any, i: number) => (
-          <MatchCard match_data={match} key={i}/>
-        ))
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          {matchData.map((match: any, i: number) => (
+            <MatchCard match_data={match} key={i}/>
+          ))}
+          {showWarningMessage ? 
+            <div onClick={close_msg}>
+                <MessageBox type='Warning' message='All build slots are currently occuppied'/> 
+            </div>
+            :
+            <></>
+          }
+        </div>
 
     )}
 
@@ -36,7 +49,7 @@ export default function MatchHistory(props: any) {
             setMatchData(response.match_history);
             setIsLoading(false);
           } else {
-            console.log('Match Data could not be fetched')
+            setShowWarningMessage(true)
           }
         })
         

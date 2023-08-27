@@ -93,9 +93,7 @@ export default function SearchBar(currentGame) {
       {showMessage ?
         <div onClick={close_msg}>
           <MessageBox type='Warning' message='Summoner could not be found'/>
-        </div>
-        :
-        <></>
+        </div> : <></>
       }
 
     </div>

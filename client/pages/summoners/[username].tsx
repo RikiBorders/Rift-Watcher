@@ -1,6 +1,7 @@
 import NavBar from "../../components/NavBar";
 import SummonerInfo from "../../components/SummonerInfo";
 import MatchHistory from "@/components/match_history/MatchHistory";
+import MessageBox from "../../components/MessageBox"
 import Head from "next/head";
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react';
@@ -11,6 +12,8 @@ export default function username() {
   const router = useRouter();
   const [summonerData, setSummonerData] = useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [showWarningMessage, setShowWarningMessage] = useState(false)
+
 
   const render_rank_icon = (summoner_rank: string) => {
     const rank = summoner_rank.toLowerCase();
@@ -94,10 +97,14 @@ export default function username() {
         setSummonerData(response.summoner_data);
         setIsLoading(false);
       } else {
-        console.log('Summoner info could not be fetched')
+        setShowWarningMessage(true)
       }
     })
     
+  }
+
+  const close_msg = () => {
+    setShowWarningMessage(false)
   }
 
   useEffect(() => {
@@ -114,6 +121,12 @@ export default function username() {
 
       <div className={styles.page_body}>
         <NavBar/>
+
+        {showWarningMessage ?
+          <div onClick={close_msg}>
+            <MessageBox type='Alert' message='Summoner info could not be fetched'/>
+          </div> : <></>
+        }
         
         {isLoading ? 
           <img src="/teemo_loading_icon.gif" className={styles.loading_image}/> :

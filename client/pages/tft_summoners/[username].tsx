@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./[username].module.css";
 import Head from "next/head";
 import NavBar from "../../components/NavBar";
+import MessageBox from "../../components/MessageBox"
 import TacticianInfo from "@/components/tft_components/TacticianInfo";
 
 // Need to fix do better typing for data, use interfaces later.
@@ -11,6 +12,7 @@ export default function username() {
   const router = useRouter();
   const [summonerData, setSummonerData] = useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [showWarningMessage, setShowWarningMessage] = useState(false)
 
   const fetch_summoner_stats = () => {
     const searchTerm = router.query.username;
@@ -30,14 +32,17 @@ export default function username() {
       .then((response) => {
         if (response["status"]) {
           // check here if the response is valid
-          console.log(response.summoner_data);
           setSummonerData(response.summoner_data);
           setIsLoading(false);
         } else {
-          console.log("Summoner info could not be fetched");
+          setShowWarningMessage(true)
         }
       });
   };
+
+  const close_msg = () => {
+    setShowWarningMessage(false)
+  }
 
   useEffect(() => {
     if (router.isReady) {
@@ -60,15 +65,21 @@ export default function username() {
 
         {isLoading ? (
           <img src="/teemo_loading_icon.gif" className={styles.loading_image} />
-        ) : (
-          <div>
-            <TacticianInfo
-              summonerName={router.query.username}
-              profileIcon={summonerData.summoner_info.profileIcon}
-              rankedData={summonerData.summoner_info.tft_data}
-            />
-          </div>
+          ) : (
+            <div>
+              <TacticianInfo
+                summonerName={router.query.username}
+                profileIcon={summonerData.summoner_info.profileIcon}
+                rankedData={summonerData.summoner_info.tft_data}
+              />
+            </div>
         )}
+
+        {showWarningMessage ?
+          <div onClick={close_msg}>
+            <MessageBox type='Alert' message='Summoner info could not be fetched'/>
+          </div> : <></>
+        }
       </div>
     </div>
   );

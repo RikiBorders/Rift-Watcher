@@ -121,7 +121,6 @@ export default function MatchCard(props: any) {
     }
 
     const render_meta_info = () => {
-        console.log(props)
         return(
             <div style={{
                 display: "flex",

@@ -68,7 +68,6 @@ const ChampionSelectionModal = (props: any) => {
 
     const update_champ_index = (operation: number) => {
         let new_index = 0
-        console.log(champIndex, visibleChampionCards.length)
 
         if (visibleChampionCards.length <=8){} 
         else if (operation){

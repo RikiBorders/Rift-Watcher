@@ -4,6 +4,7 @@ import ChampionSelectionModal from './ChampionSelectionModal';
 import ItemComponent from './ItemComponent'
 import SelectedItemComponent from './SelectedItemComponent'
 import UnselectedItemComponent from './UnselectedItemComponent'
+import MessageBox from "../MessageBox"
 import Carousel from './Carousel'
 import CostBreakdownItemCard from './CostBreakdownItemCard'
 import { motion } from "framer-motion";
@@ -14,6 +15,7 @@ export default function BuildCalculator(props: any) {
     const [targetChampionSelected, setTargetChampionSelected] = useState(false)
     const [itemSearchQuery, setItemSearchQuery] = useState('')
     const [championLevel, setChampionLevel] = useState(1)
+    const [showWarningMessage, setShowWarningMessage] = useState(false)
 
     const [targetChampion, setTargetChampion] = useState({
         'icon_path': '',
@@ -375,7 +377,7 @@ export default function BuildCalculator(props: any) {
 
     const add_item = (item: any) => {
         if (stateRef.current.length >= 6){
-            console.log('All build slots occuppied')
+            setShowWarningMessage(true)
         } else {
             let new_build = [...stateRef.current]
             new_build.push(item)
@@ -519,6 +521,10 @@ export default function BuildCalculator(props: any) {
         }
     }
 
+    const close_msg = () => {
+        setShowWarningMessage(false)
+    }
+
     useEffect(() => {
     }, [])
     return (
@@ -530,14 +536,24 @@ export default function BuildCalculator(props: any) {
                 {render_item_searchbar()}
             </div>
             <div className={styles.calculator_row}>
-                <div className={styles.build_info}>
-                    <div className={styles.stats_section}>
-                        {render_champion_base_stats()}
-                        {render_selected_champion()}
-                        {render_build_stats()}
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <div className={styles.build_info}>
+                        <div className={styles.stats_section}>
+                            {render_champion_base_stats()}
+                            {render_selected_champion()}
+                            {render_build_stats()}
+                        </div>
+
+                        {render_build()}
+                        {render_cost_breakdown()}
                     </div>
-                    {render_build()}
-                    {render_cost_breakdown()}
+                    {showWarningMessage ? 
+                        <div onClick={close_msg}>
+                            <MessageBox type='Warning' message='All build slots are currently occuppied'/> 
+                        </div>
+                        :
+                        <></>
+                    }
                 </div>
             </div>
             <div className={styles.calculator_row}>
