@@ -499,8 +499,22 @@ export default function BuildCalculator(props: any) {
         let total_cost = 0; 
         build.forEach((item: any) => {
             total_cost += item.price
+
+            item.subitems.forEach((subitem: any) => {
+                total_cost += calculate_subitem_cost(subitem)
+            })
+            
         })
         return total_cost
+    }
+
+    const calculate_subitem_cost = (item: any) => {
+        let cost = item.price
+        item.subitems.forEach((sub_item: any) => {
+            cost += calculate_subitem_cost(sub_item)
+        })
+
+        return cost
     }
 
     const render_champion_select_modal = () => {
@@ -523,7 +537,7 @@ export default function BuildCalculator(props: any) {
 
     const close_msg = () => {
         setShowWarningMessage(false)
-    }
+      }
 
     useEffect(() => {
     }, [])
