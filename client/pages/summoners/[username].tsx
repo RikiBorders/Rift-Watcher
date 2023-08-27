@@ -14,6 +14,69 @@ export default function username() {
   const [isLoading, setIsLoading] = useState(true);
   const [showWarningMessage, setShowWarningMessage] = useState(false)
 
+
+  const render_rank_icon = (summoner_rank: string) => {
+    const rank = summoner_rank.toLowerCase();
+    let ranked_icon = (<></>)
+    if (rank.includes("iron")) {
+      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-iron.png" />)
+    } else if (rank.includes("bronze")){
+      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-bronze.png" />)
+    } else if (rank.includes("silver")){
+      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-silver.png" />)
+    } else if (rank.includes("gold")){
+      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" />)
+    } else if (rank.includes("platinum")){
+      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" />)
+    } else if (rank.includes("diamond")){
+      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" />)
+    } else if (rank.includes("master")){
+      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-master.png" />)
+    } else if (rank.includes("grandmaster")){
+      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-grandmaster.png" />)
+    } else if (rank.includes("challenger")){
+      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-challenger.png" />)
+    }
+    return ranked_icon
+  }
+
+
+  const render_rank = (queue_type: string) => {
+    if (summonerData && queue_type == 'soloduo'){
+      return (
+        <div className={styles.rank_render}>
+          <div className={styles.rank_text}>
+            <h3 className={styles.rank_title}>
+              {summonerData.summoner_account_data.solo_data.rank[0]} {summonerData.summoner_account_data.solo_data.rank[1]}
+            </h3>
+            <p className={styles.lp_number}>LP: {summonerData.summoner_account_data.solo_data.lp}</p>
+          </div>
+        </div>
+
+    )} 
+    else if (summonerData && queue_type == 'flex') {
+      return(
+        <div className={styles.rank_render}>
+          <div className={styles.rank_text}>
+            <h3 className={styles.rank_title}>
+              {summonerData.summoner_account_data.flex_data.rank[0]} {summonerData.summoner_account_data.flex_data.rank[1]}
+            </h3>
+            <p className={styles.lp_number}>LP: {summonerData.summoner_account_data.flex_data.lp}</p>
+          
+          </div>
+        </div>
+    )} else {
+      return null;
+    }
+  }
+
+  const render_icon = () => {
+    if (summonerData){
+      return (
+        <img src={"https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/"+summonerData.summoner_account_data.profileIcon+".jpg"} className={styles.profile_image}/>
+    )}
+  }
+
   const fetch_summoner_stats = () => {
     const searchTerm = router.query.username;
     const selectedRegion = router.query.region;
