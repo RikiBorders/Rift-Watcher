@@ -284,6 +284,7 @@ export default function SelectedItemComponent(props: any) {
         }
 
         let description = props.item.description.replaceAll('"', '').replaceAll('\\n\\n', '')
+        console.log(description)
         let first_half = description
         let second_half = ''
 

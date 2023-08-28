@@ -90,6 +90,7 @@ def parse_description(raw_description: str):
     description = re.sub(r'<stats>.*?</stats>', '', raw_description)
     description = re.sub(r'<[^>]*>', '', description)
     description = re.sub(r'\.(?![\s|$])', '\n', description)
+    description = re.sub(r'(?<=\d)\n(?=\d)', '', description)
 
     if 'Mythic Passive':
         index = description.find('Mythic Passive')
