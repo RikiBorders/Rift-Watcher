@@ -4,6 +4,7 @@ This file contains all backend logic related to the build calculator.
 import requests
 import threading
 import re
+import json
 from ThreadManager import *
 from SummonerStats import get_champion_icon, parse_champ_name
 
@@ -88,6 +89,7 @@ def parse_description(raw_description: str):
     '''
     description = re.sub(r'<stats>.*?</stats>', '', raw_description)
     description = re.sub(r'<[^>]*>', '', description)
+    description = re.sub(r'\.(?![\s|$])', '\n', description)
 
     if 'Mythic Passive':
         index = description.find('Mythic Passive')
@@ -95,7 +97,7 @@ def parse_description(raw_description: str):
         second_half = description[index:]
         description = first_half+'\n'+second_half
 
-    return description
+    return json.dumps(description)
 
 
 def format_item_stats(raw_item_stats: dict):

@@ -283,17 +283,33 @@ export default function SelectedItemComponent(props: any) {
             return(<></>)
         }
 
-        let description = props.item.description
-        let first_half = props.item.description
+        let description = props.item.description.replaceAll('"', '').replaceAll('\\n\\n', '')
+        let first_half = description
         let second_half = ''
 
-        let index = null
-        index = description.indexOf('Mythic Passive')
-        if (index){
-            first_half = description.substring(0, index)
+        let index = description.indexOf('Mythic Passive')
+        if (index != -1){
+            first_half = description.substring(0, index) // everything up until the mythic passive. If no passive
             second_half = description.substring(index, description.length)
-            description = first_half+'<br/>'+second_half
         }
+        let first_half_lines = first_half.split('\\n')
+        let second_half_lines = first_half.split('\\n')
+        
+        // Process new lines. 
+        let resultArr: any = [];
+        first_half_lines.forEach((item: any, i: number) => {
+            resultArr.push(item);      
+            resultArr.push(<div><br /></div>);
+        });
+        first_half_lines = resultArr
+
+        resultArr = [];
+        second_half_lines.forEach((item: any, i: number) => {
+            resultArr.push(item);      
+            resultArr.push(<div><br /></div>);
+        });
+        second_half_lines = resultArr
+
         return (
             <div className={styles.show_more_modal}>
                 <img 
@@ -308,9 +324,9 @@ export default function SelectedItemComponent(props: any) {
 
                 <div className={styles.show_more_section}>
                     <h3 className={styles.section_header}>Passive & Active Effects</h3>
-                    <p className={styles.description_text}>{first_half}</p>
+                    <p className={styles.description_text}>{first_half_lines}</p>
                     {second_half ? 
-                        <p className={styles.description_text}>{second_half}</p> :
+                        <p className={styles.description_text}>{second_half_lines}</p> :
                         <></>
                     }
                 </div>
