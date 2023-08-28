@@ -266,7 +266,7 @@ def get_champion_splash_icon(champ_name: str):
     elif name == 'naafiri':
         url = base_path+name+'/skins/base/naafiriloadscreen_0.naafiri.jpg'
     elif name == 'nilah':
-        url = base_path+name+'/skins/base/nilahloadscreen_0.nilah.jpg'
+        url = base_path+name+'/skins/base/nilahloadscreen_0.jpg'
     elif name == 'nunu&willump':
         url = base_path+'nunu/skins/base/nunuloadscreen.jpg'
     elif name == 'renataglasc':
