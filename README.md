@@ -1,7 +1,7 @@
 # Rift-Watcher
 League Statistics Website
 
-Rift Watcher aims to be a data-driven League of Legends tool that helps players improve using stats. The Hextech Build Calculator provides players with an intuitive tool to theory craft builds while seeing how the stats provided from each item interacts with a
+Rift Watcher is a data-driven League of Legends tool that helps players improve using stats. All data Rift Watcher uses comes directly from the Riot API, where raw API data is then run through a variety of algorithms to show users useful information in order to improve their gameplay via analytics. The Hextech Build Calculator provides players with an intuitive tool to theory craft builds while seeing how the stats provided from each item interacts with a
 champion's base stats. This tool also provides economic insights into the gold cost of items & their associated components. 
 
 The Summoner search feature allows players to look at their match history, and other data that is relevant to their overall performance. Each summoners page offers graphs to visualize stats such as deaths per game, kda per game, etc. 
@@ -9,7 +9,7 @@ Game specific data is also offered through the match history feature, which is r
 
 ## Repository Structure
 
-The *client folder houses any and all frontend code, while *backend would host anything related to the backend, as the name would imply. The backend is written in Python while the frontend is written using React (more specifically NextJS).
+The *client folder houses any and all frontend code, while *backend would host anything related to the backend, as the name would imply. The backend is written in Python while the frontend is written using React (more specifically NextJS). Note that the backend API uses Flask to send data to the frontend, while the frontend is written using NextJS.
 
 ### Backend Structure
 
@@ -29,3 +29,12 @@ to this file.
 simply be commented out. As the project grows, when theres a need for a dedicated test suite, this system can be overhauled. Since each test is consolidated into a specific function, future scaling shouldn't be an issue.
 
 **ThreadManager.py** - Used to manage threads. Generally, threads in the Rift Watcher app are used to make many requests (such as requests to match match info, lists of items, etc). This file contains functions that are used to manage thread pools/threads.
+
+
+### Frontend Structure
+
+**Public** Contains all app assets, including images, videos, and icons. Generally icons are stored in the public folder itself, and certain assets that can easily be grouped together are stored in sub folders. An example of such a sub folder would be the *ranked_icons subfolder, which holds, as you may have guessed, all ranked icons.
+
+**pages** Contains all app pages. non-generated pages are stored in the *pages directory itself. Generated pages (which can also be referred to as templates) are stored in sub folders. the title of the subfolder denotes what the template within is for. For example, *pages/summoners contains \[username\].tsx, which is used with the summoner search engine to display player statistcs.
+
+**components** Is structured similarly to pages. Generic components are stored in the *components folder itself, where other components that can easily be grouped are stored in sub folders. For example, components used with the build calculator are all stored within the *build_calculator folder.
