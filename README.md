@@ -11,6 +11,7 @@ Game specific data is also offered through the match history feature, which is r
 
 The *client folder houses any and all frontend code, while *backend would host anything related to the backend, as the name would imply. The backend is written in Python while the frontend is written using React (more specifically NextJS). Note that the backend API uses Flask to send data to the frontend, while the frontend is written using NextJS.
 
+
 ### Backend Structure
 
 Currently the backend doesn't host too many files, so there isnt a need to overcomplicate things with a variety of folders.
@@ -29,6 +30,7 @@ to this file.
 simply be commented out. As the project grows, when theres a need for a dedicated test suite, this system can be overhauled. Since each test is consolidated into a specific function, future scaling shouldn't be an issue.
 
 **ThreadManager.py** - Used to manage threads. Generally, threads in the Rift Watcher app are used to make many requests (such as requests to match match info, lists of items, etc). This file contains functions that are used to manage thread pools/threads.
+
 
 
 ### Frontend Structure
