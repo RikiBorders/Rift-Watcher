@@ -38,3 +38,18 @@ simply be commented out. As the project grows, when theres a need for a dedicate
 **pages** Contains all app pages. non-generated pages are stored in the *pages directory itself. Generated pages (which can also be referred to as templates) are stored in sub folders. the title of the subfolder denotes what the template within is for. For example, *pages/summoners contains \[username\].tsx, which is used with the summoner search engine to display player statistcs.
 
 **components** Is structured similarly to pages. Generic components are stored in the *components folder itself, where other components that can easily be grouped are stored in sub folders. For example, components used with the build calculator are all stored within the *build_calculator folder.
+
+
+## Roadmap
+
+There are no particular deadlines for features, and delivery times will depend on a variety of external factors. Regardless, below is a list of features that are planned to be built and incorporated with Rift Watcher:
+
+- *Match Fetching Script* - A Python script that will fetch new matches from the Riot api 24/7. This script would be deployed on a cloud computing platform, and would constantly update a Rift-watcher Database containing match information. Whenever a summoner loads a summoner page on the frontend, the Rift watcher database containing recent match info will be queried, and currently cached matches will be served to the user. If the matches havent been fetched yet, or the user clicks the refresh button to get the most up-to-date matches, then matches will be fetched on-demand.
+
+- *Match Database* - Pretty self explanatory. This database will hold match information fetched from the Riot API. When users load summoner pages, we can fetch Match IDs from the riot api, and see if match information associated with that particular ID has already been stored in the database. If so, we can serve the match information without the need for more API calls. We would also be able to explore the idea of storing match IDs with player (summoner) names, so we have an association between summoners and matches they were a part of.
+
+- *Summoner Graphs* - Some frontend graphs to help visualize a player's performance and stats overtime. This is dependent on the match database being completed. These graphs would appear on the summoner page, and show info such as KDA overtime, gold income overtime, among other interesting data. The time period for these graphs could span from 10 games to hopefully 20+.
+
+- *Build Calculator Abilities* - This would make the build calculator a useful tool and a serious alternative to the itemization tool already in the league client. This feature would take into account a champion's abilities, and calculate how much damage, healing, etc. each ability would do with the current build a user has inputted. I.e, we could see exactly how a user's inputted build affects Yasuo's Q ability, and how much attack damage it would do.
+
+- *Build Calculator Save Feature* - Allow users to save, load, and share builds.
