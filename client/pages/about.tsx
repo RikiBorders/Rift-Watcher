@@ -1,8 +1,8 @@
 import NavBar from "../components/NavBar";
-import Modal from "../components/Modal";
+import Image from 'next/image'
 import styles from "../pages/about.module.css";
 import { motion } from "framer-motion";
-import {useState} from 'react'
+import {useState} from "react"
 import Head from "next/head";
 
 export default function About() {
@@ -63,7 +63,7 @@ export default function About() {
               Rift Watcher also offers the Hextech Build Calculator, which provides players with an intuitive tool
               that makes it easy to theory-craft builds while taking champion statistics into account. The Hextech 
               Build Calculator allows users to add any item in League of Legends to their build, and see how these items 
-              would interact with a champion's base statistics. The Hextech Build Calculator also offers insights into
+              would interact with a champion&apos;s base statistics. The Hextech Build Calculator also offers insights into
               the cost of each build, saving players from the perils of mental math.
             </p>
           
@@ -76,7 +76,7 @@ export default function About() {
               All of our data comes directly from the Official Riot games API. Using the information
               provided by Riot, we use a variety of formulas to extrapolate useful information such as 
               immediate and seasonal winrate, or average visionscore per game. Moreover, we construct personalized 
-              user profiles that showcase a player's strengths and weaknesses. We only use your data to visualize League 
+              user profiles that showcase a player&apos;s strengths and weaknesses. We only use your data to visualize League 
               of Legends statistics, and your data will never leave our domain. Furthermore, we do not share nor publicize 
               your data in any form without consent.
             </p>
@@ -91,7 +91,7 @@ export default function About() {
               Rift Watcher identifies your strengths and weaknesses as a player using your current and historical 
               game data. We also provide personalized analytics to help you identify patterns in your gameplay
               over the span of a single match, 20 games, or even an entire season. By providing analytics on
-              each player's trends over long periods of time, we're able to provide some clarity on what areas a player
+              each player&apos;s trends over long periods of time, we&apos;re able to provide some clarity on what areas a player
               both struggles and exceeds in. By providing clarity, we hope that each player can break any barrier that may be holding them
               back from their new peak rank.
               <br/><br/>
@@ -102,7 +102,7 @@ export default function About() {
           </motion.div>
 
           <div className={styles.greeting_section}>
-            <img src="/league_champs_bg.jpg" className={styles.bg_img}/>
+            <Image src="/league_champs_bg.jpg" className={styles.bg_img} alt="" fill/>
           </div>
 
           <motion.div className={styles.contributor_section}>
@@ -112,7 +112,7 @@ export default function About() {
               many different groups of people. Special thanks to the folks over at Community Dragon
               for creating such a useful and convenient CDN, while also fostering a friendly, knowledgable
               community over on their Discord server. Below you will find a list of contributors who helped shape Rift
-              Watcher in a variety of ways, and to whom I'm grateful for (with the exception of myself lol).
+              Watcher in a variety of ways, and to whom I&apos;m grateful for (with the exception of myself lol).
             </p>
 
               <div className={styles.contributors}>
@@ -136,7 +136,7 @@ export default function About() {
                   <h2 className={styles.contributor_header}>Derek</h2>
                   <p className={styles.contributor_text}><b>Developer</b></p>
                   <p className={styles.contributor_text}>
-                    Created the foundation for Rift-Watcher's TFT feature.
+                    Created the foundation for Rift-Watcher&apos;s TFT feature.
                   </p>
                 </div>
               </div>
@@ -145,7 +145,7 @@ export default function About() {
           
           <p className={styles.disclaimer}>
             Disclaimer: 
-            Rift Watcher isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially 
+            Rift Watcher isn&apos;t endorsed by Riot Games and doesn&apos;t reflect the views or opinions of Riot Games or anyone officially 
             involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or 
             registered trademarks of Riot Games, Inc.
           </p>

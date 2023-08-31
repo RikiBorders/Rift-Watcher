@@ -12,6 +12,7 @@
 
 .header_div{
     display: flex;
+    position: relative;
     justify-content: center;
     background-image: url("/build_calc_banner.png");
     background-repeat: no-repeat;

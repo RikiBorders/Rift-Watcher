@@ -3,13 +3,14 @@ import SummonerInfo from "../../components/SummonerInfo";
 import MatchHistory from "@/components/match_history/MatchHistory";
 import MessageBox from "../../components/MessageBox"
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react';
 import styles from './[username].module.css';
 
 
 export default function username() {
-  const router = useRouter();
+  const Router = useRouter();
   const [summonerData, setSummonerData] = useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
   const [showWarningMessage, setShowWarningMessage] = useState(false)
@@ -19,23 +20,23 @@ export default function username() {
     const rank = summoner_rank.toLowerCase();
     let ranked_icon = (<></>)
     if (rank.includes("iron")) {
-      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-iron.png" />)
+      ranked_icon = (<Image className={styles.ranked_icon} src="/ranked_icons/emblem-iron.png" alt="iron ranked emblem" fill/>)
     } else if (rank.includes("bronze")){
-      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-bronze.png" />)
+      ranked_icon = (<Image className={styles.ranked_icon} src="/ranked_icons/emblem-bronze.png" alt="bronze ranked emblem" fill/>)
     } else if (rank.includes("silver")){
-      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-silver.png" />)
+      ranked_icon = (<Image className={styles.ranked_icon} src="/ranked_icons/emblem-silver.png" alt="silver ranked emblem" fill/>)
     } else if (rank.includes("gold")){
-      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" />)
+      ranked_icon = (<Image className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" alt="gold ranked emblem" fill/>)
     } else if (rank.includes("platinum")){
-      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" />)
+      ranked_icon = (<Image className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" alt="platinum ranked emblem" fill/>)
     } else if (rank.includes("diamond")){
-      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" />)
+      ranked_icon = (<Image className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" alt="diamond ranked emblem" fill/>)
     } else if (rank.includes("master")){
-      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-master.png" />)
+      ranked_icon = (<Image className={styles.ranked_icon} src="/ranked_icons/emblem-master.png" alt="master ranked emblem" />)
     } else if (rank.includes("grandmaster")){
-      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-grandmaster.png" />)
+      ranked_icon = (<Image className={styles.ranked_icon} src="/ranked_icons/emblem-grandmaster.png" alt="grand master ranked emblem" fill/>)
     } else if (rank.includes("challenger")){
-      ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-challenger.png" />)
+      ranked_icon = (<Image className={styles.ranked_icon} src="/ranked_icons/emblem-challenger.png" alt="challenger ranked emblem" fill/>)
     }
     return ranked_icon
   }
@@ -73,13 +74,18 @@ export default function username() {
   const render_icon = () => {
     if (summonerData){
       return (
-        <img src={"https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/"+summonerData.summoner_account_data.profileIcon+".jpg"} className={styles.profile_image}/>
+        <Image 
+          src={"https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/"+summonerData.summoner_account_data.profileIcon+".jpg"} 
+          className={styles.profile_image}
+          alt="profile icon"
+          fill
+        />
     )}
   }
 
   const fetch_summoner_stats = () => {
-    const searchTerm = router.query.username;
-    const selectedRegion = router.query.region;
+    const searchTerm = Router.query.username;
+    const selectedRegion = Router.query.region;
     const data = {username: searchTerm, region: selectedRegion};
 
     const response = fetch("http://127.0.0.1:5000/get_summoner", { // update the url when pushed to prod
@@ -108,14 +114,14 @@ export default function username() {
   }
 
   useEffect(() => {
-    if (router.isReady){
+    if (Router.isReady){
       fetch_summoner_stats();
     }
-  }, [router.isReady]);
+  }, [Router.isReady]);
   return (
     <div>
       <Head>
-        <title>{router.query.username}'s Statistics</title>
+        <title>{Router.query.username}'s Statistics</title>
         <meta name="description" content="Elevate Your Game With Rift Watcher" />
       </Head>
 
@@ -129,15 +135,15 @@ export default function username() {
         }
         
         {isLoading ? 
-          <img src="/teemo_loading_icon.gif" className={styles.loading_image}/> :
+          <Image src="/teemo_loading_icon.gif" className={styles.loading_image} alt="" height="90" width="90"/> :
           <div style={{margin: 0, padding: 0}}>
             <SummonerInfo 
-              router_query={router.query} 
+              router_query={Router.query} 
               summonerData={summonerData} 
             />
             <MatchHistory 
-              username={router.query.username} 
-              region={router.query.region} 
+              username={Router.query.username} 
+              region={Router.query.region} 
             />
           </div>
         }

@@ -1,4 +1,5 @@
 import styles from "./MessageBox.module.css"
+import Image from "next/image"
 
 export default function MessageBox(props: any) {
     // Valid message box types: [Info, Alert, Warning]
@@ -13,7 +14,7 @@ export default function MessageBox(props: any) {
         return(
             <div className={styles[props.type]}>
                 <div className={styles.message_header_container}>
-                    <img src={image_icon} className={styles.message_icon}/>
+                    <Image src={image_icon} className={styles.message_icon} alt="" width="25" height="25"/>
                     <p className={styles.message_text}>{props.message}</p>
                 </div>
             </div>

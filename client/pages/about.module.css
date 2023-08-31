@@ -34,6 +34,7 @@
 }
 
 .greeting_section {
+    position: relative;
     padding: 0;
     margin: 0;
     height: 60vh;

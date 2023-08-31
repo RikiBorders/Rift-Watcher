@@ -1,5 +1,6 @@
 import NavBar from "../components/NavBar";
 import Head from "next/head";
+import Image from 'next/image'
 import styles from "../pages/BuildCalculator.module.css";
 import BuildCalculatorComponent from "../components/build_calculator/BuildCalculatorComponent";
 import MessageBox from "../components/MessageBox"
@@ -55,12 +56,12 @@ export default function BuildCalculator() {
         </div> : <></>
         }
         {isLoading ? 
-          <img src="/teemo_loading_icon.gif" className={styles.loading_image}/> :
+          <Image src="/teemo_loading_icon.gif" className={styles.loading_image} alt="" height="90" width="90"/> :
           <div className={styles.calculator_view}>
             <BuildCalculatorComponent calculator_data={calculatorData}/>
             <p className={styles.disclaimer}>
               Disclaimer: 
-              Rift Watcher isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially 
+              Rift Watcher isn&apos;t endorsed by Riot Games and doesn&apos;t reflect the views or opinions of Riot Games or anyone officially 
               involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or 
               registered trademarks of Riot Games, Inc.
             </p>

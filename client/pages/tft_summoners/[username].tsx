@@ -3,20 +3,21 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import styles from "./[username].module.css";
 import Head from "next/head";
+import Image from "next/image"
 import NavBar from "../../components/NavBar";
 import MessageBox from "../../components/MessageBox"
 import TacticianInfo from "@/components/tft_components/TacticianInfo";
 
 // Need to fix do better typing for data, use interfaces later.
 export default function username() {
-  const router = useRouter();
+  const Router = useRouter();
   const [summonerData, setSummonerData] = useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
   const [showWarningMessage, setShowWarningMessage] = useState(false)
 
   const fetch_summoner_stats = () => {
-    const searchTerm = router.query.username;
-    const selectedRegion = router.query.region;
+    const searchTerm = Router.query.username;
+    const selectedRegion = Router.query.region;
     const data = { username: searchTerm, region: selectedRegion };
 
     const response = fetch("http://127.0.0.1:5000/get_tft_summoner", {
@@ -45,15 +46,15 @@ export default function username() {
   }
 
   useEffect(() => {
-    if (router.isReady) {
+    if (Router.isReady) {
       fetch_summoner_stats();
     }
-  }, [router.isReady]);
+  }, [Router.isReady]);
 
   return (
     <div>
       <Head>
-        <title>{router.query.username}'s Statistics</title>
+        <title>{Router.query.username}'s Statistics</title>
         <meta
           name="description"
           content="Elevate Your Game With Rift Watcher"
@@ -64,11 +65,11 @@ export default function username() {
         <NavBar />
 
         {isLoading ? (
-          <img src="/teemo_loading_icon.gif" className={styles.loading_image} />
+          <Image src="/teemo_loading_icon.gif" className={styles.loading_image}  alt="" height="90" width="90"/>
           ) : (
             <div>
               <TacticianInfo
-                summonerName={router.query.username}
+                summonerName={Router.query.username}
                 profileIcon={summonerData.summoner_info.profileIcon}
                 rankedData={summonerData.summoner_info.tft_data}
               />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from "next/image";
 import styles from "./MatchCard.module.css";
 
 export default function MatchCard(props: any) {
@@ -38,15 +39,15 @@ export default function MatchCard(props: any) {
         const matchups = props.match_data.matchup_info
         return(
             <div className={styles.matchup_container}>
-                {matchups.map((matchup: any) => (
-                    <div className={styles.matchup_row}>
+                {matchups.map((matchup: any, index: number) => (
+                    <div className={styles.matchup_row} key={index}>
                         <div className={styles.matchup_row_player}>
-                            <img src={matchup[0]['champ_icon']} className={styles.overview_champ_icon} />
+                            <img src={matchup[0]['champ_icon']} className={styles.overview_champ_icon} alt="" />
                             <p className={styles.overview_summoner_name}>{matchup[0]['name']}</p>
                         </div>
                         {render_position_icon_for_overview(matchup[0]['position'])}
                         <div className={styles.matchup_row_player}>
-                            <img src={matchup[1]['champ_icon']} className={styles.overview_champ_icon} />
+                            <img src={matchup[1]['champ_icon']} className={styles.overview_champ_icon} alt="" />
                             <p className={styles.overview_summoner_name}>{matchup[1]['name']}</p>
                         </div>
                     </div>
@@ -60,7 +61,7 @@ export default function MatchCard(props: any) {
         if (position == 'utility'){position = 'support'}
         let position_icon = (<></>)
         if (['bottom', 'support', 'jungle', 'middle', 'top'].includes(position)){
-            position_icon = (<img className={styles.position_icon} src={`/position_icons/position-${position}.png`} />)
+            position_icon = (<img className={styles.position_icon} src={`/position_icons/position-${position}.png`}  alt=""/>)
         }
 
         return position_icon
@@ -71,7 +72,7 @@ export default function MatchCard(props: any) {
         if (position == 'utility'){position = 'support'}
         let position_icon = (<></>)
         if (['bottom', 'support', 'jungle', 'middle', 'top'].includes(position)){
-            position_icon = (<img className={styles.overview_position_icon} src={`/position_icons/position-${position}.png`} />)
+            position_icon = (<img className={styles.overview_position_icon} src={`/position_icons/position-${position}.png`}  alt=""/>)
         }
 
         return position_icon
@@ -81,23 +82,23 @@ export default function MatchCard(props: any) {
         const rank = props.match_data.average_ranks.combined_avg.toLowerCase();
         let ranked_icon = (<></>)
         if (rank.includes("iron")) {
-          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-iron.png" />)
+          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-iron.png" alt="" />)
         } else if (rank.includes("bronze")){
-          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-bronze.png" />)
+          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-bronze.png" alt="" />)
         } else if (rank.includes("silver")){
-          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-silver.png" />)
+          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-silver.png" alt="" />)
         } else if (rank.includes("gold")){
-          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" />)
+          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-gold.png" alt="" />)
         } else if (rank.includes("platinum")){
-          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" />)
+          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-platinum.png" alt="" />)
         } else if (rank.includes("emerald")){
-            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-emerald.png" />)
+            ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-emerald.png" alt="" />)
         } else if (rank.includes("diamond")){
-          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" />)
+          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-diamond.png" alt="" />)
         } else if (rank.includes("master")){
-          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-master.png" />)
+          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-master.png" alt="" />)
         } else if (rank.includes("grandmaster")){
-          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-grandmaster.png" />)
+          ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-grandmaster.png" alt="" />)
         } else if (rank.includes("challenger")){
           ranked_icon = (<img className={styles.ranked_icon} src="/ranked_icons/emblem-challenger.png" />)
         }
@@ -133,6 +134,7 @@ export default function MatchCard(props: any) {
                     <img 
                         src={props.match_data.target_summoner_info.champion_img_link} 
                         className={styles.champion_image}
+                        alt=""
                     />
                     <p className={styles.meta_summoner_text}>
                         {props.match_data.target_summoner_info.champion}
@@ -142,10 +144,12 @@ export default function MatchCard(props: any) {
                         <img 
                             src={props.match_data.target_summoner_info.runes[0] } 
                             className={styles.rune_image}
+                            alt=""
                         />
                         <img 
                             src={props.match_data.target_summoner_info.runes[1] } 
                             className={styles.secondary_rune_image}
+                            alt=""
                         />
                     </div>
 
@@ -153,10 +157,12 @@ export default function MatchCard(props: any) {
                         <img 
                             src={props.match_data.target_summoner_info.summoner_spells[0] } 
                             className={styles.summoner_spell_image}
+                            alt=""
                         />
                         <img 
                             src={props.match_data.target_summoner_info.summoner_spells[1] } 
                             className={styles.summoner_spell_image}
+                            alt=""
                         />
                     </div>
                 </div>
@@ -175,7 +181,7 @@ export default function MatchCard(props: any) {
                             <p className={styles.sub_header}>Avg Rank</p>
                         </div> :
                         <div className={styles.rank}>
-                            <img className={styles.unranked_icon} src="/ranked_icons/unranked.png" />
+                            <img className={styles.unranked_icon} src="/ranked_icons/unranked.png" alt="" />
                             <p className={styles.meta_summoner_rank}>Unranked</p>
                             <p className={styles.sub_header}>Unranked<br/>Gamemode</p>
                         </div>
@@ -243,17 +249,17 @@ export default function MatchCard(props: any) {
             if (item.name == "Oracle Lens" || 
                 item.name == "Stealth Ward" || 
                 item.name == "Farsight Alteration"){
-                trinket = <img className={styles.team_stats_trinket} src={item.icon_path} />
+                trinket = <img className={styles.team_stats_trinket} src={item.icon_path} alt="" />
             } else if (item.tier == 'mythic') {
-                items.push(<img className={styles.team_stats_mythic_item} src={item.icon_path} />)
+                items.push(<img className={styles.team_stats_mythic_item} src={item.icon_path} alt="" />)
             } else {
-                items.push(<img className={styles.team_stats_item} src={item.icon_path} />)
+                items.push(<img className={styles.team_stats_item} src={item.icon_path} alt="" />)
             }
         })
 
         if (items.length < 6){
             while(items.length < 6) {
-                items.push(<img src='/item_frame.png' className={styles.team_stats_item}/>);
+                items.push(<img src='/item_frame.png' className={styles.team_stats_item} alt=""/>);
              }
         }
         return (
@@ -288,7 +294,7 @@ export default function MatchCard(props: any) {
                         team.map((player_data: any, i: number) => (
                             <tr className={styles.player_section_row}>
                                 <td className={styles.player_name} key={`${player_data.name}`+`${i}`}>
-                                    <img src={player_data.champ_icon} className={styles.team_stats_champ_icon} />
+                                    <img src={player_data.champ_icon} className={styles.team_stats_champ_icon} alt="" />
                                     {player_data.name}
                                 </td>
                                 <td className={styles.player_card_text} key={`${player_data.kills}`+`${i}`}>
@@ -376,7 +382,7 @@ export default function MatchCard(props: any) {
                     </div>
                 </div>
                 <div className={styles.small_vertical_spacer}/>
-                <img src='/arrow_up.png' className={styles.arrow_visible} onClick={toggle_show_more}/>
+                <img src='/arrow_up.png' className={styles.arrow_visible} onClick={toggle_show_more} alt=""/>
 
             </div>
         )
@@ -390,16 +396,16 @@ export default function MatchCard(props: any) {
             if (item.name == "Oracle Lens" || 
                 item.name == "Stealth Ward" || 
                 item.name == "Farsight Alteration") {
-                trinket = <img className={styles.trinket_icon} src={item.icon_path} />
+                trinket = <img className={styles.trinket_icon} src={item.icon_path} alt="" />
             } else {
-                items.push(<img className={styles.item_icon} src={item.icon_path} />)
+                items.push(<img className={styles.item_icon} src={item.icon_path} alt="" />)
             }
             
         })
 
         if (items.length != 6){
             for (let i =0; i <= 6 - items.length; i++) {
-                items.push(<img src='/item_frame.png' className={styles.item_icon_blank}/>);
+                items.push(<img src='/item_frame.png' className={styles.item_icon_blank} alt=""/>);
              }
         }
 
@@ -516,7 +522,7 @@ export default function MatchCard(props: any) {
                 <div>
                     {render_match_info()}
                 </div> :
-                <img src='/arrow_down.png' className={styles.arrow_visible} onClick={toggle_show_more}/>
+                <img src='/arrow_down.png' className={styles.arrow_visible} onClick={toggle_show_more} alt=""/>
             }
         </div>
     )
