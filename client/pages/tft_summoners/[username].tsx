@@ -9,7 +9,7 @@ import MessageBox from "../../components/MessageBox"
 import TacticianInfo from "@/components/tft_components/TacticianInfo";
 
 // Need to fix do better typing for data, use interfaces later.
-export default function username() {
+export default function Username() {
   const Router = useRouter();
   const [summonerData, setSummonerData] = useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
@@ -54,7 +54,7 @@ export default function username() {
   return (
     <div>
       <Head>
-        <title>{Router.query.username}'s Statistics</title>
+        <title>{Router.query.username}&apos;s Statistics</title>
         <meta
           name="description"
           content="Elevate Your Game With Rift Watcher"

@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './[username].module.css';
 
 
-export default function username() {
+export default function Username() {
   const Router = useRouter();
   const [summonerData, setSummonerData] = useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
@@ -121,7 +121,7 @@ export default function username() {
   return (
     <div>
       <Head>
-        <title>{Router.query.username}'s Statistics</title>
+        <title>{Router.query.username}&apos;s Statistics</title>
         <meta name="description" content="Elevate Your Game With Rift Watcher" />
       </Head>
 
@@ -149,7 +149,7 @@ export default function username() {
         }
         <p className={styles.disclaimer}>
           Disclaimer: 
-          Rift Watcher isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially 
+          Rift Watcher isn&apos;t endorsed by Riot Games and doesn&apos;t reflect the views or opinions of Riot Games or anyone officially 
           involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or 
           registered trademarks of Riot Games, Inc.
         </p>
