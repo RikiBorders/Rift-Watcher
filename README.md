@@ -55,3 +55,5 @@ There are no particular deadlines for features, and delivery times will depend o
 - *Build Calculator Abilities* - This would make the build calculator a useful tool and a serious alternative to the itemization tool already in the league client. This feature would take into account a champion's abilities, and calculate how much damage, healing, etc. each ability would do with the current build a user has inputted. I.e, we could see exactly how a user's inputted build affects Yasuo's Q ability, and how much attack damage it would do.
 
 - *Build Calculator Save Feature* - Allow users to save, load, and share builds.
+
+- *Mobile Optimization* - Make the website look good/work on mobile. At the moment, zero work has gone into mobile optimization.
