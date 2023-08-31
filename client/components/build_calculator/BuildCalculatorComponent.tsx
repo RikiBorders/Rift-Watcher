@@ -369,7 +369,7 @@ export default function BuildCalculator(props: any) {
         return(
             <div className={styles.item_search_results}>
                 {matched_items.map((item) => (
-                    <ItemComponent item={item} add_item={add_item} />
+                    <ItemComponent item={item} add_item={add_item} key={item.id} />
                 ))}
             </div>
         )
@@ -479,7 +479,7 @@ export default function BuildCalculator(props: any) {
                     <div className={styles.item_cost_container}>
                         {build.map((item_data: any, index: number) => {
                             return(
-                                <CostBreakdownItemCard index={index} item_data={item_data} />
+                                <CostBreakdownItemCard index={index} item_data={item_data} key={index} />
                             )
                         })}
                     </div>

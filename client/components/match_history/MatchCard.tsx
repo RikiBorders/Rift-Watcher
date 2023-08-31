@@ -291,18 +291,18 @@ export default function MatchCard(props: any) {
                         <th className={styles.player_section_header_text}>Build Info</th>
                     </tr>
                     {
-                        team.map((player_data: any, i: number) => (
-                            <tr className={styles.player_section_row}>
-                                <td className={styles.player_name} key={`${player_data.name}`+`${i}`}>
+                        team.map((player_data: any, index: number) => (
+                            <tr className={styles.player_section_row} key={index}>
+                                <td className={styles.player_name} key={`${player_data.name}`+`${index}`}>
                                     <img src={player_data.champ_icon} className={styles.team_stats_champ_icon} alt="" />
                                     {player_data.name}
                                 </td>
-                                <td className={styles.player_card_text} key={`${player_data.kills}`+`${i}`}>
+                                <td className={styles.player_card_text} key={`${player_data.kills}`+`${index}`}>
                                     {`${player_data.kills}/${player_data.deaths}/${player_data.assists}`}
                                 </td>
-                                <td className={styles.player_card_text} key={`${player_data.total_cs}`+`${i}`}>{player_data.total_cs}</td>
-                                <td className={styles.player_card_text} key={`${player_data.total_damage_dealt}`+`${i}`}>{num_to_string(player_data.total_damage_dealt)}</td>
-                                <td className={styles.player_card_text} key={`${player_data.vision_score_pm}`+`${i}`}>
+                                <td className={styles.player_card_text} key={`${player_data.total_cs}`+`${index}`}>{player_data.total_cs}</td>
+                                <td className={styles.player_card_text} key={`${player_data.total_damage_dealt}`+`${index}`}>{num_to_string(player_data.total_damage_dealt)}</td>
+                                <td className={styles.player_card_text} key={`${player_data.vision_score_pm}`+`${index}`}>
                                     {`${player_data.per_minute_stats.vision_score_pm}/pm`}
                                 </td>
                                 <td className={styles.player_card_text}>

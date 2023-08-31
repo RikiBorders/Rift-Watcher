@@ -145,12 +145,12 @@ export default function Carousel(props: any) {
 
     return(
     <div className={styles.item_list}>
-        {list_rows.map((row: any) => {
+        {list_rows.map((row: any, index: number) => {
             return(
-                <div className={styles.item_row}>
+                <div className={styles.item_row} key={index}>
                     {row.map((item: any) => {
                         return(
-                            <ItemComponent item={item} add_item={props.add_item}/>
+                            <ItemComponent item={item} add_item={props.add_item} key={item.id}/>
                         )
                     })}
                 </div>
