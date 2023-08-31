@@ -63,7 +63,6 @@ export default function Username() {
               {summonerData.summoner_account_data.flex_data.rank[0]} {summonerData.summoner_account_data.flex_data.rank[1]}
             </h3>
             <p className={styles.lp_number}>LP: {summonerData.summoner_account_data.flex_data.lp}</p>
-          
           </div>
         </div>
     )} else {
