@@ -1,0 +1,5 @@
+python-dotenv
+requests
+flask
+flask_cors
+flask_restful
