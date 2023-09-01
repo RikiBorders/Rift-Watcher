@@ -2,8 +2,10 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_restful import Resource, Api
 from RiotApi import Riot
+import os
 from SummonerStats import get_match_statistics
 from BuildCalculator import get_build_calculator_data
+from dotenv import load_dotenv
 
 # Implementation and usage notes:
 # Each endpoint from the riot API should be called AT MOST ONCE per route in this file.
@@ -12,7 +14,8 @@ from BuildCalculator import get_build_calculator_data
 
 
 app = Flask(__name__)
-cors = CORS(app, origins=['http://localhost:3000']) # Update this origin when pushed to production
+load_dotenv('.env')
+cors = CORS(app, origins=[os.getenv('FLASK_API_ORIGIN')]) # Update this origin when pushed to production
 riot_api = Riot()
 
 @app.route("/get_summoner", methods=['POST'])
@@ -82,4 +85,4 @@ def get_tft_summoner():
         return response, 201
     
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run()
