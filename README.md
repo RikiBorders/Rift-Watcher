@@ -50,6 +50,8 @@ There are no particular deadlines for features, and delivery times will depend o
 
 - *Match Database* - Pretty self explanatory. This database will hold match information fetched from the Riot API. When users load summoner pages, we can fetch Match IDs from the riot api, and see if match information associated with that particular ID has already been stored in the database. If so, we can serve the match information without the need for more API calls. We would also be able to explore the idea of storing match IDs with player (summoner) names, so we have an association between summoners and matches they were a part of.
 
+- Pick/draft Simulator - Create a draft simulator that functions identically to LEague's pick/draft system for ranked and draft-eligible gamemodes. Enemy picks/bans are random, but can be modified if the users wants. Runes are randomized and optional
+
 - *Summoner Graphs* - Some frontend graphs to help visualize a player's performance and stats overtime. This is dependent on the match database being completed. These graphs would appear on the summoner page, and show info such as KDA overtime, gold income overtime, among other interesting data. The time period for these graphs could span from 10 games to hopefully 20+.
 
 - *Build Calculator Abilities* - This would make the build calculator a useful tool and a serious alternative to the itemization tool already in the league client. This feature would take into account a champion's abilities, and calculate how much damage, healing, etc. each ability would do with the current build a user has inputted. I.e, we could see exactly how a user's inputted build affects Yasuo's Q ability, and how much attack damage it would do.
