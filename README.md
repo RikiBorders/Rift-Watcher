@@ -1,6 +1,8 @@
 # Rift-Watcher
 League Statistics Website
 
+UPDATE 4/20: I don't work on this project actively anymore, so I made it public. I'm interested in coming back and adding some fun stats (like percentage of yasuo players with > 10 deaths), but for the time being this project is laying dormant.
+
 Rift Watcher is a data-driven League of Legends tool that helps players improve using stats. All data Rift Watcher uses comes directly from the Riot API, where raw API data is then run through a variety of algorithms to show users useful information in order to improve their gameplay via analytics. The Hextech Build Calculator provides players with an intuitive tool to theory craft builds while seeing how the stats provided from each item interacts with a
 champion's base stats. This tool also provides economic insights into the gold cost of items & their associated components. 
 
